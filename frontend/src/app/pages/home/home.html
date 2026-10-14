@@ -1,0 +1,312 @@
+@let s = site();
+
+<!-- ================================================================ Portada -->
+<header class="hero" #hero>
+  <nav class="nav" aria-label="Principal">
+    <a class="nav__brand" href="/" aria-label="{{ s.brand.name }}, inicio">
+      <img src="/brand/logo-light.png" alt="" width="600" height="227" />
+    </a>
+    <ul class="nav__links" role="list">
+      <li><a href="#resultados">Resultados</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#paquetes">Paquetes</a></li>
+      <li><a href="#equipo">Equipo</a></li>
+    </ul>
+    <a class="nav__cta" [href]="whatsapp()" target="_blank" rel="noopener">Escríbenos</a>
+  </nav>
+
+  <h1 class="hero__title">
+    <span class="hero__line">
+      {{ s.hero.titleStart }}
+      @if (s.hero.reelVideo) {
+        <span class="hero__frame">
+          <video
+            [src]="s.hero.reelVideo"
+            [poster]="s.hero.reelPoster"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+            width="960"
+            height="540"
+            [attr.aria-label]="s.hero.reelAlt"
+          ></video>
+        </span>
+      }
+    </span>
+    <span class="hero__line">{{ s.hero.titleEnd }}</span>
+  </h1>
+
+  <div class="hero__foot">
+    <ul class="hero__facts" role="list">
+      @for (fact of s.hero.facts; track fact) {
+        <li>{{ fact }}</li>
+      }
+    </ul>
+    <p class="hero__subtitle">{{ s.hero.subtitle }}</p>
+    <a appBtn class="hero__cta" [href]="whatsapp()" target="_blank" rel="noopener">
+      {{ s.hero.ctaLabel }} <app-icon name="arrow" [size]="20" />
+    </a>
+  </div>
+</header>
+
+<main>
+  <!-- ============================================================ Resultados -->
+  <section class="results" id="resultados" aria-labelledby="results-title">
+    <div class="results__claim">
+      <h2 class="results__title" id="results-title" appReveal>{{ s.results.title }}</h2>
+      <p class="results__intro" appReveal [revealDelay]="80">{{ s.results.intro }}</p>
+      <p class="results__stat" appReveal [revealDelay]="160">
+        <span class="results__stat-value">{{ s.results.highlight.value }}</span>
+        <span class="results__stat-label" [innerHTML]="s.results.highlight.label | emphasis"></span>
+        <span class="results__stat-note">{{ s.results.highlight.note }}</span>
+      </p>
+    </div>
+
+    <div class="results__proof">
+      @if (s.results.annotation) {
+        <p class="annotation results__annotation" aria-hidden="true">
+          <app-icon name="sparkle" [size]="28" /> {{ s.results.annotation }}
+        </p>
+      }
+      <ol class="results__stack" role="list" #notifications [class.is-in]="notificationsIn()">
+        @for (n of s.results.notifications; track $index) {
+          <li [style.--i]="$index">
+            <app-meta-notification [percent]="n.percent" [time]="n.time" />
+          </li>
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="estimate" aria-label="Calculadora de mensajes">
+    <app-estimator [config]="s.results.estimator" [whatsapp]="s.contact.whatsapp" />
+  </section>
+
+  <!-- ============================================================= Servicios -->
+  <section class="services" id="servicios" aria-labelledby="services-title">
+    <h2 class="services__title" id="services-title" appReveal>{{ s.services.title }}</h2>
+    <ul class="services__list" role="list">
+      @for (item of s.services.items; track item.title; let i = $index) {
+        <li class="service" [attr.data-shape]="i % 3">
+          <div class="service__text">
+            <h3 class="service__name" appReveal>{{ item.title }}</h3>
+            <p class="service__desc" appReveal [revealDelay]="70" [innerHTML]="item.description | emphasis"></p>
+          </div>
+          <img
+            class="service__photo"
+            [src]="item.image"
+            [alt]="item.imageAlt"
+            loading="lazy"
+            decoding="async"
+            appReveal="zoom"
+            [revealDelay]="140"
+          />
+        </li>
+      }
+    </ul>
+  </section>
+
+  <!-- ================================================================= Video -->
+  <section class="showcase" aria-labelledby="showcase-title">
+    @let half = splitHalf(s.showcase.title);
+    <h2 class="showcase__title" id="showcase-title">
+      <span class="showcase__half" appReveal>{{ half[0] }}</span>
+      <span class="showcase__frame" appReveal="zoom" [revealDelay]="80">
+        @if (s.showcase.video) {
+          <video
+            #showcaseVideo
+            [src]="s.showcase.video"
+            [poster]="s.showcase.poster"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            width="406"
+            height="720"
+            aria-label="Video: resultados de una campaña de Logik"
+          ></video>
+        }
+      </span>
+      <span class="showcase__half showcase__half--end" appReveal [revealDelay]="160">{{ half[1] }}</span>
+    </h2>
+    <div class="showcase__foot">
+      <p class="showcase__caption">{{ s.showcase.caption }}</p>
+      @if (s.showcase.video) {
+        <button
+          type="button"
+          class="showcase__toggle"
+          (click)="toggleShowcase()"
+          [attr.aria-label]="showcasePlaying() ? 'Pausar el video' : 'Reproducir el video'"
+        >
+          <app-icon [name]="showcasePlaying() ? 'pause' : 'play'" [size]="22" />
+        </button>
+      }
+    </div>
+  </section>
+
+  <!-- =============================================================== Trabajo -->
+  <section class="work" id="trabajo" aria-labelledby="work-title">
+    <h2 class="visually-hidden" id="work-title">Marcas con las que trabajamos</h2>
+    <ul class="work__names" role="list" appReveal>
+      <li class="work__lead">{{ s.work.lead }}:</li>
+      @for (item of s.work.items; track item.name; let last = $last) {
+        <li class="work__name" [class.has-photo]="item.image">
+          {{ item.name }}@if (item.image) {<img class="work__photo" [src]="item.image" alt="" loading="lazy" decoding="async" width="640" height="427" />}{{ last ? '.' : ',' }}
+        </li>
+      }
+    </ul>
+    <p class="work__note">{{ s.work.note }}</p>
+  </section>
+
+  <!-- =============================================================== Proceso -->
+  <section class="process" id="proceso" aria-label="Cómo trabajamos">
+    @for (step of s.process.steps; track step.verb) {
+      <article class="panel">
+        <img class="panel__photo" [src]="step.image" [alt]="step.imageAlt" loading="lazy" decoding="async" />
+        <div class="panel__verb-track">
+          <h2 class="panel__verb">{{ step.verb }}</h2>
+        </div>
+        <p class="panel__text">{{ step.text }}</p>
+      </article>
+    }
+  </section>
+
+  <!-- ============================================================== Paquetes -->
+  <section class="pricing" id="paquetes" aria-labelledby="pricing-title">
+    <h2 class="pricing__sentence" id="pricing-title" appReveal>
+      {{ s.packages.lead }} <span class="pricing__price">{{ s.packages.price }}</span> {{ s.packages.period }}
+    </h2>
+    <div class="pricing__row">
+      <p class="pricing__includes" appReveal [revealDelay]="80" [innerHTML]="s.packages.includes | emphasis"></p>
+      <a appBtn variant="ink" class="pricing__cta" [href]="packageLink()" target="_blank" rel="noopener" appReveal [revealDelay]="160">
+        {{ s.packages.ctaLabel }} <app-icon name="arrow" [size]="20" />
+      </a>
+    </div>
+    @if (s.packages.others.length) {
+      <div class="pricing__others">
+        <h3 class="pricing__others-title">También tenemos</h3>
+        <dl class="pricing__list">
+          @for (item of s.packages.others; track item.name) {
+            <div class="pricing__item" appReveal>
+              <dt>{{ item.name }}@if (item.price) { · {{ item.price }}}</dt>
+              <dd>{{ item.description }}</dd>
+            </div>
+          }
+        </dl>
+        @if (s.packages.note) {
+          <p class="pricing__note">{{ s.packages.note }}</p>
+        }
+      </div>
+    }
+  </section>
+
+  <!-- =========================================================== Testimonio -->
+  <section class="quote" aria-label="Testimonios">
+    <figure class="quote__featured">
+      <blockquote class="quote__text">
+        @for (line of quoteLines(); track $index; let first = $first; let last = $last) {
+          <span class="quote__line" appReveal [revealDelay]="$index * 80">
+            @for (word of line; track $index; let wFirst = $first; let wLast = $last) {
+              <span>{{ first && wFirst ? '“' : '' }}{{ word }}{{ last && wLast ? '”' : '' }}</span>
+            }
+          </span>
+        }
+      </blockquote>
+      <figcaption class="quote__by">
+        <span>{{ s.testimonials.featured.name }}</span>
+        <span>{{ s.testimonials.featured.role }}</span>
+        <span>{{ s.testimonials.featured.source }}</span>
+      </figcaption>
+    </figure>
+    <ul class="quote__more" role="list">
+      @for (item of s.testimonials.items; track item.name; let i = $index) {
+        <li appReveal [revealDelay]="i * 80">
+          <blockquote>“{{ item.quote }}”</blockquote>
+          <p class="quote__more-by">{{ item.name }}</p>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <!-- ================================================================ Equipo -->
+  <section class="team" id="equipo" aria-labelledby="team-title">
+    <h2 class="visually-hidden" id="team-title">Quiénes somos</h2>
+    <ul class="team__facts" role="list">
+      @for (fact of s.team.facts; track fact) {
+        <li>{{ fact }}</li>
+      }
+    </ul>
+    <div class="team__bio">
+      <p class="team__body" appReveal>
+        <img class="team__portrait" [src]="s.team.portrait" [alt]="s.team.portraitAlt" width="907" height="486" loading="lazy" decoding="async" />
+        <span [innerHTML]="s.team.body | emphasis"></span>
+      </p>
+      @if (s.team.second) {
+        <p class="team__second" appReveal [revealDelay]="80">{{ s.team.second }}</p>
+      }
+    </div>
+    @if (s.team.photos.length) {
+      <div class="team__photos">
+        @for (photo of s.team.photos; track photo.src; let i = $index) {
+          <figure class="team__photo" appReveal="zoom" [revealDelay]="i * 90">
+            <img [src]="photo.src" [alt]="photo.alt" loading="lazy" decoding="async" />
+          </figure>
+        }
+        <p class="annotation team__annotation" aria-hidden="true">el Marke-team <app-icon name="sparkle" [size]="24" /></p>
+      </div>
+    }
+  </section>
+
+  <!-- ============================================================== Contacto -->
+  <section class="contact" id="contacto" aria-labelledby="contact-title">
+    <h2 class="contact__intro" id="contact-title">{{ s.contact.intro }}</h2>
+    <a class="contact__number" [href]="whatsapp()" target="_blank" rel="noopener">
+      <span class="visually-hidden">WhatsApp: </span>{{ s.contact.phoneDisplay }}
+    </a>
+    <div class="contact__foot">
+      <p class="contact__where">
+        @if (s.contact.email) {
+          <a [href]="'mailto:' + s.contact.email">{{ s.contact.email }}</a><br />
+        }
+        {{ s.contact.address ?? s.contact.city }}
+      </p>
+      <ul class="contact__socials" role="list">
+        @for (social of socials(); track social.network) {
+          <li>
+            <a [href]="social.href" target="_blank" rel="noopener">
+              <app-icon [name]="social.icon" [size]="22" /> {{ social.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  </section>
+</main>
+
+<!-- ================================================================== Cierre -->
+<footer class="footer">
+  <div class="footer__top">
+    <div class="footer__invite">
+      <p class="footer__invitation">{{ s.closing.invitation }}</p>
+      <a appBtn [href]="whatsapp()" target="_blank" rel="noopener">
+        {{ s.closing.ctaLabel }} <app-icon name="arrow" [size]="20" />
+      </a>
+    </div>
+    <ul class="footer__links" role="list">
+      <li><a href="#resultados">Resultados</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#paquetes">Paquetes</a></li>
+      <li><a href="#equipo">Equipo</a></li>
+    </ul>
+  </div>
+  <div class="footer__legal">
+    <span>© {{ year }} {{ s.brand.name }} · {{ s.brand.phrase }}</span>
+    <a routerLink="/privacidad">Aviso de privacidad</a>
+  </div>
+  <p class="footer__wordmark" aria-hidden="true">LOGIK</p>
+</footer>
+
+<app-whatsapp-float [href]="whatsapp()" [visible]="pastHero()" />

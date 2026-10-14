@@ -1,0 +1,231 @@
+/* =========================================================================
+   Logik Marketing: sistema de diseño global
+   Colores de la marca medidos en su logo y en 99 publicaciones de Instagram:
+   negro con textura, rosa de sus publicaciones y blanco papel.
+   TODOS los colores del sitio salen de estas variables.
+   ========================================================================= */
+
+/* Fuentes autoalojadas, solo el subconjunto latino (incluye á, é, ñ, ¿, ¡). */
+@import '@fontsource/poppins/latin-400.css';
+@import '@fontsource/poppins/latin-600.css';
+@import '@fontsource/poppins/latin-800.css';
+@import '@fontsource/great-vibes/latin-400.css';
+
+:root {
+  /* ---- Color ---- */
+  --color-ink: #141012; /* fondo base: negro cálido, nunca #000 */
+  --color-ink-2: #1f191c; /* un escalón más claro para separar superficies sin líneas */
+  --color-paper: #f7f3f1; /* blanco papel */
+  --color-paper-2: #ede6e3;
+  --color-pink: #fc7cab; /* rosa de sus publicaciones: campos de color completos */
+  --color-pink-logo: #fe5f92; /* rosa del logo: acción principal sobre negro (7.3:1) */
+  --color-pink-deep: #c2185b; /* rosa para texto sobre papel (5.9:1) */
+  --color-on-ink: #f7f3f1;
+  --color-on-ink-soft: #cfc3c8; /* notas secundarias sobre negro (10:1) */
+  --color-on-paper-soft: #5b4f54; /* notas secundarias sobre papel (7.4:1) */
+  --color-on-pink-soft: #3a2730; /* notas secundarias sobre rosa (6.2:1) */
+  --color-scrim: rgb(20 16 18 / 0.62); /* bajo el texto que va sobre fotografías */
+  --color-ui: #ffffff; /* superficies de interfaz real (notificaciones de Meta) */
+  --color-ui-text: #1c1c1e;
+  --color-ui-soft: #6e6e73;
+  --color-ui-brand: #0866ff; /* azul del ícono de Meta Ads Manager */
+  --color-focus: #fe5f92;
+
+  /* ---- Tipografía ---- */
+  --font-sans: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-script: 'Great Vibes', 'Brush Script MT', cursive;
+
+  /* Cinco tamaños hacen el trabajo visible: chico, texto, enunciado, titular y cartel. */
+  --text-sm: 0.9375rem; /* 15px */
+  --text-base: clamp(1.0625rem, 0.4vw + 0.95rem, 1.1875rem); /* 17–19px */
+  --text-lg: clamp(1.5rem, 1.5vw + 1rem, 2.25rem); /* 24–36px: enunciados */
+  --text-xl: clamp(2.25rem, 4.6vw + 0.5rem, 5.5rem); /* 36–88px: titulares */
+  --text-display: clamp(3.1rem, 7.4vw, 9.5rem); /* cartel: la frase, el precio, la cita */
+  /* Una sola palabra o cifra tratada como objeto: los verbos del proceso, el WhatsApp, el nombre. */
+  --text-poster: clamp(3.4rem, 14vw, 15rem);
+
+  --leading-tight: 0.98;
+  --leading-snug: 1.18;
+  --leading-body: 1.55;
+  --tracking-display: -0.045em;
+  --tracking-tight: -0.025em;
+
+  /* ---- Espacio ---- */
+  --gutter: clamp(1rem, 2.2vw, 2rem); /* margen lateral: 16px en celular, 32px en escritorio */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --section-gap: clamp(6rem, 10vw, 11rem); /* entre secciones: claramente mayor que dentro de una */
+
+  /* ---- Forma ---- */
+  --radius-none: 0;
+  --radius-ui: 1.1rem; /* solo la interfaz real (notificaciones) */
+  --radius-pill: 999px; /* botones: píldora, decidido una vez para todo el sitio */
+
+  /* ---- Sombras: solo lo que de verdad flota ---- */
+  --shadow-float: 0 18px 40px -18px rgb(0 0 0 / 0.55);
+
+  /* ---- Movimiento (emil-design-eng) ---- */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --duration-press: 140ms;
+  --duration-fast: 180ms;
+  --duration: 260ms;
+  --duration-enter: 700ms;
+
+  /* ---- Capas ---- */
+  --z-raised: 1;
+  --z-nav: 20;
+  --z-float: 30;
+
+  color-scheme: dark light;
+}
+
+/* ---- Base ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--space-6);
+}
+
+body {
+  margin: 0;
+  overflow-x: clip;
+  background: var(--color-ink);
+  color: var(--color-on-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+figure,
+blockquote {
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 800;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+ul[role='list'],
+ol[role='list'] {
+  padding: 0;
+  list-style: none;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
+
+strong {
+  font-weight: 600;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--color-pink);
+  color: var(--color-ink);
+}
+
+/* Solo para lectores de pantalla. */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- Aparición al hacer scroll (directiva appReveal) ----
+   Solo se aplica a lo que empieza fuera de la vista: sin JavaScript todo se ve. */
+.reveal {
+  transition:
+    opacity var(--duration-enter) var(--ease-out),
+    transform var(--duration-enter) var(--ease-out);
+}
+.reveal:not(.is-visible) {
+  opacity: 0;
+}
+.reveal--up:not(.is-visible) {
+  transform: translateY(24px);
+}
+.reveal--left:not(.is-visible) {
+  transform: translateX(-28px);
+}
+.reveal--right:not(.is-visible) {
+  transform: translateX(28px);
+}
+.reveal--zoom:not(.is-visible) {
+  transform: scale(0.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}
