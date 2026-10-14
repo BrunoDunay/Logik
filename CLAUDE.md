@@ -44,7 +44,7 @@ Al retomar en otro equipo, leer en este orden: este archivo, después `docs/revi
 | `magicuidesign/magicui` | Es de React; solo sirve como inspiración |
 | `Hainrixz/claude-webkit` | Baja. Genera sitios para quien no programa |
 | `DietrichGebert/ponytail` | General, no específico de diseño |
-| `Panniantong/Agent-Reach` | No instalado: necesita la sesión de Chrome para Facebook e Instagram y no soporta TikTok. Ver la revisión |
+| `Panniantong/Agent-Reach` | **Instalada** (sesión 3). Facebook e Instagram vía OpenCLI con la sesión de Chrome; no soporta TikTok. Ver "Herramientas" |
 
 Ya se analizó la marca (resumen abajo).
 
@@ -178,5 +178,10 @@ Referencias: `PROYECTOS/Germain` (Fitness by Evidence) y `PROYECTOS/Página web 
 - **En el otro equipo**: la CLI `agent-browser` se instala aparte (`npm i -g agent-browser`, después `agent-browser install`). Las skills ya vienen en el repositorio.
 - `agent-browser` v0.39.1 trae su propio Chrome. Antes de usarlo, correr `agent-browser skills get core`. Usar una sesión con nombre: `AGENT_BROWSER_SESSION=logik`.
 - Otros repositorios con estrella del usuario, disponibles si hacen falta: gsap-skills, emilkowalski/skills, impeccable, design-dna, LottieFiles/motion-design-skill, itshover, magicui (este es de React, solo como referencia) y hyperframes (video).
+- **Agent Reach y OpenCLI** (instalados en el equipo de escritorio, Windows):
+  - Python 3.12. Agent Reach vive en un entorno virtual: `%USERPROFILE%\.agent-reach-venv\Scripts\agent-reach.exe`. Se instaló desde `https://github.com/Panniantong/agent-reach/archive/main.zip`, no desde PyPI (ahí hay otro paquete con el mismo nombre).
+  - Facebook e Instagram se leen con `opencli` (`npm i -g @jackwener/opencli`) y la extensión OpenCLI de Chrome. Comprobar con `opencli doctor` (debe decir `Extension: connected`).
+  - Comandos útiles: `opencli facebook profile logikmkt`, `opencli facebook search "<texto>"`, `opencli instagram profile logikmkt`, `opencli instagram user logikmkt` (publicaciones recientes) y `opencli instagram download`. Siempre con `-f yaml`.
+  - Si Instagram responde HTTP 429, no reintentar en seguida: esperar, iniciar sesión de nuevo en Chrome y bajar el ritmo.
 - Las páginas del sitio cargan imágenes al hacer scroll. Antes de una captura completa, recorrer la página con scroll.
 - La versión de celular de Wix renderiza a 320 px de ancho.
