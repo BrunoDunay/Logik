@@ -10,7 +10,43 @@ El usuario hace páginas web. Una conocida trabaja en **Logik Marketing** (https
 - No busca necesariamente entrar a su plantilla. Le sirve que lo contacten como **externo** cuando un cliente contrate ese servicio, y está abierto a distintos flujos de trabajo: por proyecto, marca blanca, comisión o mantenimiento mensual.
 - Para convencerlas, quiere presentarse con **un prototipo de la propia página de Logik**, ya que la actual no es tan atractiva visualmente.
 
-Ya se analizó la marca (resumen abajo). **Siguiente paso: construir el prototipo.**
+## Estado actual (actualizado el 13 oct 2026, fin de la sesión 2)
+
+Al retomar en otro equipo, leer en este orden: este archivo, después `docs/revision-sitio-y-redes.md` y por último las capturas de `referencias/`.
+
+**Hecho**
+1. Análisis de la marca y del sitio actual (secciones de abajo).
+2. Se acordó la forma de trabajar: el mismo stack y la misma estructura que Fitness by Evidence y Armando Ovalle (ver "Forma de trabajar").
+3. Se instalaron las skills de diseño en `.claude/skills/`: `ui-ux-pro-max`, `design-taste-frontend` y `redesign-existing-projects`.
+4. Revisión del sitio y de las redes con esas skills, en `docs/revision-sitio-y-redes.md`. **Conclusión: el prototipo debe trasladar a la web el lenguaje visual de sus redes** (negro con rosa, collage con semitonos, script con sans gruesa), porque el sitio actual no se parece a su Instagram.
+
+**Pendiente de decidir con el usuario**
+- Si el prototipo lleva backend y panel desde el inicio. La recomendación es crear `frontend/` y `backend/` completos, pero construir primero la portada y los paquetes con el contenido en `seeders/initial-content.js`; el panel de edición queda como parte de lo que se vende con el mantenimiento.
+- Si se copia la skill `itshover-icons` desde `PROYECTOS/Germain/.claude/skills/` (no viaja con este repositorio; está en el repositorio `BrunoDunay/Panel-administrativo-web-Fitness`).
+- Precio real del paquete de entrada: Instagram dice $2,499 y el sitio, $3,499.
+
+**Siguiente paso**: crear la estructura del proyecto (Angular 22 + SSR y Express 5 + PostgreSQL) y construir la portada primero para celular, aplicando `design-taste-frontend` con la dirección de `docs/revision-sitio-y-redes.md`.
+
+**Repositorios con estrella del usuario, evaluados para este proyecto**
+
+| Repositorio | Utilidad aquí |
+|---|---|
+| `nextlevelbuilder/ui-ux-pro-max-skill` | **Instalada**. Sistema de diseño, contraste y lista de revisión |
+| `Leonxlnx/taste-skill` | **Instalada** (`design-taste-frontend` y `redesign-existing-projects`). Dirección de arte y revisión de capturas |
+| `vercel-labs/agent-browser` | **Instalada**. Capturas, extracción de material y pruebas visuales |
+| `greensock/gsap-skills` | Alta, si las animaciones de scroll se hacen con GSAP (funciona en Angular) |
+| `LottieFiles/motion-design-skill` | Alta. Principios de tiempos y curvas, sin importar la librería |
+| `emilkowalski/skills` | Media. Detalles de interacción y pulido |
+| `pbakaus/impeccable` | Media. Lenguaje de diseño y revisión |
+| `zanwei/design-dna` | Media. Extrae los tokens de diseño de capturas, útil para pasar el estilo de sus publicaciones de Instagram a variables CSS |
+| `itshover/itshover` | Media. Iconos animados; ya hay una adaptación a Angular en Germain |
+| `heygen-com/hyperframes` / `Barty-Bart/motion-graphics` | Solo para un video de la propuesta, no para el sitio |
+| `magicuidesign/magicui` | Es de React; solo sirve como inspiración |
+| `Hainrixz/claude-webkit` | Baja. Genera sitios para quien no programa |
+| `DietrichGebert/ponytail` | General, no específico de diseño |
+| `Panniantong/Agent-Reach` | No instalado: necesita la sesión de Chrome para Facebook e Instagram y no soporta TikTok. Ver la revisión |
+
+Ya se analizó la marca (resumen abajo).
 
 ## La agencia
 
