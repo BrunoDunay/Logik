@@ -40,19 +40,24 @@ export class PostsCarousel {
   });
 
   /**
-   * Cada tarjeta con su distancia a la central. Con pocas tarjetas la fila es lineal;
-   * con muchas es circular (a la izquierda de la primera aparecen las últimas).
+   * Cada tarjeta con su distancia a la central, siempre en ciclo: a la izquierda de la primera
+   * aparecen las últimas. La tarjeta que da la vuelta (cambia de un extremo al otro) se marca
+   * como `jump` para que aparezca en su nuevo lugar con un fundido en vez de cruzar el escenario.
    */
+  private previous = new Map<string, number>();
   protected readonly cards = computed(() => {
     const items = this.filtered();
     const n = items.length;
     const index = this.index();
-    const circular = n > SIDE * 2 + 1;
     const half = Math.floor(n / 2);
-    return items.map((post, i) => {
-      const o = circular ? ((((i - index + half) % n) + n) % n) - half : i - index;
-      return { post, i, o, abs: Math.abs(o), hidden: Math.abs(o) > SIDE };
+    const out = items.map((post, i) => {
+      const o = ((((i - index + half) % n) + n) % n) - half;
+      const before = this.previous.get(post.image);
+      const jump = before !== undefined && Math.abs(o - before) > half;
+      return { post, i, o, abs: Math.abs(o), hidden: Math.abs(o) > SIDE, jump };
     });
+    this.previous = new Map(out.map((c) => [c.post.image, c.o]));
+    return out;
   });
 
   protected readonly counts = computed(() => {

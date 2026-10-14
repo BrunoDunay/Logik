@@ -10,7 +10,7 @@ El usuario hace páginas web. Una conocida trabaja en **Logik Marketing** (https
 - No busca necesariamente entrar a su plantilla. Le sirve que lo contacten como **externo** cuando un cliente contrate ese servicio, y está abierto a distintos flujos de trabajo: por proyecto, marca blanca, comisión o mantenimiento mensual.
 - Para convencerlas, quiere presentarse con **un prototipo de la propia página de Logik**, ya que la actual no es tan atractiva visualmente.
 
-## Estado actual (actualizado el 14 oct 2026, sesión 5)
+## Estado actual (actualizado el 14 oct 2026, sesión 6)
 
 Al retomar, leer en este orden: este archivo, `docs/diseno-v2.md` (manda sobre `docs/diseno-prototipo.md`), `docs/investigacion-redes.md` y `README.md`.
 
@@ -23,7 +23,9 @@ Al retomar, leer en este orden: este archivo, `docs/diseno-v2.md` (manda sobre `
 6. PostgreSQL local: usuario `logik_app`, bases `logik` y `logik_test` (credenciales en `backend/.env`). En Windows la URL usa `127.0.0.1`. **Correr el backend con `npm start`, no con `npm run dev`**: en la carpeta de OneDrive, `node --watch` se reinicia sin parar y se queda colgado.
 
 **Pendiente**
-- Ajustes del usuario tras revisar el pulido de la sesión 5.
+- Ajustes del usuario tras revisar la sesión 6 (ver "Ajustes de la sesión 6" en `docs/diseno-v2.md`).
+- Hover de las redes del hero con `/motion-design` (la skill solo se activa si el usuario la invoca).
+- El sitio ya no respeta "reducir movimiento" (pedido del usuario): Windows de su equipo tiene las animaciones apagadas.
 - Si cambia el seeder, pasar las secciones a la base local con `npm run content:sync -- <secciones>` (en `backend/`) y al frontend con `npm run content:export`.
 - Confirmar con la agencia lo listado en `docs/diseno-v2.md`.
 - Opcional: logos a color de las marcas; versión del video con música.

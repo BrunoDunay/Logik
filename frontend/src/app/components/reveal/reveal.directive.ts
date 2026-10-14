@@ -21,9 +21,7 @@ export class Reveal {
     afterNextRender(() => {
       if (el.getBoundingClientRect().top < window.innerHeight) return;
 
-      // Con "reducir movimiento" del sistema no hay desplazamientos: solo un fundido suave.
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const kind = reduced ? 'fade' : this.appReveal() || 'up';
+      const kind = this.appReveal() || 'up';
       el.classList.add('reveal', `reveal--${kind}`);
       el.style.transitionDelay = `${this.revealDelay()}ms`;
 

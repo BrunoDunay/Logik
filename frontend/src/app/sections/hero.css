@@ -189,7 +189,6 @@
   isolation: isolate;
   border-radius: 50%;
   color: var(--color-on-ink-soft);
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.14);
   transition:
     color 450ms ease,
     transform 600ms var(--ease-spring),
@@ -221,7 +220,7 @@
   .hero__socials a:hover {
     color: var(--color-ink);
     transform: translateX(5px);
-    box-shadow: inset 0 0 0 1px transparent, 0 10px 24px -10px rgb(254 95 146 / 0.7);
+    box-shadow: 0 10px 24px -10px rgb(254 95 146 / 0.7);
   }
   .hero__socials a:hover::before {
     top: -30%;

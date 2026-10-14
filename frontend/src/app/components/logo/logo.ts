@@ -37,6 +37,10 @@ let nextId = 0;
             <stop offset="1" stop-color="#fe5f92" stop-opacity="0" />
           }
         </radialGradient>
+        <!-- Halo: el destello difuminado rebasa un poco el borde de las letras para verse sobre negro. -->
+        <filter [attr.id]="haloId" x="-30%" y="-60%" width="160%" height="220%">
+          <feGaussianBlur stdDeviation="9" />
+        </filter>
         <linearGradient [attr.id]="edgeId">
           <stop offset="0" stop-color="#fff" />
           <stop offset="1" stop-color="#000" />
@@ -73,6 +77,11 @@ let nextId = 0;
       </g>
 
       @if (glow()) {
+        <g class="logo__halo" [attr.fill]="'url(#' + glowId + ')'" [attr.filter]="'url(#' + haloId + ')'" aria-hidden="true">
+          @for (key of all; track key) {
+            <path [attr.d]="paths[key]" />
+          }
+        </g>
         <g class="logo__glow" [attr.fill]="'url(#' + glowId + ')'" aria-hidden="true">
           @for (key of all; track key) {
             <path [attr.d]="paths[key]" />
@@ -97,6 +106,7 @@ export class Logo {
   private readonly uid = nextId++;
   protected readonly glowId = `logo-glow-${this.uid}`;
   protected readonly edgeId = `logo-edge-${this.uid}`;
+  protected readonly haloId = `logo-halo-${this.uid}`;
   protected readonly masks = [`logo-mask-big-${this.uid}`, `logo-mask-small-${this.uid}`];
 
   protected readonly glowOn = signal(false);

@@ -16,15 +16,15 @@
   <link rel="icon" type="image/png" sizes="32x32" href="brand/favicon-32.png">
   <link rel="apple-touch-icon" href="brand/apple-touch-icon.png">
   <script>
-    // Intro del logo: solo la primera vez en la sesión y si el sistema no pide reducir movimiento.
+    // Intro del logo: la primera vez en la sesión. Se muestra aunque el sistema tenga las animaciones
+    // desactivadas (en Windows es común tenerlas apagadas sin saberlo y el usuario pidió que siempre se vea).
     // Si algo falla y la intro no termina, a los 7 s se muestra el sitio igual.
     (function () {
       try {
         // "?intro" en la URL la vuelve a mostrar (y "?intro=lento" la reproduce a un cuarto de velocidad).
         var forced = /[?&]intro/.test(location.search);
         var seen = sessionStorage.getItem('logik-intro-visto');
-        var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if ((forced || (!seen && !reduced)) && location.pathname === '/') {
+        if ((forced || !seen) && location.pathname === '/') {
           document.documentElement.classList.add('intro-pending');
           setTimeout(function () { document.documentElement.classList.remove('intro-pending'); }, /intro=(lento|t)/.test(location.search) ? 60000 : 7000);
         }

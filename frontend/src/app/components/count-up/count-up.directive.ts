@@ -21,7 +21,6 @@ export class CountUp {
     // El número final se escribe en cuanto llega el valor (también en el servidor).
     effect(() => this.paint(this.appCountUp()));
     afterNextRender(() => {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (!entry.isIntersecting) return;

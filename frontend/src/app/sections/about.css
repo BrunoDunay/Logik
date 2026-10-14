@@ -199,13 +199,13 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .about__visual:hover .about__photo {
+  .about__photo:hover {
     transform: rotate(0) scale(1.02);
   }
-  .about__visual:hover .about__photo img {
+  .about__photo:hover img {
     filter: grayscale(0) contrast(1);
   }
-  .about__visual:hover .about__photo::after {
+  .about__photo:hover::after {
     --dot: 0px;
     opacity: 0;
   }

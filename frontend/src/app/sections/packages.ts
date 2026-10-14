@@ -66,8 +66,15 @@ export class Packages {
   readonly content = input.required<PackagesSettings>();
   readonly whatsapp = input.required<string>();
 
+  /** Abre WhatsApp con un mensaje armado para ese paquete: nombre, precio y lo que incluye. */
   protected link(p: Package): string {
-    return whatsappLink(this.whatsapp(), `Hola Logik, me interesa el paquete ${p.name}.`) ?? '#contacto';
+    const price = p.price ? `${p.price} ${p.period}` : `a cotizar, ${p.period}`;
+    const lines = [
+      `¡Hola, Logik! Me interesa el paquete *${p.name}* (${price}).`,
+      p.features.length ? `Vi que incluye: ${p.features.join(', ')}.` : '',
+      '¿Me pueden dar más información para empezar?',
+    ];
+    return whatsappLink(this.whatsapp(), lines.filter(Boolean).join(' ')) ?? '#contacto';
   }
 
   protected tilt(event: PointerEvent): void {

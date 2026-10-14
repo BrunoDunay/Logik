@@ -108,7 +108,7 @@ export class ReadMore {
   protected toggle(): void {
     const el = this.panel()?.nativeElement;
     const opening = !this.open();
-    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (!el) {
       this.open.set(opening);
       return;
     }

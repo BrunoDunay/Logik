@@ -22,7 +22,7 @@ export function niceMax(v: number): number {
  * Estado de "dibujado" de una gráfica: pasa a verdadero cuando entra en pantalla y se reinicia
  * cada vez que cambian sus datos (al cambiar de pestaña la gráfica se vuelve a dibujar).
  * Espera un momento antes de dibujar: primero aparece el texto, luego la tarjeta negra y al final la gráfica.
- * En el servidor y con "reducir movimiento", la gráfica sale ya dibujada.
+ * En el servidor la gráfica sale ya dibujada.
  */
 export function useDraw(trigger: () => unknown) {
   const drawn = signal(true);
@@ -39,7 +39,6 @@ export function useDraw(trigger: () => unknown) {
   };
 
   afterNextRender(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     ready = true;
     drawn.set(false);
     const observer = new IntersectionObserver(

@@ -17,54 +17,50 @@
   gap: var(--space-3);
 }
 
-/* Flechas rosas, gorditas y sin borde: se aplastan al presionar y rebotan al pasar el cursor. */
+/* Flechas: solo el trazo rosa, grueso y redondeado, sin fondo ni borde.
+   Al pasar el cursor la flecha se estira hacia su lado; al presionar se encoge. */
 .arrow {
   display: grid;
   place-items: center;
-  width: 3.9rem;
-  height: 3.9rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  padding: 0;
   border: 0;
-  border-radius: 50%;
-  background: var(--color-pink-logo);
-  color: var(--color-ink);
-  box-shadow:
-    inset 0 -5px 0 rgb(20 16 18 / 0.12),
-    inset 0 4px 8px rgb(255 255 255 / 0.45),
-    0 14px 26px -12px rgb(254 95 146 / 0.8);
-  transition:
-    transform 600ms var(--ease-spring),
-    box-shadow 600ms var(--ease-out),
-    background-color 500ms ease;
+  background: none;
+  color: var(--color-pink-logo);
+  transition: transform 500ms var(--ease-out);
 }
 
 .arrow svg {
-  width: 26px;
+  width: 2.4rem;
+  overflow: visible;
   fill: none;
   stroke: currentColor;
-  stroke-width: 3;
+  stroke-width: 2.8;
   stroke-linecap: round;
   stroke-linejoin: round;
-  transition: transform 600ms var(--ease-out);
+  filter: drop-shadow(0 6px 10px rgb(254 95 146 / 0.35));
+  transition:
+    translate 650ms var(--ease-spring),
+    scale 650ms var(--ease-spring),
+    filter 600ms ease;
 }
 
 .arrow:active {
-  transform: scale(0.88, 0.82);
-  transition-duration: 180ms;
+  transform: scale(0.86);
+  transition-duration: 160ms;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .arrow:hover {
-    transform: scale(1.08) translateY(-2px);
-    box-shadow:
-      inset 0 -5px 0 rgb(20 16 18 / 0.12),
-      inset 0 4px 8px rgb(255 255 255 / 0.5),
-      0 20px 34px -12px rgb(254 95 146 / 0.95);
+  .arrow:hover svg {
+    scale: 1.12;
+    filter: drop-shadow(0 8px 14px rgb(254 95 146 / 0.6));
   }
   .arrow:first-child:hover svg {
-    transform: translateX(-3px);
+    translate: -6px 0;
   }
   .arrow:last-child:hover svg {
-    transform: translateX(3px);
+    translate: 6px 0;
   }
 }
 

@@ -60,6 +60,18 @@ El usuario pidió que el blanco esté siempre presente. Las secciones alternan a
 - **Equipo**: biografías originales del sitio actual y la insignia Meta Certified Media Buying Professional de Diana, recortada de su historia de Instagram.
 - **Páginas legales**: `/privacidad`, `/terminos` y `/cookies`, con textos base.
 
+## Ajustes de la sesión 6
+
+- **"Reducir movimiento" ya no apaga nada.** En el equipo del usuario Windows tiene las animaciones desactivadas (`MinAnimate = 0`), y Chrome lo reporta como `prefers-reduced-motion: reduce`; por eso la intro no se veía y todo era instantáneo. A petición del usuario el sitio anima igual para todos. Es una decisión de accesibilidad consciente: si se quiere respetar esa preferencia, basta con volver a agregar la regla global en `styles.css`.
+- **Scroll suave** en toda la página con Lenis (`core/utils/smooth-scroll.ts`); la lista de videos usa `data-lenis-prevent` para su propio scroll.
+- **Logo**: halo difuminado que rebasa un poco las letras para que el destello se vea sobre negro; el logo del navbar se vuelve a construir al pasar el cursor.
+- **Navbar**: trazo rosa a mano alzada que se dibuja bajo el enlace (activo y hover).
+- **Cursor**: flecha más corta, mano normal del sistema y pulso rosa al hacer clic (`components/click-pulse`).
+- **Publicaciones**: de vuelta a las 19 propias; todas las categorías giran en ciclo; flechas rosas pequeñas junto al contador.
+- **Servicios**: sin foto junto al cursor; fotos completas en su proporción; Ads, Contenido y Páginas web con imágenes nuevas (la de web es una captura de este sitio).
+- **Marcas**: 27 (sin La Lotería, Inndigo, Ribhaus ni EIC); Alisson Tours, Tu Contfiable, CEECA y California vectorizados (`scripts/vectorize-logos.py`).
+- **Pendiente**: el hover de las redes del hero se hará con la skill `/motion-design` cuando el usuario la invoque.
+
 ## Pendiente de confirmar con la agencia
 
 - Textos de las páginas legales (son una base para México; conviene que los revise un abogado).

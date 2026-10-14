@@ -203,12 +203,12 @@ button {
   cursor: pointer;
 }
 
-/* Cursor de la marca: la flecha rosa del logo, reflejada para que apunte como un cursor,
-   y una mano rosa sobre lo que se puede tocar. Solo con mouse. */
+/* Cursor de la marca: la flecha rosa del logo, reflejada y recortada para que apunte como un cursor.
+   Sobre lo que se puede tocar queda la mano normal del sistema. Solo con mouse. */
 @media (hover: hover) and (pointer: fine) {
   :root {
     --cursor-default: url('/cursor/arrow.svg') 1 1, default;
-    --cursor-pointer: url('/cursor/pointer.svg') 11 1, pointer;
+    --cursor-pointer: pointer;
   }
   html {
     cursor: var(--cursor-default);
@@ -342,6 +342,21 @@ html.intro-pending .site-chrome {
   transition: opacity 700ms var(--ease-out);
 }
 
+/* ---- Scroll suave (Lenis, core/utils/smooth-scroll.ts) ---- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 /* ---- Transiciones entre páginas (View Transitions) ---- */
 ::view-transition-old(root) {
   animation: page-out 260ms var(--ease-in-out) both;
@@ -364,12 +379,3 @@ html.intro-pending .site-chrome {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 1ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 1ms !important;
-  }
-}

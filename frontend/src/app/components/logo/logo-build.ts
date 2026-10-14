@@ -22,6 +22,7 @@ export function buildLogo(gsap: Gsap, host: HTMLElement, options: BuildOptions =
   const arrow = svg.querySelector<SVGGElement>('.logo__arrow-wrap')!;
   const [maskBig, maskSmall] = Array.from(svg.querySelectorAll<SVGMaskElement>('[data-logo-mask]'));
   const glow = svg.querySelector<SVGGElement>('.logo__glow');
+  const halo = svg.querySelector<SVGGElement>('.logo__halo');
   const gradient = svg.querySelector<SVGRadialGradientElement>('[data-logo="glow-gradient"]')!;
   const tip = (svg.querySelector('.logo__arrow') as SVGGraphicsElement).getBBox();
 
@@ -30,7 +31,7 @@ export function buildLogo(gsap: Gsap, host: HTMLElement, options: BuildOptions =
       big.removeAttribute('mask');
       small.removeAttribute('mask');
       gsap.set([...letters, arrow], { clearProps: 'all' });
-      if (glow) gsap.set(glow, { clearProps: 'all' });
+      if (glow) gsap.set([glow, halo], { clearProps: 'all' });
     },
   });
 
@@ -56,6 +57,7 @@ export function buildLogo(gsap: Gsap, host: HTMLElement, options: BuildOptions =
   gsap.set(letters, { fillOpacity: 1, opacity: 1 });
   gsap.set(arrow, { opacity: 0, x: -150, y: 150 });
   if (glow) gsap.set(glow, { transition: 'none', opacity: 1 });
+  if (halo) gsap.set(halo, { transition: 'none', opacity: 0.7 });
 
   tl.add(sweep(big, maskBig, 940, 110, t), 0)
     .to(arrow, { opacity: 1, duration: 0.3, ease: 'none' }, t - 0.2)
@@ -69,7 +71,7 @@ export function buildLogo(gsap: Gsap, host: HTMLElement, options: BuildOptions =
       gradient.setAttribute('cy', String(tip.y + tip.height * 0.3));
     }, [], t + 0.2)
       .fromTo(glow, { opacity: 0.4 }, { opacity: 1, duration: 0.18, ease: 'power2.out' }, t + 0.2)
-      .to(glow, { opacity: 0, duration: 0.9, ease: 'power2.inOut' }, t + 0.45);
+      .to([glow, halo], { opacity: 0, duration: 0.9, ease: 'power2.inOut' }, t + 0.45);
   }
 
   return tl;

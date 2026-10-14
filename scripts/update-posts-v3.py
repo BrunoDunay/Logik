@@ -1,5 +1,4 @@
 """Ajustes de la sesión 5 al material del rediseño (complementa build-media-v2.py, no lo reemplaza):
-- agrega 14 publicaciones propias de Logik (las más llamativas) después de la 015, que sigue primero;
 - quita las publicaciones de marcas sin logo identificado y cambia "Moira" por Novedades y Cosméticos;
 - separa los dos archivos de logos que traían dos marcas juntas.
 Uso: python scripts/update-posts-v3.py"""
@@ -15,7 +14,8 @@ REF = ROOT / 'referencias/redes/instagram'
 MEDIA = ROOT / 'frontend/public/media/v2'
 DATA = ROOT / 'backend/seeders/data/posts.json'
 
-NEW_OWN = ['002', '008', '009', '010', '011', '012', '016', '026', '037', '044', '046', '055', '067', '091']
+# El usuario prefirió quedarse con las 19 propias originales (sesión 6).
+NEW_OWN: list[str] = []
 DROP = {'Comida a domicilio', 'Pizzería', 'Agencia de viajes', 'Velo Bye'}
 RENAME = {'Moira': 'Novedades y Cosméticos'}
 

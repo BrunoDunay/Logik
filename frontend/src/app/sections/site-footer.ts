@@ -89,7 +89,6 @@ export class SiteFooter {
     const destroyRef = inject(DestroyRef);
     // El logo se construye la primera vez que el pie entra en pantalla.
     afterNextRender(() => {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const el = this.logo().nativeElement;
       el.classList.add('is-waiting');
       const observer = new IntersectionObserver(

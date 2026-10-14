@@ -38,15 +38,9 @@ const SPARK = 'M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.
           </ul>
         </div>
 
-        <figure
-          class="about__visual"
-          appReveal="zoom"
-          [revealDelay]="100"
-          (pointerenter)="paused.set(true)"
-          (pointerleave)="paused.set(false)"
-        >
+        <figure class="about__visual" appReveal="zoom" [revealDelay]="100">
           <div class="about__blob" aria-hidden="true"></div>
-          <div class="about__photo">
+          <div class="about__photo" (pointerenter)="paused.set(true)" (pointerleave)="paused.set(false)">
             @for (p of c.photos; track p.image; let i = $index) {
               <img
                 [src]="p.image"
@@ -94,7 +88,6 @@ export class About {
   constructor() {
     const destroyRef = inject(DestroyRef);
     afterNextRender(() => {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const timer = setInterval(() => {
         const total = this.content().photos.length;
         if (!this.paused() && total > 1 && document.visibilityState === 'visible') this.current.update((i) => (i + 1) % total);

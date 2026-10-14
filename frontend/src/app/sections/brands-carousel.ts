@@ -62,7 +62,6 @@ export class BrandsCarousel {
   constructor() {
     const destroyRef = inject(DestroyRef);
     afterNextRender(() => {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       this.autoplay = true;
       this.restart();
     });

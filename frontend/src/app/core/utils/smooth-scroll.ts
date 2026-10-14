@@ -1,12 +1,25 @@
+import Lenis from 'lenis';
+
 /**
- * Scroll suave con GSAP para todos los enlaces internos (`href="#…"`) de la página:
- * arranca y frena con calma, y tarda más mientras más lejos está el destino.
- * Respeta "reducir movimiento" (salta directo). Devuelve la función para quitarlo.
+ * Scroll suave en toda la página con Lenis: la rueda del mouse y el trackpad se deslizan con inercia,
+ * y los enlaces internos (`href="#…"`) viajan con calma, tardando más mientras más lejos está el destino.
+ * Mientras corre la intro (html.intro-pending) el scroll queda detenido.
+ * Devuelve la función para quitarlo.
  */
 export function installSmoothScroll(offset = 72): () => void {
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 1, smoothWheel: true });
+  const root = document.documentElement;
 
-  const onClick = async (event: MouseEvent) => {
+  let frame = 0;
+  const raf = (time: number) => {
+    if (root.classList.contains('intro-pending')) lenis.stop();
+    else if (lenis.isStopped) lenis.start();
+    lenis.raf(time);
+    frame = requestAnimationFrame(raf);
+  };
+  frame = requestAnimationFrame(raf);
+
+  const onClick = (event: MouseEvent) => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey) return;
     const link = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[href^="#"]');
     const id = link?.getAttribute('href')?.slice(1);
@@ -15,19 +28,18 @@ export function installSmoothScroll(offset = 72): () => void {
     if (!target) return;
     event.preventDefault();
     history.replaceState(null, '', `#${id}`);
-
     const y = id === 'inicio' ? 0 : target.getBoundingClientRect().top + window.scrollY - offset;
-    if (reduced.matches) {
-      window.scrollTo(0, y);
-      return;
-    }
-    const [{ gsap }, { ScrollToPlugin }] = await Promise.all([import('gsap'), import('gsap/ScrollToPlugin')]);
-    gsap.registerPlugin(ScrollToPlugin);
     const distance = Math.abs(y - window.scrollY);
-    const duration = Math.min(1.8, 0.7 + distance / 4000);
-    gsap.to(window, { scrollTo: { y, autoKill: true }, duration, ease: 'power3.inOut' });
+    lenis.scrollTo(y, {
+      duration: Math.min(1.9, 0.8 + distance / 4000),
+      easing: (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2),
+    });
   };
 
   document.addEventListener('click', onClick);
-  return () => document.removeEventListener('click', onClick);
+  return () => {
+    document.removeEventListener('click', onClick);
+    cancelAnimationFrame(frame);
+    lenis.destroy();
+  };
 }

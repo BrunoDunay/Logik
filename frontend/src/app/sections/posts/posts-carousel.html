@@ -31,6 +31,7 @@
         class="card"
         [class.is-center]="card.o === 0"
         [class.is-hidden]="card.hidden"
+        [class.is-jump]="card.jump"
         [style.--o]="card.o"
         [style.--abs]="card.abs"
         [style.--enter]="card.abs"
@@ -44,9 +45,17 @@
     }
   </div>
 
-  <!-- Indicador discreto: una barra rosa que se desliza y el número de la publicación. -->
-  <div class="progress" aria-live="polite" [style.--n]="n()" [style.--i]="index()">
-    <span class="progress__track" aria-hidden="true"><span class="progress__thumb"></span></span>
-    <span class="progress__count"><strong>{{ index() + 1 }}</strong> de {{ n() }}</span>
+  <!-- Indicador discreto: flechas rosas pequeñas, una barra que se desliza y el número de la publicación. -->
+  <div class="progress" [style.--n]="n()" [style.--i]="index()">
+    <div class="progress__row">
+      <button type="button" class="progress__arrow" aria-label="Publicación anterior" (click)="go(-1)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 5.5-6 6.5 6 6.5" /></svg>
+      </button>
+      <span class="progress__track" aria-hidden="true"><span class="progress__thumb"></span></span>
+      <button type="button" class="progress__arrow" aria-label="Publicación siguiente" (click)="go(1)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5.5 6 6.5-6 6.5" /></svg>
+      </button>
+    </div>
+    <span class="progress__count" aria-live="polite"><strong>{{ index() + 1 }}</strong> de {{ n() }}</span>
   </div>
 </section>
