@@ -108,7 +108,7 @@
   background: var(--brand);
   color: var(--color-white);
   text-align: left;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   box-shadow: var(--shadow);
   transition:
     box-shadow var(--duration) ease,
@@ -117,7 +117,7 @@
 
 .brand.is-active .brand__card {
   box-shadow: 0 40px 80px -30px color-mix(in srgb, var(--brand) 70%, black);
-  cursor: default;
+  cursor: var(--cursor-default);
 }
 
 @media (hover: hover) and (pointer: fine) {

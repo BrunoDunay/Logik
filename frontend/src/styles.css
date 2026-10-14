@@ -88,17 +88,22 @@
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --duration-press: 140ms;
-  --duration-fast: 180ms;
-  --duration: 280ms;
-  --duration-slow: 520ms;
-  --duration-enter: 800ms;
+  /* El usuario pidió que nada se sienta instantáneo: incluso lo rápido dura casi medio segundo. */
+  --duration-press: 180ms;
+  --duration-fast: 320ms;
+  --duration: 480ms;
+  --duration-slow: 720ms;
+  --duration-enter: 1100ms;
 
   /* ---- Capas ---- */
   --z-raised: 1;
   --z-nav: 40;
   --z-float: 50;
   --z-intro: 100;
+
+  /* ---- Cursores (con mouse se cambian por los de la marca, más abajo) ---- */
+  --cursor-default: default;
+  --cursor-pointer: pointer;
 
   color-scheme: light;
 }
@@ -115,7 +120,7 @@ html {
   overflow-x: clip;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  scroll-behavior: smooth;
+  /* El scroll suave de los enlaces lo hace GSAP (core/utils/smooth-scroll.ts). */
   scroll-padding-top: 5rem;
 }
 
@@ -196,6 +201,31 @@ select {
 
 button {
   cursor: pointer;
+}
+
+/* Cursor de la marca: la flecha rosa del logo, reflejada para que apunte como un cursor,
+   y una mano rosa sobre lo que se puede tocar. Solo con mouse. */
+@media (hover: hover) and (pointer: fine) {
+  :root {
+    --cursor-default: url('/cursor/arrow.svg') 1 1, default;
+    --cursor-pointer: url('/cursor/pointer.svg') 11 1, pointer;
+  }
+  html {
+    cursor: var(--cursor-default);
+  }
+  a,
+  button,
+  summary,
+  label,
+  select,
+  [role='button'],
+  [role='tab'] {
+    cursor: var(--cursor-pointer);
+  }
+  input:not([type='checkbox'], [type='radio'], [type='color']),
+  textarea {
+    cursor: text;
+  }
 }
 
 :focus-visible {
@@ -302,9 +332,6 @@ html.intro-pending .site-chrome {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
   *,
   *::before,
   *::after {

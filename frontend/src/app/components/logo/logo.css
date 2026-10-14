@@ -16,56 +16,24 @@ svg {
   overflow: visible;
 }
 
-.logo__letter,
-.logo__sub {
+.logo__letter {
   fill: var(--logo-ink);
-  stroke: var(--color-pink-logo);
-  stroke-width: 0;
-  transition:
-    transform var(--duration) var(--ease-out),
-    fill var(--duration) ease;
+  transition: fill var(--duration-slow) ease;
 }
 
 .logo__sub {
   fill: var(--logo-sub);
+  transition: fill var(--duration-slow) ease;
 }
 
 .logo__arrow {
   fill: var(--color-pink-logo);
-  stroke: var(--color-pink-logo);
-  stroke-width: 0;
-  transform-box: fill-box;
-  transform-origin: 0% 100%;
-  transition: transform 420ms var(--ease-spring);
-}
-
-/* Hover: la flecha "sube" y las letras se levantan en cascada, como un gráfico que crece. */
-@media (hover: hover) and (pointer: fine) {
-  :host(:hover) .logo__arrow {
-    transform: translate(6%, -10%) scale(1.04);
-  }
-  :host(:hover) .logo__letter {
-    transform: translateY(-4px);
-  }
-  :host(:hover) .logo__letter:nth-child(2) {
-    transition-delay: 30ms;
-  }
-  :host(:hover) .logo__letter:nth-child(3) {
-    transition-delay: 60ms;
-  }
-  :host(:hover) .logo__letter:nth-child(4) {
-    transition-delay: 90ms;
-  }
-  :host(:hover) .logo__letter:nth-child(5) {
-    transition-delay: 120ms;
-  }
 }
 
 .logo__guides {
   fill: none;
   stroke: rgb(254 95 146 / 0.55);
   stroke-width: 1;
-  vector-effect: non-scaling-stroke;
   opacity: 0;
 }
 
@@ -75,12 +43,16 @@ svg {
   stroke-dashoffset: 1;
 }
 
-/* El brillo: una copia del logo rellena con un degradado radial que sigue al cursor. */
+/* El destello: una copia del logo rellena con un degradado radial que sigue al cursor.
+   Nada se mueve: solo se ilumina donde pasa el mouse. */
 .logo__glow {
   opacity: 0;
-  mix-blend-mode: screen;
   pointer-events: none;
-  transition: opacity 420ms var(--ease-out);
+  transition: opacity 600ms var(--ease-out);
+}
+
+:host(.logo--light) .logo__glow {
+  mix-blend-mode: screen;
 }
 
 :host(.logo--glowing) .logo__glow {

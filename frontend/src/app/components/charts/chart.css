@@ -151,7 +151,7 @@ svg {
   align-items: center;
   padding: 0.35rem 0.5rem;
   border-radius: var(--radius-sm);
-  cursor: default;
+  cursor: var(--cursor-default);
   transition:
     opacity var(--duration) ease,
     background-color var(--duration) ease;
@@ -251,7 +251,7 @@ svg {
     opacity 600ms var(--ease-out) calc(var(--i) * 140ms),
     transform 600ms var(--ease-out) calc(var(--i) * 140ms),
     background-color var(--duration) ease;
-  cursor: default;
+  cursor: var(--cursor-default);
 }
 
 .is-drawn .step {
@@ -320,7 +320,7 @@ svg {
   fill: var(--color-pink-logo);
   stroke: var(--color-ink);
   stroke-width: 2;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   transform-box: fill-box;
   transform-origin: center;
   opacity: 0;

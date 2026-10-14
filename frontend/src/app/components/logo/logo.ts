@@ -9,9 +9,9 @@ let nextId = 0;
 /**
  * Logo de Logik en SVG, vectorizado del original (scripts/trace-logo.py).
  * - `tone`: letras claras (sobre negro) u oscuras (sobre blanco); la flecha siempre en rosa.
- * - `glow`: brillo que sigue al mouse, recortado a la forma exacta del logo.
- * - `guides`: líneas de construcción que usa la animación de entrada (ocultas por defecto).
- * Al pasar el cursor, la flecha sube un poco y las letras se levantan en cascada.
+ * - `glow`: destello que sigue al mouse, recortado a la forma exacta del logo. Es lo único que pasa en hover.
+ * - `guides`: líneas de construcción (ocultas por defecto).
+ * Las máscaras `data-logo-mask` las usa `buildLogo()` para revelar las letras con un barrido de luz.
  */
 @Component({
   selector: 'app-logo',
@@ -26,33 +26,46 @@ let nextId = 0;
   template: `
     <svg [attr.viewBox]="viewBox" [attr.aria-label]="label()" role="img" overflow="visible">
       <defs>
-        <radialGradient [attr.id]="glowId" gradientUnits="userSpaceOnUse" [attr.cx]="gx()" [attr.cy]="gy()" r="150">
-          <stop offset="0" stop-color="#ffffff" stop-opacity="0.95" />
-          <stop offset="0.45" stop-color="#ffd0e0" stop-opacity="0.45" />
-          <stop offset="1" stop-color="#ffd0e0" stop-opacity="0" />
+        <radialGradient [attr.id]="glowId" data-logo="glow-gradient" gradientUnits="userSpaceOnUse" [attr.cx]="gx()" [attr.cy]="gy()" r="150">
+          @if (tone() === 'light') {
+            <stop offset="0" stop-color="#ffffff" stop-opacity="0.95" />
+            <stop offset="0.45" stop-color="#ffd0e0" stop-opacity="0.45" />
+            <stop offset="1" stop-color="#ffd0e0" stop-opacity="0" />
+          } @else {
+            <stop offset="0" stop-color="#fe5f92" stop-opacity="0.9" />
+            <stop offset="0.5" stop-color="#fe5f92" stop-opacity="0.35" />
+            <stop offset="1" stop-color="#fe5f92" stop-opacity="0" />
+          }
         </radialGradient>
+        <linearGradient [attr.id]="edgeId">
+          <stop offset="0" stop-color="#fff" />
+          <stop offset="1" stop-color="#000" />
+        </linearGradient>
+        @for (m of masks; track m) {
+          <mask [attr.id]="m" data-logo-mask maskUnits="userSpaceOnUse" x="-60" y="-60" width="946" height="433">
+            <rect data-fill x="-60" y="-60" width="0" height="433" fill="#fff" />
+            <rect data-edge x="-200" y="-60" width="140" height="433" [attr.fill]="'url(#' + edgeId + ')'" />
+          </mask>
+        }
       </defs>
 
       @if (guides()) {
-        <!-- Líneas de construcción: base, altura de mayúsculas, diagonales de la flecha y círculos de O y G. -->
+        <!-- Líneas de construcción: base, altura de mayúsculas y círculos de O y G. -->
         <g class="logo__guides" data-logo="guides" aria-hidden="true">
           <line data-guide x1="-260" y1="219" x2="1086" y2="219" pathLength="1" />
           <line data-guide x1="-260" y1="2" x2="1086" y2="2" pathLength="1" />
           <line data-guide x1="-260" y1="110" x2="1086" y2="110" pathLength="1" />
-          <line data-guide x1="560" y1="420" x2="900" y2="-80" pathLength="1" />
-          <line data-guide x1="610" y1="420" x2="950" y2="-80" pathLength="1" />
           <circle data-guide cx="225" cy="110" r="113" pathLength="1" />
           <circle data-guide cx="455" cy="110" r="113" pathLength="1" />
-          <circle data-guide cx="455" cy="110" r="60" pathLength="1" />
         </g>
       }
 
       <g class="logo__big">
         @for (key of big; track key) {
-          <path class="logo__letter" [attr.data-logo]="key" [attr.d]="paths[key]" pathLength="1" />
+          <path class="logo__letter" [attr.data-logo]="key" [attr.d]="paths[key]" />
         }
       </g>
-      <g class="logo__arrow-wrap" data-logo="arrow-wrap"><path class="logo__arrow" data-logo="arrow" [attr.d]="paths.arrow" pathLength="1" /></g>
+      <g class="logo__arrow-wrap" data-logo="arrow-wrap"><path class="logo__arrow" data-logo="arrow" [attr.d]="paths.arrow" /></g>
       <g class="logo__small">
         @for (key of small; track key) {
           <path class="logo__sub" [attr.data-logo]="key" [attr.d]="paths[key]" />
@@ -81,7 +94,10 @@ export class Logo {
   protected readonly big = BIG;
   protected readonly small = SMALL;
   protected readonly all = [...BIG, 'arrow', ...SMALL] as const;
-  protected readonly glowId = `logo-glow-${nextId++}`;
+  private readonly uid = nextId++;
+  protected readonly glowId = `logo-glow-${this.uid}`;
+  protected readonly edgeId = `logo-edge-${this.uid}`;
+  protected readonly masks = [`logo-mask-big-${this.uid}`, `logo-mask-small-${this.uid}`];
 
   protected readonly glowOn = signal(false);
   private readonly point = signal({ x: 0, y: 0 });

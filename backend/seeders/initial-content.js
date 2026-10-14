@@ -273,6 +273,7 @@ export const settings = {
     instagram: 'logikmkt',
     facebook: 'logikmkt',
     tiktok: 'logikmarketing',
+    linkedin: 'logikmarketing',
     isProvisional: true,
   },
 

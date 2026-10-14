@@ -20,7 +20,7 @@ const LABELS: Record<string, string> = {
   orientation: 'Orientación', members: 'Integrantes', role: 'Puesto', groupPhoto: 'Foto del equipo', groupCaption: 'Texto de la foto del equipo',
   whatsapp: 'WhatsApp (con lada)', whatsappMessage: 'Mensaje inicial de WhatsApp', phoneDisplay: 'Teléfono como se muestra',
   email: 'Correo', city: 'Ciudad', address: 'Dirección', instagram: 'Instagram (usuario)', facebook: 'Facebook (usuario)',
-  tiktok: 'TikTok (usuario)', invitation: 'Invitación final', isProvisional: 'Pendiente de confirmar',
+  tiktok: 'TikTok (usuario)', linkedin: 'LinkedIn (empresa)', invitation: 'Invitación final', isProvisional: 'Pendiente de confirmar',
 };
 
 /** Orden en que se muestran los campos (PostgreSQL guarda el JSON con las claves reordenadas). */
@@ -30,7 +30,7 @@ const ORDER = [
   'highlighted', 'features', 'label', 'value', 'prefix', 'suffix', 'peak', 'kind', 'unit', 'markerIndex', 'markerLabel',
   'points', 'steps', 'items', 'kpis', 'chart', 'cases', 'categories', 'members', 'stats', 'image', 'imageAlt', 'photo', 'logo',
   'color', 'src', 'poster', 'orientation', 'groupPhoto', 'groupCaption', 'permalink', 'whatsapp', 'whatsappMessage',
-  'phoneDisplay', 'email', 'city', 'address', 'location', 'instagram', 'facebook', 'tiktok', 'ctaLabel', 'note', 'isProvisional',
+  'phoneDisplay', 'email', 'city', 'address', 'location', 'instagram', 'facebook', 'tiktok', 'linkedin', 'ctaLabel', 'note', 'isProvisional',
 ];
 
 /** Claves de un objeto en el orden de ORDER; las desconocidas van al final. */

@@ -1,7 +1,8 @@
-import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, afterNextRender, inject, input, viewChild } from '@angular/core';
 import { Icon, IconName } from '../components/icon/icon';
 import { Logo } from '../components/logo/logo';
+import { buildLogo } from '../components/logo/logo-build';
+import { IntroService } from '../core/services/intro.service';
 import { HeroSettings } from '../core/types/settings.model';
 
 export interface SocialLink {
@@ -10,11 +11,10 @@ export interface SocialLink {
   href: string;
 }
 
-const INTRO_SEEN = 'logik-intro-visto';
-
 /**
  * Portada al estilo de la referencia "TURA": negro con una luz suave arriba y el logo como texto principal.
- * Antes de mostrar el sitio, el logo se construye (líneas guía → contorno → relleno → flecha) y se queda aquí.
+ * Intro: la pantalla empieza en blanco y se oscurece mientras una luz va creando LOGIK;
+ * luego la flecha encaja en la K, aparece MARKETING y al final el resto del sitio.
  */
 @Component({
   selector: 'app-hero',
@@ -29,70 +29,51 @@ export class Hero {
   readonly whatsapp = input.required<string>();
 
   private readonly logoEl = viewChild.required<ElementRef<HTMLElement>>('logo');
-  private readonly sparkEl = viewChild.required<ElementRef<HTMLElement>>('spark');
-  private readonly document = inject(DOCUMENT);
+  private readonly heroEl = viewChild.required<ElementRef<HTMLElement>>('hero');
+  private readonly veilEl = viewChild.required<ElementRef<HTMLElement>>('veil');
+  private readonly intro = inject(IntroService);
 
   constructor() {
     const destroyRef = inject(DestroyRef);
     afterNextRender(() => {
-      const root = this.document.documentElement;
-      if (!root.classList.contains('intro-pending')) return;
+      if (this.intro.done()) return;
       void this.playIntro(destroyRef);
     });
   }
 
   private async playIntro(destroyRef: DestroyRef): Promise<void> {
-    const root = this.document.documentElement;
-    const finish = () => {
-      root.classList.remove('intro-pending');
-      try {
-        sessionStorage.setItem(INTRO_SEEN, '1');
-      } catch {
-        /* sin almacenamiento (modo privado): la intro se vuelve a ver la próxima vez */
-      }
-    };
-
     const { gsap } = await import('gsap');
     const host = this.logoEl().nativeElement;
-    const q = (sel: string) => Array.from(host.querySelectorAll<SVGElement>(sel));
-    const letters = q('.logo__letter');
-    const subs = q('.logo__sub');
-    const arrow = q('.logo__arrow-wrap');
-    // La flecha crece desde su esquina inferior izquierda (donde nace de la K), en coordenadas del dibujo.
-    const box = (host.querySelector('.logo__arrow') as SVGGraphicsElement).getBBox();
-    const arrowOrigin = `${box.x} ${box.y + box.height}`;
-    const guides = q('[data-guide]');
-    const guideGroup = q('.logo__guides');
+    const veil = this.veilEl().nativeElement;
+    const guides = Array.from(host.querySelectorAll<SVGElement>('[data-guide]'));
+    const guideGroup = host.querySelector<SVGElement>('.logo__guides')!;
 
     const tl = gsap.timeline({
-      defaults: { ease: 'power3.out' },
       onComplete: () => {
-        gsap.set([...letters, ...subs, ...arrow, ...guides, ...guideGroup, this.sparkEl().nativeElement], { clearProps: 'all' });
-        finish();
+        gsap.set([veil, guideGroup, ...guides], { clearProps: 'all' });
+        // El resto del hero entra en cascada; las secciones de abajo aparecen con su propia transición.
+        const chrome = Array.from(this.heroEl().nativeElement.querySelectorAll<HTMLElement>('.site-chrome'));
+        gsap.fromTo(
+          chrome,
+          { opacity: 0, y: 16, transition: 'none' },
+          { opacity: 1, y: 0, duration: 0.9, stagger: 0.12, ease: 'power3.out', clearProps: 'all' },
+        );
+        this.intro.finish();
       },
     });
-
-    gsap.set(letters, { fillOpacity: 0, strokeWidth: 1.4, strokeDasharray: 1, strokeDashoffset: 1 });
-    gsap.set(arrow, { opacity: 1, scale: 0, svgOrigin: arrowOrigin });
-    gsap.set(subs, { opacity: 0, y: 14 });
-
     if (/[?&]intro=lento/.test(location.search)) tl.timeScale(0.25);
 
-    tl.fromTo(this.sparkEl().nativeElement, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: 'back.out(2)' }, 0)
-      .to(guideGroup, { opacity: 1, duration: 0.3 }, 0.3)
-      .to(guides, { strokeDashoffset: 0, duration: 0.8, stagger: 0.07, ease: 'power2.inOut' }, 0.3)
-      .to(this.sparkEl().nativeElement, { scale: 6, opacity: 0, duration: 0.9, ease: 'power2.out' }, 0.55)
-      .to(letters, { strokeDashoffset: 0, duration: 0.95, stagger: 0.12, ease: 'power2.inOut' }, 0.7)
-      .to(letters, { fillOpacity: 1, duration: 0.5, stagger: 0.08 }, 1.55)
-      .to(letters, { strokeWidth: 0, duration: 0.4 }, 2.05)
-      .to(arrow, { scale: 1, duration: 0.75, ease: 'back.out(1.7)' }, 1.85)
-      .to(subs, { opacity: 1, y: 0, duration: 0.5, stagger: 0.04 }, 2.15)
-      .to(guideGroup, { opacity: 0, duration: 0.6, ease: 'power2.inOut' }, 2.45);
+    // Blanco → negro; las líneas guía se trazan mientras tanto y se apagan cuando el logo ya está.
+    tl.fromTo(veil, { opacity: 1 }, { opacity: 0, duration: 1.3, ease: 'power2.inOut' }, 0.1)
+      .to(guideGroup, { opacity: 1, duration: 0.4 }, 0.3)
+      .to(guides, { strokeDashoffset: 0, duration: 1.1, stagger: 0.08, ease: 'power2.inOut' }, 0.3)
+      .add(buildLogo(gsap, host, { sweep: 1.6 }), 0.7)
+      .to(guideGroup, { opacity: 0, duration: 0.8, ease: 'power2.inOut' }, 2.6);
 
     // Para revisar la animación: "?intro=t1.2" la congela en el segundo 1.2.
     const freeze = /[?&]intro=t(\d+(?:\.\d+)?)/.exec(location.search);
     if (freeze) {
-      tl.pause(Number(freeze[1]));
+      tl.pause(Number(freeze[1]), false);
       return;
     }
 
@@ -105,7 +86,7 @@ export class Hero {
       window.removeEventListener('pointerdown', skip);
       window.removeEventListener('keydown', skip);
       tl.kill();
-      finish();
+      this.intro.finish();
     });
   }
 }

@@ -139,7 +139,7 @@
 
 .save:disabled {
   opacity: 0.45;
-  cursor: default;
+  cursor: var(--cursor-default);
 }
 
 .save:not(:disabled):hover {

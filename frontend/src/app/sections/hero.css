@@ -69,21 +69,25 @@
 .hero__logo {
   width: min(82vw, 980px);
   margin: 0;
-  cursor: default;
+  cursor: var(--cursor-default);
 }
 
-.hero__spark {
+/* Capa blanca de la intro. Fuera de la intro no existe. */
+.hero__veil {
   position: absolute;
-  left: 50%;
-  top: 46%;
-  width: 26px;
-  height: 26px;
-  margin: -13px 0 0 -13px;
-  border-radius: 50%;
-  background: var(--color-pink-logo);
-  box-shadow: 0 0 40px 14px rgb(254 95 146 / 0.65);
+  inset: 0;
+  z-index: 0;
+  background: var(--color-white);
   opacity: 0;
   pointer-events: none;
+}
+
+:host-context(html.intro-pending) .hero__veil {
+  opacity: 1;
+}
+
+.hero__center {
+  z-index: 1;
 }
 
 .hero__subtitle {
@@ -93,25 +97,55 @@
   color: var(--color-on-ink-soft);
 }
 
+/* Botón principal: al pasar el cursor, el rosa se expande desde la flecha como una gota. */
 .hero__cta {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: var(--space-3);
-  min-height: 3.25rem;
-  padding: 0 1.6rem 0 1.8rem;
+  gap: var(--space-4);
+  min-height: 3.5rem;
+  padding: 0.4rem 0.45rem 0.4rem 1.8rem;
+  overflow: hidden;
+  isolation: isolate;
   border-radius: var(--radius-pill);
   background: var(--color-white);
   color: var(--color-ink);
   font-weight: 600;
   transition:
-    background-color var(--duration-fast) ease,
-    color var(--duration-fast) ease,
-    transform var(--duration-press) var(--ease-out),
-    box-shadow var(--duration) var(--ease-out);
+    transform 260ms var(--ease-out),
+    box-shadow 600ms var(--ease-out);
 }
 
-.hero__cta app-icon {
-  transition: transform var(--duration) var(--ease-out);
+.hero__cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-pink-logo);
+  clip-path: circle(0 at calc(100% - 1.75rem) 50%);
+  transition: clip-path 750ms var(--ease-out);
+}
+
+.hero__cta-label {
+  transition: transform 600ms var(--ease-out);
+}
+
+.hero__cta-icon {
+  display: grid;
+  place-items: center;
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 50%;
+  background: var(--color-ink);
+  color: var(--color-white);
+  transition:
+    transform 600ms var(--ease-spring),
+    background-color 500ms ease,
+    color 500ms ease;
+}
+
+.hero__cta-icon app-icon {
+  transition: transform 600ms var(--ease-out);
 }
 
 .hero__cta:active {
@@ -120,41 +154,78 @@
 
 @media (hover: hover) and (pointer: fine) {
   .hero__cta:hover {
-    background: var(--color-pink-logo);
     box-shadow: var(--shadow-pink);
   }
-  .hero__cta:hover app-icon {
-    transform: translateX(4px);
+  .hero__cta:hover::before {
+    clip-path: circle(140% at calc(100% - 1.75rem) 50%);
+  }
+  .hero__cta:hover .hero__cta-label {
+    transform: translateX(-4px);
+  }
+  .hero__cta:hover .hero__cta-icon {
+    transform: rotate(-45deg) scale(1.06);
+    background: var(--color-white);
+    color: var(--color-ink);
   }
 }
 
-/* Redes en vertical a la izquierda y "Scroll" a la derecha, como en la referencia. */
+/* Redes en vertical a la izquierda. El rosa entra como un líquido desde abajo. */
 .hero__socials {
   position: absolute;
   left: var(--gutter);
   bottom: 3rem;
+  z-index: 1;
   display: grid;
   gap: var(--space-2);
 }
 
 .hero__socials a {
+  position: relative;
   display: grid;
   place-items: center;
   width: 2.75rem;
   height: 2.75rem;
+  overflow: hidden;
+  isolation: isolate;
   border-radius: 50%;
   color: var(--color-on-ink-soft);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.14);
   transition:
-    color var(--duration-fast) ease,
-    background-color var(--duration-fast) ease,
-    transform var(--duration) var(--ease-spring);
+    color 450ms ease,
+    transform 600ms var(--ease-spring),
+    box-shadow 600ms var(--ease-out);
+}
+
+.hero__socials a::before {
+  content: '';
+  position: absolute;
+  left: -30%;
+  right: -30%;
+  top: 100%;
+  height: 160%;
+  z-index: -1;
+  border-radius: 42% 46% 40% 44%;
+  background: var(--color-pink-logo);
+  transition: top 650ms var(--ease-out);
+  animation: social-wave 3.2s linear infinite;
+  animation-play-state: paused;
+}
+
+@keyframes social-wave {
+  to {
+    rotate: 360deg;
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {
   .hero__socials a:hover {
     color: var(--color-ink);
-    background: var(--color-pink-logo);
-    transform: translateX(4px) scale(1.06);
+    transform: translateX(5px);
+    box-shadow: inset 0 0 0 1px transparent, 0 10px 24px -10px rgb(254 95 146 / 0.7);
+  }
+  .hero__socials a:hover::before {
+    top: -30%;
+    animation-play-state: running;
   }
 }
 
@@ -162,6 +233,7 @@
   position: absolute;
   left: 50%;
   bottom: 2.2rem;
+  z-index: 1;
   transform: translateX(-50%);
   font-size: var(--text-xs);
   letter-spacing: 0.2em;
@@ -170,59 +242,8 @@
   white-space: nowrap;
 }
 
-.hero__scroll {
-  position: absolute;
-  right: var(--gutter);
-  bottom: 3rem;
-  display: grid;
-  justify-items: center;
-  gap: var(--space-3);
-  min-width: 2.75rem;
-  font-size: var(--text-xs);
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--color-on-ink-soft);
-  writing-mode: vertical-rl;
-  transition: color var(--duration-fast) ease;
-}
-
-.hero__scroll-line {
-  position: relative;
-  width: 1px;
-  height: 4.5rem;
-  overflow: hidden;
-  background: rgb(255 255 255 / 0.18);
-}
-
-.hero__scroll-line::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--color-pink-logo);
-  animation: scroll-line 2.2s var(--ease-in-out) infinite;
-}
-
-@keyframes scroll-line {
-  0% {
-    transform: translateY(-100%);
-  }
-  60%,
-  100% {
-    transform: translateY(100%);
-  }
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .hero__scroll:hover {
-    color: var(--color-pink-logo);
-  }
-}
-
 @media (max-width: 640px) {
   .hero__socials {
-    bottom: 2rem;
-  }
-  .hero__scroll {
     bottom: 2rem;
   }
   .hero__location {
@@ -230,13 +251,9 @@
   }
 }
 
-/* Antes de que corra la intro, el logo queda "sin dibujar" para que no parpadee. */
-:host-context(html.intro-pending) .hero__logo ::ng-deep .logo__letter {
-  fill-opacity: 0;
-}
+/* Antes de que corra la intro, el logo queda oculto para que no parpadee. */
+:host-context(html.intro-pending) .hero__logo ::ng-deep .logo__letter,
+:host-context(html.intro-pending) .hero__logo ::ng-deep .logo__sub,
 :host-context(html.intro-pending) .hero__logo ::ng-deep .logo__arrow-wrap {
-  opacity: 0;
-}
-:host-context(html.intro-pending) .hero__logo ::ng-deep .logo__sub {
   opacity: 0;
 }

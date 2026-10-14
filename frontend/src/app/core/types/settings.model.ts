@@ -172,6 +172,7 @@ export interface ContactSettings extends SectionHeading, Provisional {
   instagram: string | null;
   facebook: string | null;
   tiktok: string | null;
+  linkedin: string | null;
 }
 
 export interface ClosingSettings {

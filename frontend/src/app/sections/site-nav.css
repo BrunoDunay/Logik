@@ -11,10 +11,10 @@
   padding: 0.9rem var(--gutter);
   color: var(--color-on-ink);
   transition:
-    background-color var(--duration) ease,
-    color var(--duration) ease,
-    box-shadow var(--duration) ease,
-    padding var(--duration) var(--ease-out);
+    background-color 500ms ease,
+    color 500ms ease,
+    box-shadow 500ms ease,
+    padding 500ms var(--ease-out);
 }
 
 .nav.is-solid {
@@ -30,58 +30,115 @@
   display: block;
   width: 6.5rem;
   opacity: 0;
-  transform: translateY(-6px);
-  transition:
-    opacity var(--duration) ease,
-    transform var(--duration) var(--ease-out);
+  transition: opacity 500ms ease;
 }
 
-/* El logo pequeño solo aparece cuando el grande del hero ya no se ve. */
-.nav.is-solid .nav__brand {
+/* Visible desde el inicio; solo espera a que arranque su construcción. */
+.nav__brand.is-ready {
   opacity: 1;
-  transform: none;
 }
 
 .nav__links {
+  position: relative;
   display: none;
-  gap: clamp(1rem, 2vw, 2rem);
+  gap: clamp(0.25rem, 0.8vw, 0.75rem);
   margin-left: auto;
 }
 
 .nav__links a {
   position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
-  min-height: 2.75rem;
+  min-height: 2.5rem;
+  padding: 0 0.85rem;
+  border-radius: var(--radius-pill);
   font-size: var(--text-sm);
   font-weight: 500;
-  transition: color var(--duration-fast) ease;
+  transition: color 450ms ease;
 }
 
-/* Subrayado rosa que crece desde el centro. */
-.nav__links a::after {
-  content: '';
+/* Texto que "rueda": al pasar el cursor sube y entra una copia desde abajo. */
+.nav__roll {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1.5;
+}
+
+.nav__roll::after {
+  content: attr(data-text);
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0.45rem;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--color-pink-logo);
-  transform: scaleX(0);
-  transition: transform var(--duration) var(--ease-out);
+  inset: 100% 0 auto;
+  color: var(--color-pink-logo);
 }
 
-.nav__links a.is-active::after {
-  transform: scaleX(1);
+.nav__roll,
+.nav__roll::after {
+  transition: translate 550ms var(--ease-out);
+}
+
+/* Píldora que se desliza al enlace con el cursor y regresa a la sección activa. */
+.nav__pill {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: var(--w);
+  height: 2.5rem;
+  border-radius: var(--radius-pill);
+  background: rgb(255 255 255 / 0.1);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.16);
+  translate: var(--x) -50%;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    translate 600ms var(--ease-out),
+    width 600ms var(--ease-out),
+    opacity 400ms ease,
+    background-color 400ms ease,
+    box-shadow 400ms ease;
+}
+
+.nav__pill.is-on {
+  opacity: 1;
+}
+
+.nav.is-solid .nav__pill {
+  background: var(--color-blush);
+  box-shadow: inset 0 0 0 1px var(--color-line);
+}
+
+/* Sección activa: el texto en rosa y un punto rosa que late a la izquierda. */
+.nav__links a.is-active {
+  color: var(--color-pink-logo);
+}
+
+.nav.is-solid .nav__links a.is-active {
+  color: var(--color-pink-deep);
+}
+
+.nav__links a::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  margin-right: 0;
+  border-radius: 50%;
+  background: currentColor;
+  scale: 0;
+  transition:
+    scale 500ms var(--ease-spring),
+    margin-right 500ms var(--ease-out);
+}
+
+.nav__links a.is-active::before {
+  scale: 1;
+  margin-right: 0.45rem;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .nav__links a:hover {
-    color: var(--color-pink-logo);
-  }
-  .nav__links a:hover::after {
-    transform: scaleX(1);
+  .nav__links a:hover .nav__roll,
+  .nav__cta:hover .nav__roll {
+    translate: 0 -100%;
   }
 }
 
@@ -96,9 +153,14 @@
   font-size: var(--text-sm);
   font-weight: 600;
   transition:
-    transform var(--duration-press) var(--ease-out),
-    background-color var(--duration-fast) ease,
-    color var(--duration-fast) ease;
+    transform 220ms var(--ease-out),
+    background-color 450ms ease,
+    color 450ms ease,
+    box-shadow 500ms var(--ease-out);
+}
+
+.nav__cta .nav__roll::after {
+  color: inherit;
 }
 
 .nav__cta:active {
@@ -109,6 +171,7 @@
   .nav__cta:hover {
     background: var(--color-ink);
     color: var(--color-white);
+    box-shadow: 0 10px 24px -12px rgb(20 16 18 / 0.6);
   }
   .nav:not(.is-solid) .nav__cta:hover {
     background: var(--color-white);
@@ -136,7 +199,7 @@
   height: 2px;
   border-radius: 2px;
   background: currentColor;
-  transition: transform var(--duration) var(--ease-out);
+  transition: transform 450ms var(--ease-out);
 }
 
 .nav.is-open .nav__burger-line:first-of-type {
@@ -191,7 +254,10 @@
     letter-spacing: var(--tracking-display);
     color: var(--color-ink);
   }
-  .nav__links a::after {
-    bottom: 0.2rem;
+  .nav__pill {
+    display: none;
+  }
+  .nav__links a {
+    padding: 0;
   }
 }

@@ -64,11 +64,12 @@ export class Home {
   });
 
   protected readonly socials = computed<SocialLink[]>(() => {
-    const { instagram, facebook, tiktok } = this.site().contact;
+    const { instagram, facebook, tiktok, linkedin } = this.site().contact;
     const list: { network: SocialNetwork; label: string; handle: string | null }[] = [
       { network: 'instagram', label: 'Instagram', handle: instagram },
       { network: 'facebook', label: 'Facebook', handle: facebook },
       { network: 'tiktok', label: 'TikTok', handle: tiktok },
+      { network: 'linkedin', label: 'LinkedIn', handle: linkedin },
     ];
     const out: SocialLink[] = list
       .map((s) => ({ icon: s.network, label: s.label, href: socialLink(s.network, s.handle) ?? '' }))

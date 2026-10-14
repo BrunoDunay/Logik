@@ -1,25 +1,26 @@
 @let c = content();
 
-<header class="hero" id="inicio">
+<header class="hero" id="inicio" #hero>
   <div class="hero__light" aria-hidden="true"></div>
   <div class="hero__dots" aria-hidden="true"></div>
+  <!-- Capa blanca de la intro: empieza cubriendo todo y se desvanece hacia el negro. -->
+  <div class="hero__veil" #veil aria-hidden="true"></div>
 
   <div class="hero__center">
     <p class="hero__kicker site-chrome">{{ c.kicker }}</p>
     <h1 class="hero__logo" #logo>
       <app-logo tone="light" [glow]="true" [guides]="true" label="Logik Marketing" />
     </h1>
-    <span class="hero__spark" #spark aria-hidden="true"></span>
     <p class="hero__subtitle site-chrome">{{ c.subtitle }}</p>
     <a class="hero__cta site-chrome" [href]="whatsapp()" target="_blank" rel="noopener">
-      <span>{{ c.ctaLabel }}</span>
-      <app-icon name="arrow" [size]="18" />
+      <span class="hero__cta-label">{{ c.ctaLabel }}</span>
+      <span class="hero__cta-icon" aria-hidden="true"><app-icon name="arrow" [size]="18" /></span>
     </a>
   </div>
 
   <ul class="hero__socials site-chrome" role="list" aria-label="Redes sociales">
-    @for (s of socials(); track s.href) {
-      <li>
+    @for (s of socials(); track s.href; let i = $index) {
+      <li [style.--i]="i">
         <a [href]="s.href" target="_blank" rel="noopener" [attr.aria-label]="s.label">
           <app-icon [name]="s.icon" [size]="18" />
         </a>
@@ -28,9 +29,4 @@
   </ul>
 
   <p class="hero__location site-chrome">{{ c.location }}</p>
-
-  <a class="hero__scroll site-chrome" href="#nosotras">
-    <span>Scroll</span>
-    <span class="hero__scroll-line" aria-hidden="true"></span>
-  </a>
 </header>

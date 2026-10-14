@@ -77,7 +77,7 @@ legend {
 
 .item__bar button:disabled {
   opacity: 0.35;
-  cursor: default;
+  cursor: var(--cursor-default);
 }
 
 .item__bar button:not(:disabled):hover,
@@ -165,7 +165,7 @@ textarea:focus {
   min-height: 2.75rem;
   font-weight: 600;
   font-size: var(--text-sm);
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
 }
 
 .switch input {

@@ -119,7 +119,7 @@
     opacity 560ms ease,
     filter 560ms ease,
     box-shadow var(--duration) ease;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
 }
 
 .side img {

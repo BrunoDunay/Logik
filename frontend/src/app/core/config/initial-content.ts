@@ -1088,6 +1088,7 @@ export const INITIAL_CONTENT: SiteSettings = {
     "instagram": "logikmkt",
     "facebook": "logikmkt",
     "tiktok": "logikmarketing",
+    "linkedin": "logikmarketing",
     "isProvisional": true
   },
   "closing": {

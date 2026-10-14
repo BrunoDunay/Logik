@@ -161,6 +161,7 @@ const contact = z.object({
   instagram: handle,
   facebook: handle,
   tiktok: handle,
+  linkedin: handle,
   isProvisional: provisional,
 });
 

@@ -10,6 +10,7 @@ const SOCIAL_BASE = {
   instagram: 'https://www.instagram.com/',
   facebook: 'https://www.facebook.com/',
   tiktok: 'https://www.tiktok.com/@',
+  linkedin: 'https://www.linkedin.com/company/',
 } as const;
 
 export type SocialNetwork = keyof typeof SOCIAL_BASE;
