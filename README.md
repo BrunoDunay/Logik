@@ -58,7 +58,17 @@ Si la API no responde, la portada usa el contenido de respaldo (`src/app/core/co
 
 ## Producción
 
-- **Frontend** en Netlify: ya configurado en `netlify.toml`, con el SSR como Edge Function.
-- **API** en Render, con `npm start` y las variables de `.env.example`. En `CORS_ORIGINS` va solo el dominio real.
-- **PostgreSQL** en la nube (Neon, Render u otro). Usa `DATABASE_SSL=true`.
-- Antes de publicar, actualiza `apiUrl` en `frontend/src/environments/environment.ts`.
+Está desplegado en Vercel, conectado a este repositorio: **cada push a `main` publica los cambios**.
+
+| Parte | Dónde | Proyecto |
+|---|---|---|
+| Sitio (Angular, prerenderizado) | https://logik-marketing.vercel.app | Vercel `logik-marketing`, carpeta `frontend/` |
+| API (Express como función) | https://logik-api.vercel.app/api | Vercel `logik-api`, carpeta `backend/` (`api/index.js`) |
+| Base de datos | Neon, proyecto `logik` (us-east-1) | PostgreSQL 17 |
+
+- Las variables de la API (`DATABASE_URL`, `JWT_SECRET`, `ADMIN_*`, `CORS_ORIGINS`…) están en el proyecto de Vercel, no en el repositorio.
+- Las migraciones no corren en cada arranque de la función: si se agrega una, aplícala con
+  `DATABASE_URL=<la de Neon> DATABASE_SSL=true npm run migrate` desde `backend/`.
+- La portada y las páginas legales se prerenderizan al compilar; en el navegador el contenido se vuelve a pedir a la API,
+  así que lo que se edita en el panel se ve sin recompilar.
+- `netlify.toml` queda como alternativa (SSR en Netlify con la API en otro servicio).
