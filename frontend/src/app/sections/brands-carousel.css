@@ -231,22 +231,33 @@
 }
 
 /* Hover sobre la activa con foto: se quita el tinte y el logo y el texto se hacen a los lados
-   y se encogen para dejar ver la foto completa. */
+   y se encogen para dejar ver la foto. Va rápido (420 ms) para que, si el cursor entra y sale,
+   la animación alcance a terminar y no parezca que tiembla. */
 @media (hover: hover) and (pointer: fine) {
   .brand.is-active.has-photo .brand__card:hover .brand__tint {
     opacity: 0;
+    transition: opacity 420ms ease;
   }
   .brand.is-active.has-photo .brand__card:hover .brand__photo {
     transform: scale(1);
+    transition: transform 500ms var(--ease-out);
   }
   .brand.is-active.has-photo .brand__card:hover .brand__logo {
     top: 1.25rem;
     left: 1.25rem;
     width: 30%;
     transform: none;
+    transition:
+      top 420ms var(--ease-out),
+      left 420ms var(--ease-out),
+      width 420ms var(--ease-out),
+      transform 420ms var(--ease-out);
   }
   .brand.is-active.has-photo .brand__card:hover .brand__info {
     transform: scale(0.82);
+    transition:
+      opacity 300ms ease,
+      transform 420ms var(--ease-out);
     transition-delay: 0ms;
   }
   .brand.is-active.has-photo .brand__card:hover .brand__info > * {
@@ -255,6 +266,9 @@
   .brand.is-active.has-photo .brand__card:hover .brand__desc {
     max-height: 0;
     opacity: 0;
+    transition:
+      max-height 420ms var(--ease-out),
+      opacity 250ms ease;
   }
 }
 

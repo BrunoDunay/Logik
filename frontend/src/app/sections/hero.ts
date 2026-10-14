@@ -45,12 +45,10 @@ export class Hero {
     const { gsap } = await import('gsap');
     const host = this.logoEl().nativeElement;
     const veil = this.veilEl().nativeElement;
-    const guides = Array.from(host.querySelectorAll<SVGElement>('[data-guide]'));
-    const guideGroup = host.querySelector<SVGElement>('.logo__guides')!;
 
     const tl = gsap.timeline({
       onComplete: () => {
-        gsap.set([veil, guideGroup, ...guides], { clearProps: 'all' });
+        gsap.set(veil, { clearProps: 'all' });
         // El resto del hero entra en cascada; las secciones de abajo aparecen con su propia transición.
         const chrome = Array.from(this.heroEl().nativeElement.querySelectorAll<HTMLElement>('.site-chrome'));
         gsap.fromTo(
@@ -63,12 +61,11 @@ export class Hero {
     });
     if (/[?&]intro=lento/.test(location.search)) tl.timeScale(0.25);
 
-    // Blanco → negro; las líneas guía se trazan mientras tanto y se apagan cuando el logo ya está.
-    tl.fromTo(veil, { opacity: 1 }, { opacity: 0, duration: 1.3, ease: 'power2.inOut' }, 0.1)
-      .to(guideGroup, { opacity: 1, duration: 0.4 }, 0.3)
-      .to(guides, { strokeDashoffset: 0, duration: 1.1, stagger: 0.08, ease: 'power2.inOut' }, 0.3)
-      .add(buildLogo(gsap, host, { sweep: 1.6 }), 0.7)
-      .to(guideGroup, { opacity: 0, duration: 0.8, ease: 'power2.inOut' }, 2.6);
+    // Blanco → negro mientras la luz empieza a crear el logo.
+    tl.fromTo(veil, { opacity: 1 }, { opacity: 0, duration: 1.3, ease: 'power2.inOut' }, 0.1).add(
+      buildLogo(gsap, host, { sweep: 1.6 }),
+      0.7,
+    );
 
     // Para revisar la animación: "?intro=t1.2" la congela en el segundo 1.2.
     const freeze = /[?&]intro=t(\d+(?:\.\d+)?)/.exec(location.search);

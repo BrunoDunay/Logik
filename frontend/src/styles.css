@@ -118,6 +118,11 @@
 html {
   /* Nada se sale por los lados, ni siquiera lo que entra animado desde un costado. */
   overflow-x: clip;
+  /* El espacio de la barra de scroll se reserva siempre: así el contenido no se recorre
+     a la izquierda cuando la barra aparece al terminar la intro. */
+  scrollbar-gutter: stable;
+  /* Lo que se ve en ese espacio mientras la intro oculta la barra: del mismo negro que el hero. */
+  background: var(--color-ink);
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   /* El scroll suave de los enlaces lo hace GSAP (core/utils/smooth-scroll.ts). */

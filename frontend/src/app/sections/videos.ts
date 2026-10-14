@@ -14,12 +14,13 @@ import { VideosSettings } from '../core/types/settings.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @let c = content();
-    <section class="videos" id="videos" aria-labelledby="videos-title">
+    <section class="videos" id="videos" aria-labelledby="videos-title" (pointermove)="glow($event)">
+      <span class="videos__glow" aria-hidden="true"></span>
       <div class="wrap">
         <app-section-heading [title]="c.title" [script]="c.script" [intro]="c.intro" tone="light" headingId="videos-title" />
         @if (current(); as v) {
           <div class="room">
-            <ol class="list" role="list" #list appReveal="left" [class.has-scroll]="c.items.length > 4">
+            <ol class="list" role="list" #list appReveal="left" [class.has-scroll]="c.items.length > 4" data-lenis-prevent>
               @for (item of c.items; track item.src; let i = $index) {
                 <li>
                   <button type="button" class="thumb" [class.is-current]="i === selected()" [attr.aria-current]="i === selected() ? 'true' : null" (click)="choose(i)">
@@ -103,6 +104,15 @@ export class Videos {
       // El clic del usuario permite reproducir con sonido.
       requestAnimationFrame(() => this.start());
     }, 350);
+  }
+
+  /** Destello rosa muy tenue que sigue al mouse por la sección (sin pasar por Angular). */
+  protected glow(event: PointerEvent): void {
+    if (event.pointerType !== 'mouse') return;
+    const el = event.currentTarget as HTMLElement;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', `${event.clientX - r.left}px`);
+    el.style.setProperty('--my', `${event.clientY - r.top}px`);
   }
 
   protected start(): void {

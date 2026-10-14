@@ -27,7 +27,7 @@ import { NavLink } from './site-nav';
 
       <div class="wrap footer__grid">
         <div class="footer__brand">
-          <a class="footer__logo" href="#inicio" aria-label="Logik Marketing, volver arriba" #logo>
+          <a class="footer__logo" href="#inicio" aria-label="Logik Marketing, volver arriba" (pointerenter)="rebuild()" #logo>
             <app-logo tone="light" [glow]="true" />
           </a>
           <p class="footer__phrase">{{ brand().phrase }}</p>
@@ -95,15 +95,31 @@ export class SiteFooter {
         ([entry]) => {
           if (!entry.isIntersecting) return;
           observer.disconnect();
-          void import('gsap').then(({ gsap }) => {
-            buildLogo(gsap, el, { sweep: 1.1 });
-            el.classList.remove('is-waiting');
-          });
+          void this.build();
         },
         { rootMargin: '0px 0px -15% 0px' },
       );
       observer.observe(el);
       destroyRef.onDestroy(() => observer.disconnect());
     });
+  }
+
+  private building = false;
+  private built = false;
+
+  /** Al pasar el cursor por el logo, se vuelve a construir (si ya terminó la anterior). */
+  protected rebuild(): void {
+    if (this.built && !this.building) void this.build();
+  }
+
+  private async build(): Promise<void> {
+    this.building = true;
+    const el = this.logo().nativeElement;
+    const { gsap } = await import('gsap');
+    const tl = buildLogo(gsap, el, { sweep: 1.1 });
+    el.classList.remove('is-waiting');
+    await tl.then();
+    this.building = false;
+    this.built = true;
   }
 }

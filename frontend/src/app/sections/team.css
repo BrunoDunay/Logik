@@ -148,10 +148,15 @@
   font-size: clamp(1.5rem, 2.2vw, 2.1rem);
 }
 
-.member__text p {
+.member__text p,
+.member__text ::ng-deep .more p {
   font-size: var(--text-base);
   line-height: 1.6;
   color: var(--color-text-soft);
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
 }
 
 /* Insignias de certificaciones: giran un poco al pasar el cursor y muestran su nombre. */

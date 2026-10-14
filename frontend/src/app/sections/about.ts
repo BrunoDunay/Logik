@@ -40,7 +40,14 @@ const SPARK = 'M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.
 
         <figure class="about__visual" appReveal="zoom" [revealDelay]="100">
           <div class="about__blob" aria-hidden="true"></div>
-          <div class="about__photo" (pointerenter)="paused.set(true)" (pointerleave)="paused.set(false)">
+          <button
+            type="button"
+            class="about__photo"
+            aria-label="Ver la siguiente foto del equipo"
+            (click)="next()"
+            (pointerenter)="paused.set(true)"
+            (pointerleave)="paused.set(false)"
+          >
             @for (p of c.photos; track p.image; let i = $index) {
               <img
                 [src]="p.image"
@@ -53,7 +60,7 @@ const SPARK = 'M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.
                 decoding="async"
               />
             }
-          </div>
+          </button>
           @if (c.photos.length > 1) {
             <div class="about__dots" role="group" aria-label="Fotos del equipo">
               @for (p of c.photos; track p.image; let i = $index) {
@@ -62,7 +69,7 @@ const SPARK = 'M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.
                   [class.is-current]="i === current()"
                   [attr.aria-label]="'Ver foto ' + (i + 1)"
                   [attr.aria-pressed]="i === current()"
-                  (click)="current.set(i)"
+                  (click)="show(i)"
                 ></button>
               }
             </div>
@@ -88,12 +95,31 @@ export class About {
   constructor() {
     const destroyRef = inject(DestroyRef);
     afterNextRender(() => {
-      const timer = setInterval(() => {
-        const total = this.content().photos.length;
-        if (!this.paused() && total > 1 && document.visibilityState === 'visible') this.current.update((i) => (i + 1) % total);
-      }, 4800);
-      destroyRef.onDestroy(() => clearInterval(timer));
+      this.schedule();
+      destroyRef.onDestroy(() => clearTimeout(this.timer));
     });
+  }
+
+  private timer: ReturnType<typeof setTimeout> | undefined;
+
+  /** Cada clic en la foto pasa a la siguiente; el avance solo se reinicia para no saltar dos de golpe. */
+  protected next(): void {
+    this.show((this.current() + 1) % Math.max(1, this.content().photos.length));
+  }
+
+  protected show(i: number): void {
+    this.current.set(i);
+    this.schedule();
+  }
+
+  /** Si nadie hace clic, las fotos siguen pasando solas (y esperan mientras el cursor está encima). */
+  private schedule(): void {
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      const total = this.content().photos.length;
+      if (!this.paused() && total > 1 && document.visibilityState === 'visible') this.current.update((i) => (i + 1) % total);
+      this.schedule();
+    }, 4800);
   }
   protected readonly sparkPath = SPARK;
   protected readonly sparks = [

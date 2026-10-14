@@ -32,6 +32,25 @@
   transition: transform 700ms var(--ease-out);
 }
 
+@media (max-width: 640px) {
+  .tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.35rem;
+    width: 100%;
+    overflow: visible;
+    border-radius: var(--radius);
+  }
+  .tabs__pill {
+    display: none;
+  }
+  .tabs__tab {
+    white-space: normal;
+  }
+  .tabs__tab[aria-selected='true'] {
+    background: var(--color-ink);
+  }
+}
+
 .tabs__tab {
   position: relative;
   min-height: 2.9rem;

@@ -190,10 +190,19 @@
 
 @media (max-width: 640px) {
   .stage {
-    --card: min(76vw, 20rem);
+    --card: min(68vw, 18rem);
+    overflow: hidden;
   }
   .card:not(.is-center) {
-    transform: translate(-50%, -50%) translateX(calc(var(--o) * var(--card) * 0.4)) scale(calc(0.84 - var(--abs) * 0.12));
+    transform: translate(-50%, -50%) translateX(calc(var(--o) * var(--card) * 0.22)) scale(0.78);
+  }
+  /* Solo se asoma una tarjeta a cada lado, sin tocar los bordes de la pantalla. */
+  .card:not(.is-center):not(.is-hidden) {
+    opacity: 0.55;
+  }
+  .card.is-far {
+    opacity: 0;
+    pointer-events: none;
   }
 }
 

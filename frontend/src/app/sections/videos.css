@@ -1,7 +1,27 @@
 .videos {
+  position: relative;
   padding-block: var(--section-pad);
+  overflow: hidden;
+  isolation: isolate;
   background: var(--color-ink);
   color: var(--color-on-ink);
+}
+
+/* Destello rosa que sigue al mouse; muy tenue y con una entrada y salida lentas. */
+.videos__glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 40%), rgb(254 95 146 / 0.13), transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 900ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .videos:hover .videos__glow {
+    opacity: 1;
+  }
 }
 
 /* Lista a la izquierda y reproductor a la derecha; en celular, el reproductor va primero. */

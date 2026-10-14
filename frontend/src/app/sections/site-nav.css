@@ -181,10 +181,10 @@
   transition: transform 450ms var(--ease-out);
 }
 
-.nav.is-open .nav__burger-line:first-of-type {
+.nav.is-open .nav__burger-line:nth-child(2) {
   transform: translateY(4px) rotate(45deg);
 }
-.nav.is-open .nav__burger-line:last-of-type {
+.nav.is-open .nav__burger-line:nth-child(3) {
   transform: translateY(-4px) rotate(-45deg);
 }
 
@@ -214,6 +214,18 @@
   }
   .nav.is-open .nav__links {
     clip-path: inset(0 0 0 0);
+  }
+  /* Con backdrop-filter, el navbar se vuelve el contenedor de los elementos fijos y el menú
+     quedaba recortado a su altura. Abierto, el navbar es blanco sólido y sin desenfoque. */
+  .nav.is-open {
+    background: var(--color-white);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .nav__links {
+    height: calc(100dvh - 4rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
   .nav__links li {
     opacity: 0;

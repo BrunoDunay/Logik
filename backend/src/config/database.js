@@ -9,7 +9,8 @@ export const sequelize = new Sequelize(env.DATABASE_URL, {
     underscored: true,
     timestamps: true,
   },
-  pool: { max: 10, min: 0, idle: 10_000 },
+  // En Vercel cada instancia de la función abre sus propias conexiones: se mantienen pocas.
+  pool: { max: process.env.VERCEL ? 2 : 10, min: 0, idle: 10_000 },
 });
 
 export async function connectDatabase() {
