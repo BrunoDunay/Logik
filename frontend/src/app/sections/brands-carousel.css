@@ -1,0 +1,278 @@
+.brands {
+  padding-block: var(--section-pad);
+  overflow: hidden;
+  background: var(--color-white);
+}
+
+.brands__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-5);
+}
+
+.brands__nav {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.arrow {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border: 1.5px solid var(--color-ink);
+  border-radius: 50%;
+  background: var(--color-white);
+  color: var(--color-ink);
+  transition:
+    background-color var(--duration-fast) ease,
+    color var(--duration-fast) ease,
+    transform var(--duration-press) var(--ease-out);
+}
+
+.arrow svg {
+  width: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.arrow:active {
+  transform: scale(0.92);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .arrow:hover {
+    background: var(--color-ink);
+    color: var(--color-white);
+  }
+}
+
+/* ---- Pista ---- */
+.viewport {
+  --small: clamp(9rem, 15vw, 13rem);
+  --big: clamp(17rem, 30vw, 26rem);
+  --gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  margin-top: var(--space-7);
+  padding-inline: var(--gutter);
+  touch-action: pan-y;
+}
+
+@media (min-width: 1440px) {
+  .viewport {
+    padding-inline: calc((100vw - var(--max-width)) / 2);
+  }
+}
+
+.track {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--gap);
+  height: calc(var(--big) * 1.25);
+  transform: translateX(calc(var(--active) * (var(--small) + var(--gap)) * -1));
+  transition: transform 720ms var(--ease-in-out);
+}
+
+.brand {
+  flex: none;
+  width: var(--small);
+  height: 68%;
+  transition:
+    width 720ms var(--ease-in-out),
+    height 720ms var(--ease-in-out),
+    opacity 500ms ease;
+}
+
+.brand.is-active {
+  width: var(--big);
+  height: 100%;
+}
+
+.brand.is-past {
+  opacity: 0;
+}
+
+.brand__card {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--brand);
+  color: var(--color-white);
+  text-align: left;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition:
+    box-shadow var(--duration) ease,
+    transform var(--duration) var(--ease-out);
+}
+
+.brand.is-active .brand__card {
+  box-shadow: 0 40px 80px -30px color-mix(in srgb, var(--brand) 70%, black);
+  cursor: default;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .brand:not(.is-active) .brand__card:hover {
+    transform: translateY(-8px);
+  }
+  .brand:not(.is-active) .brand__card:hover .brand__photo {
+    transform: scale(1.08);
+  }
+}
+
+.brand__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 900ms var(--ease-out);
+}
+
+.brand.is-active .brand__photo {
+  transform: scale(1.04);
+}
+
+/* El color de la marca tiñe la foto: más intenso abajo para que se lea el texto. */
+.brand__tint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--brand) 45%, transparent) 0%, color-mix(in srgb, var(--brand) 80%, transparent) 55%, var(--brand) 100%);
+  transition: opacity 600ms ease;
+}
+
+.brand:not(.is-active) .brand__tint {
+  background: color-mix(in srgb, var(--brand) 72%, transparent);
+}
+
+.brand__logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 70%;
+  max-height: 38%;
+  object-fit: contain;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 6px 18px rgb(0 0 0 / 0.25));
+  transition:
+    top 720ms var(--ease-in-out),
+    width 720ms var(--ease-in-out),
+    transform 720ms var(--ease-in-out);
+}
+
+.brand.is-active .brand__logo {
+  top: 30%;
+  width: 58%;
+}
+
+.brand__info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-5);
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 400ms ease,
+    transform 500ms var(--ease-out);
+}
+
+.brand.is-active .brand__info {
+  opacity: 1;
+  transform: none;
+  transition-delay: 380ms;
+}
+
+.brand__category {
+  justify-self: start;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-pill);
+  background: rgb(255 255 255 / 0.2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.brand__name {
+  font-size: clamp(1.5rem, 2.4vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: var(--tracking-display);
+}
+
+.brand__desc {
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  color: rgb(255 255 255 / 0.9);
+}
+
+/* ---- Progreso y número, como en la referencia ---- */
+.brands__foot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-5);
+  margin-top: var(--space-6);
+}
+
+.progress {
+  position: relative;
+  width: min(16rem, 40vw);
+  height: 3px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--color-line);
+}
+
+.progress__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--color-pink-logo);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.progress__fill.is-running {
+  animation: progress 5200ms linear forwards;
+}
+
+@keyframes progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.count {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
+}
+
+.count strong {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--color-ink);
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .viewport {
+    --small: 6.5rem;
+    --big: min(74vw, 19rem);
+  }
+}

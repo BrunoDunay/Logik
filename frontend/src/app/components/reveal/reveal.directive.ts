@@ -1,7 +1,7 @@
 import { DestroyRef, Directive, ElementRef, afterNextRender, inject, input } from '@angular/core';
 
 /** Forma de aparecer: sube (por defecto), solo se desvanece, entra desde un lado o se acerca apenas. */
-export type RevealKind = '' | 'up' | 'fade' | 'left' | 'right' | 'zoom';
+export type RevealKind = '' | 'up' | 'fade' | 'left' | 'right' | 'zoom' | 'blur';
 
 /**
  * Aparición sutil al hacer scroll.

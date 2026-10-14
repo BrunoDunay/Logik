@@ -1,0 +1,212 @@
+.posts {
+  padding-block: var(--section-pad);
+  overflow: hidden;
+  background: var(--color-white);
+}
+
+/* Filtros en píldora, como en la referencia. */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+  margin: var(--space-6) auto 0;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  padding: 0 1.1rem;
+  border: 1.5px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition:
+    background-color var(--duration) ease,
+    border-color var(--duration) ease,
+    color var(--duration) ease,
+    transform var(--duration-press) var(--ease-out);
+}
+
+.chip:active {
+  transform: scale(0.96);
+}
+
+.chip__count {
+  display: grid;
+  place-items: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 0.35rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-blush);
+  color: var(--color-pink-deep);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  transition:
+    background-color var(--duration) ease,
+    color var(--duration) ease;
+}
+
+.chip.is-active {
+  border-color: var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-white);
+}
+
+.chip.is-active .chip__count {
+  background: var(--color-pink-logo);
+  color: var(--color-ink);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .chip:not(.is-active):hover {
+    border-color: var(--color-pink-logo);
+    color: var(--color-pink-deep);
+  }
+}
+
+/* ---- Escenario del carrusel ---- */
+.stage {
+  --card: clamp(15rem, 26vw, 22rem);
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: calc(var(--card) * 1.25 + 9rem);
+  margin-top: var(--space-7);
+  perspective: 1400px;
+  touch-action: pan-y;
+  outline-offset: -6px;
+}
+
+.center {
+  position: relative;
+  z-index: 10;
+  width: var(--card);
+  animation: center-in 520ms var(--ease-out);
+}
+
+@keyframes center-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(14px);
+  }
+}
+
+/* Tarjetas laterales: se alejan, giran y se encogen según su distancia a la central. */
+.side {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: calc(10 - var(--abs));
+  width: calc(var(--card) * 0.86);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--color-paper);
+  box-shadow: var(--shadow);
+  transform: translate(-50%, -50%) translateX(calc(var(--o) * var(--card) * 0.62)) rotateY(calc(var(--o) * -9deg))
+    scale(calc(1 - var(--abs) * 0.12));
+  opacity: calc(1 - var(--abs) * 0.22);
+  filter: saturate(calc(1 - var(--abs) * 0.18));
+  transition:
+    transform 560ms var(--ease-out),
+    opacity 560ms ease,
+    filter 560ms ease,
+    box-shadow var(--duration) ease;
+  cursor: pointer;
+}
+
+.side img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .side:hover {
+    opacity: 1;
+    filter: none;
+    box-shadow: var(--shadow-pink);
+    transform: translate(-50%, -50%) translateX(calc(var(--o) * var(--card) * 0.62)) rotateY(calc(var(--o) * -5deg))
+      scale(calc(1.03 - var(--abs) * 0.12));
+  }
+}
+
+@media (max-width: 640px) {
+  .stage {
+    --card: min(78vw, 20rem);
+  }
+  .side {
+    transform: translate(-50%, -50%) translateX(calc(var(--o) * var(--card) * 0.42)) scale(calc(1 - var(--abs) * 0.14));
+  }
+}
+
+/* ---- Controles ---- */
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-5);
+  margin-top: var(--space-5);
+}
+
+.arrow {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border: 1.5px solid var(--color-ink);
+  border-radius: 50%;
+  background: var(--color-white);
+  color: var(--color-ink);
+  transition:
+    background-color var(--duration-fast) ease,
+    color var(--duration-fast) ease,
+    transform var(--duration-press) var(--ease-out);
+}
+
+.arrow svg {
+  width: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform var(--duration) var(--ease-out);
+}
+
+.arrow:active {
+  transform: scale(0.92);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .arrow:hover {
+    background: var(--color-ink);
+    color: var(--color-white);
+  }
+  .arrow:first-child:hover svg {
+    transform: translateX(-3px);
+  }
+  .arrow:last-child:hover svg {
+    transform: translateX(3px);
+  }
+}
+
+.counter {
+  min-width: 4.5rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-soft);
+}
+
+.counter strong {
+  color: var(--color-ink);
+  font-size: var(--text-lg);
+}

@@ -1,0 +1,227 @@
+.services {
+  position: relative;
+  padding-block: var(--section-pad);
+  background: var(--color-blush);
+  overflow: hidden;
+}
+
+.list {
+  margin-top: var(--space-7);
+  border-top: 1.5px solid rgb(20 16 18 / 0.14);
+}
+
+.row {
+  position: relative;
+  border-bottom: 1.5px solid rgb(20 16 18 / 0.14);
+  isolation: isolate;
+}
+
+/* Al pasar el cursor, el rosa llena la fila desde la izquierda. */
+.row::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-pink);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.row.is-hovered::before,
+.row.is-open::before {
+  transform: scaleX(1);
+}
+
+.row__head {
+  display: grid;
+  grid-template-columns: 3rem 1fr auto;
+  grid-template-areas: 'num title plus' 'num summary plus';
+  align-items: center;
+  gap: 0.15rem var(--space-4);
+  width: 100%;
+  min-height: 5.5rem;
+  padding: var(--space-4) var(--space-3);
+  border: 0;
+  background: none;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (min-width: 900px) {
+  .row__head {
+    grid-template-columns: 4rem minmax(0, 1.1fr) minmax(0, 1fr) 3rem;
+    grid-template-areas: 'num title summary plus';
+    min-height: 6.5rem;
+  }
+}
+
+.row__num {
+  grid-area: num;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-pink-deep);
+  font-variant-numeric: tabular-nums;
+  transition: color var(--duration) ease;
+}
+
+.row__title {
+  grid-area: title;
+  font-size: clamp(1.35rem, 2.4vw, 2.3rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: var(--tracking-display);
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.row__summary {
+  grid-area: summary;
+  color: var(--color-text-soft);
+  font-size: var(--text-sm);
+  transition: color var(--duration) ease;
+}
+
+.row.is-hovered .row__title,
+.row.is-open .row__title {
+  transform: translateX(10px);
+}
+
+.row.is-hovered .row__num,
+.row.is-open .row__num,
+.row.is-hovered .row__summary,
+.row.is-open .row__summary {
+  color: var(--color-ink);
+}
+
+/* El "+" gira y se vuelve "×" al abrir. */
+.row__plus {
+  grid-area: plus;
+  position: relative;
+  justify-self: end;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--color-white);
+  transition:
+    transform var(--duration) var(--ease-spring),
+    background-color var(--duration) ease;
+}
+
+.row__plus::before,
+.row__plus::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 2px;
+  margin: -1px 0 0 -7px;
+  border-radius: 2px;
+  background: var(--color-ink);
+  transition: background-color var(--duration) ease;
+}
+
+.row__plus::after {
+  transform: rotate(90deg);
+}
+
+.row.is-open .row__plus {
+  transform: rotate(135deg);
+  background: var(--color-ink);
+}
+
+.row.is-open .row__plus::before,
+.row.is-open .row__plus::after {
+  background: var(--color-white);
+}
+
+.row__body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-slow) var(--ease-out);
+}
+
+.row.is-open .row__body {
+  grid-template-rows: 1fr;
+}
+
+.row__inner {
+  display: grid;
+  gap: var(--space-4);
+  overflow: hidden;
+  padding-inline: var(--space-3);
+}
+
+.row__inner p {
+  max-width: 42rem;
+  padding-bottom: var(--space-5);
+  font-size: var(--text-lg);
+  line-height: 1.5;
+}
+
+.row__photo {
+  width: min(100%, 22rem);
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+@media (min-width: 900px) {
+  .row__inner {
+    grid-template-columns: 4rem 1fr;
+  }
+  .row__inner p {
+    grid-column: 2;
+  }
+  /* En escritorio la foto ya la muestra el cursor; dentro del detalle no se repite. */
+  .row__photo {
+    display: none;
+  }
+}
+
+/* Foto que sigue al cursor. */
+.cursor-photo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
+  width: 15rem;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+  opacity: 0;
+  scale: 0.8;
+  rotate: -4deg;
+  transition:
+    opacity var(--duration) ease,
+    scale var(--duration) var(--ease-spring),
+    rotate var(--duration-slow) var(--ease-out);
+}
+
+.cursor-photo.is-on {
+  opacity: 1;
+  scale: 1;
+  rotate: 3deg;
+}
+
+.cursor-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--duration) ease;
+}
+
+.cursor-photo img.is-current {
+  opacity: 1;
+}
+
+@media (hover: none), (max-width: 899px) {
+  .cursor-photo {
+    display: none;
+  }
+}

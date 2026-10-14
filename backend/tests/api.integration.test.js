@@ -26,7 +26,8 @@ describe.skipIf(!enabled)('API', () => {
     const res = await request(app).get('/api/settings');
     expect(res.status).toBe(200);
     expect(res.body.brand.phrase).toBe('No hacemos magia, hacemos marketing.');
-    expect(res.body.packages.price).toBe('$2,499');
+    expect(res.body.packages.items[0].price).toBe('$2,499');
+    expect(res.body.results.cases.map((c) => c.id)).toEqual(['techani', 'gase', 'clinicas', 'meta']);
   });
 
   it('exige sesión para editar', async () => {

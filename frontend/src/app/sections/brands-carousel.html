@@ -1,0 +1,57 @@
+@let c = content();
+
+<section class="brands" id="marcas" aria-labelledby="brands-title">
+  <div class="wrap brands__head">
+    <app-section-heading [title]="c.title" [script]="c.script" [intro]="c.intro" headingId="brands-title" />
+    <div class="brands__nav" appReveal>
+      <button type="button" class="arrow" aria-label="Marca anterior" (click)="go(index() - 1)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H6m5-6-6 6 6 6" /></svg>
+      </button>
+      <button type="button" class="arrow" aria-label="Marca siguiente" (click)="go(index() + 1)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13m-5-6 6 6-6 6" /></svg>
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="viewport"
+    role="region"
+    aria-roledescription="carrusel"
+    aria-label="Marcas con las que trabajamos"
+    (pointerenter)="pause(true)"
+    (pointerleave)="pause(false)"
+    (focusin)="pause(true)"
+    (focusout)="pause(false)"
+    (pointerdown)="down($event)"
+    (pointerup)="up($event)"
+  >
+    <ul class="track" role="list" [style.--active]="index()">
+      @for (b of c.items; track b.name; let i = $index) {
+        <li class="brand" [class.is-active]="i === index()" [class.is-past]="i < index()" [style.--brand]="b.color">
+          <button type="button" class="brand__card" [attr.aria-current]="i === index() ? 'true' : null" [attr.aria-label]="b.name" (click)="go(i)">
+            <img class="brand__photo" [src]="b.photo" alt="" width="720" height="900" loading="lazy" decoding="async" />
+            <span class="brand__tint" aria-hidden="true"></span>
+            <img class="brand__logo" [src]="b.logo" [alt]="'Logotipo de ' + b.name" loading="lazy" decoding="async" />
+            <span class="brand__info">
+              <span class="brand__category">{{ b.category }}</span>
+              <span class="brand__name">{{ b.name }}</span>
+              <span class="brand__desc">{{ b.description }}</span>
+            </span>
+          </button>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <div class="wrap brands__foot">
+    <div class="progress" aria-hidden="true">
+      @for (k of [cycle()]; track k) {
+        <span class="progress__fill" [class.is-running]="autoplay() && !paused()"></span>
+      }
+    </div>
+    <p class="count" aria-live="polite">
+      <strong>{{ pad(index() + 1) }}</strong>
+      <span>/ {{ pad(total()) }}</span>
+    </p>
+  </div>
+</section>

@@ -1,0 +1,242 @@
+:host {
+  display: block;
+}
+
+.hero {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+  padding: 6rem var(--gutter) 5rem;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--color-ink);
+  color: var(--color-on-ink);
+}
+
+/* Luz suave desde arriba, como en la referencia; respira muy lento. */
+.hero__light {
+  position: absolute;
+  inset: -20% -10% auto;
+  height: 95%;
+  z-index: -1;
+  background: radial-gradient(ellipse 50% 55% at 50% 30%, rgb(255 255 255 / 0.11), transparent 70%),
+    radial-gradient(ellipse 35% 40% at 50% 60%, rgb(254 95 146 / 0.16), transparent 70%);
+  animation: hero-breathe 9s ease-in-out infinite;
+}
+
+/* Semitono de sus publicaciones, muy tenue. */
+.hero__dots {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(circle, rgb(254 95 146 / 0.16) 1.2px, transparent 1.6px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 55%, #000 10%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 55%, #000 10%, transparent 75%);
+  opacity: 0.6;
+}
+
+@keyframes hero-breathe {
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+.hero__center {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: clamp(1.25rem, 2.6vw, 2.25rem);
+  width: 100%;
+  text-align: center;
+}
+
+.hero__kicker {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-on-ink-soft);
+}
+
+.hero__logo {
+  width: min(82vw, 980px);
+  margin: 0;
+  cursor: default;
+}
+
+.hero__spark {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  border-radius: 50%;
+  background: var(--color-pink-logo);
+  box-shadow: 0 0 40px 14px rgb(254 95 146 / 0.65);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero__subtitle {
+  max-width: 34rem;
+  font-size: var(--text-lg);
+  font-weight: 300;
+  color: var(--color-on-ink-soft);
+}
+
+.hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 3.25rem;
+  padding: 0 1.6rem 0 1.8rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  color: var(--color-ink);
+  font-weight: 600;
+  transition:
+    background-color var(--duration-fast) ease,
+    color var(--duration-fast) ease,
+    transform var(--duration-press) var(--ease-out),
+    box-shadow var(--duration) var(--ease-out);
+}
+
+.hero__cta app-icon {
+  transition: transform var(--duration) var(--ease-out);
+}
+
+.hero__cta:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero__cta:hover {
+    background: var(--color-pink-logo);
+    box-shadow: var(--shadow-pink);
+  }
+  .hero__cta:hover app-icon {
+    transform: translateX(4px);
+  }
+}
+
+/* Redes en vertical a la izquierda y "Scroll" a la derecha, como en la referencia. */
+.hero__socials {
+  position: absolute;
+  left: var(--gutter);
+  bottom: 3rem;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.hero__socials a {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  color: var(--color-on-ink-soft);
+  transition:
+    color var(--duration-fast) ease,
+    background-color var(--duration-fast) ease,
+    transform var(--duration) var(--ease-spring);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero__socials a:hover {
+    color: var(--color-ink);
+    background: var(--color-pink-logo);
+    transform: translateX(4px) scale(1.06);
+  }
+}
+
+.hero__location {
+  position: absolute;
+  left: 50%;
+  bottom: 2.2rem;
+  transform: translateX(-50%);
+  font-size: var(--text-xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-on-ink-soft);
+  white-space: nowrap;
+}
+
+.hero__scroll {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 3rem;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  min-width: 2.75rem;
+  font-size: var(--text-xs);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-on-ink-soft);
+  writing-mode: vertical-rl;
+  transition: color var(--duration-fast) ease;
+}
+
+.hero__scroll-line {
+  position: relative;
+  width: 1px;
+  height: 4.5rem;
+  overflow: hidden;
+  background: rgb(255 255 255 / 0.18);
+}
+
+.hero__scroll-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-pink-logo);
+  animation: scroll-line 2.2s var(--ease-in-out) infinite;
+}
+
+@keyframes scroll-line {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%,
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero__scroll:hover {
+    color: var(--color-pink-logo);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero__socials {
+    bottom: 2rem;
+  }
+  .hero__scroll {
+    bottom: 2rem;
+  }
+  .hero__location {
+    bottom: 1rem;
+  }
+}
+
+/* Antes de que corra la intro, el logo queda "sin dibujar" para que no parpadee. */
+:host-context(html.intro-pending) .hero__logo ::ng-deep .logo__letter {
+  fill-opacity: 0;
+}
+:host-context(html.intro-pending) .hero__logo ::ng-deep .logo__arrow-wrap {
+  opacity: 0;
+}
+:host-context(html.intro-pending) .hero__logo ::ng-deep .logo__sub {
+  opacity: 0;
+}

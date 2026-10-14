@@ -1,0 +1,197 @@
+:host {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: var(--z-nav);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  padding: 0.9rem var(--gutter);
+  color: var(--color-on-ink);
+  transition:
+    background-color var(--duration) ease,
+    color var(--duration) ease,
+    box-shadow var(--duration) ease,
+    padding var(--duration) var(--ease-out);
+}
+
+.nav.is-solid {
+  padding-block: 0.6rem;
+  background: rgb(255 255 255 / 0.94);
+  color: var(--color-ink);
+  box-shadow: 0 1px 0 var(--color-line), 0 10px 30px -22px rgb(20 16 18 / 0.5);
+  -webkit-backdrop-filter: saturate(1.4) blur(12px);
+  backdrop-filter: saturate(1.4) blur(12px);
+}
+
+.nav__brand {
+  display: block;
+  width: 6.5rem;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity var(--duration) ease,
+    transform var(--duration) var(--ease-out);
+}
+
+/* El logo pequeño solo aparece cuando el grande del hero ya no se ve. */
+.nav.is-solid .nav__brand {
+  opacity: 1;
+  transform: none;
+}
+
+.nav__links {
+  display: none;
+  gap: clamp(1rem, 2vw, 2rem);
+  margin-left: auto;
+}
+
+.nav__links a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: color var(--duration-fast) ease;
+}
+
+/* Subrayado rosa que crece desde el centro. */
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.45rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-pink-logo);
+  transform: scaleX(0);
+  transition: transform var(--duration) var(--ease-out);
+}
+
+.nav__links a.is-active::after {
+  transform: scaleX(1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav__links a:hover {
+    color: var(--color-pink-logo);
+  }
+  .nav__links a:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+.nav__cta {
+  display: none;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 1.25rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-pink-logo);
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transition:
+    transform var(--duration-press) var(--ease-out),
+    background-color var(--duration-fast) ease,
+    color var(--duration-fast) ease;
+}
+
+.nav__cta:active {
+  transform: scale(0.96);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav__cta:hover {
+    background: var(--color-ink);
+    color: var(--color-white);
+  }
+  .nav:not(.is-solid) .nav__cta:hover {
+    background: var(--color-white);
+    color: var(--color-ink);
+  }
+}
+
+.nav__burger {
+  position: relative;
+  display: grid;
+  place-content: center;
+  gap: 6px;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-left: auto;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+}
+
+.nav__burger-line {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform var(--duration) var(--ease-out);
+}
+
+.nav.is-open .nav__burger-line:first-of-type {
+  transform: translateY(4px) rotate(45deg);
+}
+.nav.is-open .nav__burger-line:last-of-type {
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+@media (min-width: 1080px) {
+  .nav__links,
+  .nav__cta {
+    display: flex;
+  }
+  .nav__burger {
+    display: none;
+  }
+}
+
+/* Menú de celular: pantalla completa y enlaces grandes que entran en cascada. */
+@media (max-width: 1079px) {
+  .nav__links {
+    position: fixed;
+    inset: 4rem 0 0;
+    display: grid;
+    align-content: start;
+    gap: var(--space-2);
+    margin: 0;
+    padding: var(--space-6) var(--gutter);
+    background: var(--color-white);
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path var(--duration-slow) var(--ease-in-out);
+  }
+  .nav.is-open .nav__links {
+    clip-path: inset(0 0 0 0);
+  }
+  .nav__links li {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity var(--duration) var(--ease-out),
+      transform var(--duration) var(--ease-out);
+  }
+  .nav.is-open .nav__links li {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(120ms + var(--i) * 50ms);
+  }
+  .nav__links a {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: var(--tracking-display);
+    color: var(--color-ink);
+  }
+  .nav__links a::after {
+    bottom: 0.2rem;
+  }
+}

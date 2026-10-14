@@ -1,0 +1,51 @@
+<div class="panel">
+  <aside class="side">
+    <a class="side__brand" routerLink="/" aria-label="Ver el sitio"><app-logo /></a>
+    <p class="side__hello">Hola, {{ auth.admin()?.name ?? 'Logik' }}</p>
+    <nav class="side__nav" aria-label="Secciones del sitio">
+      @for (s of sections; track s.key) {
+        <button type="button" class="side__item" [class.is-active]="s.key === selected()" (click)="select(s.key)">
+          <strong>{{ s.label }}</strong>
+          <span>{{ s.hint }}</span>
+        </button>
+      }
+    </nav>
+    <div class="side__foot">
+      <a routerLink="/" class="side__link">Ver el sitio ↗</a>
+      <button type="button" class="side__link" (click)="auth.logout()">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <main class="editor">
+    @for (k of [selected()]; track k) {
+      <header class="editor__head">
+        <div>
+          <h1>{{ current().label }}</h1>
+          <p>{{ current().hint }}. Los textos admiten <strong>**negritas**</strong>.</p>
+        </div>
+        <button type="button" class="save" [disabled]="saving() || !dirty()" (click)="save()">
+          {{ saving() ? 'Guardando…' : dirty() ? 'Guardar cambios' : 'Sin cambios' }}
+        </button>
+      </header>
+
+      @if (message(); as m) {
+        <div class="alert" [class.is-error]="m.kind === 'error'" role="status">
+          <p>{{ m.text }}</p>
+          @if (fieldErrors().length) {
+            <ul>
+              @for (e of fieldErrors(); track e.path) {
+                <li><code>{{ e.path }}</code>: {{ e.text }}</li>
+              }
+            </ul>
+          }
+        </div>
+      }
+
+      <div class="editor__fields">
+        @for (key of keys(); track key) {
+          <app-json-field [parent]="$any(draft)" [key]="key" (changed)="dirty.set(true); message.set(null)" />
+        }
+      </div>
+    }
+  </main>
+</div>

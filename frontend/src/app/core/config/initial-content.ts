@@ -9,280 +9,1075 @@ export const INITIAL_CONTENT: SiteSettings = {
     "phrase": "No hacemos magia, hacemos marketing."
   },
   "hero": {
-    "titleStart": "No hacemos magia,",
-    "titleEnd": "hacemos marketing.",
-    "subtitle": "Agencia de marketing digital en Aguascalientes. Redes, contenido y campañas de Meta para pymes de todo México.",
+    "kicker": "Agencia de marketing digital",
+    "subtitle": "Redes, contenido y campañas para pymes de todo México.",
     "ctaLabel": "Agenda tu consulta gratis",
-    "facts": [
-      "6 años",
-      "+70 clientes",
-      "Equipo a nivel nacional"
-    ],
-    "reelVideo": "/media/hero/reel.mp4",
-    "reelPoster": "/media/hero/reel.webp",
-    "reelAlt": "Grabación de contenido en el estudio de Logik"
+    "location": "Aguascalientes, México"
   },
-  "results": {
-    "title": "Así amanecemos casi a diario.",
-    "annotation": "¡resultados reales!",
-    "intro": "Son notificaciones de Meta Ads de campañas de nuestros clientes, tal como las compartimos en nuestras historias.",
-    "notifications": [
+  "about": {
+    "lead": "No hacemos magia,",
+    "accent": "hacemos",
+    "script": "Marketing",
+    "summary": "Somos una agencia **100 % digital** de Aguascalientes. Planeamos, creamos, anunciamos y medimos para que tu marca crezca con estrategia, no con suerte.",
+    "more": "Trabajamos con pequeñas y medianas empresas de Aguascalientes, Chihuahua, Zacatecas, Guanajuato, CDMX y Jalisco. Cada proyecto empieza con un análisis de tu negocio y tu competencia; después diseñamos el contenido en nuestro estudio, lanzamos campañas con un presupuesto claro y cada mes te entregamos un reporte con lo que funcionó.",
+    "image": "/media/v2/equipo/fundadoras.webp",
+    "imageAlt": "Diana Maldonado y Abigail Alcántara, directoras de Logik",
+    "stats": [
       {
-        "percent": 97,
-        "time": "hace 9 min"
+        "value": 6,
+        "prefix": "",
+        "suffix": " años",
+        "label": "haciendo crecer marcas"
       },
       {
-        "percent": 96,
-        "time": "hace 37 min"
+        "value": 70,
+        "prefix": "+",
+        "suffix": "",
+        "label": "clientes en México"
       },
       {
-        "percent": 85,
-        "time": "12:59 a. m."
-      },
-      {
-        "percent": 64,
-        "time": "ahora"
-      },
-      {
-        "percent": 41,
-        "time": "hace 2 h"
-      }
-    ],
-    "highlight": {
-      "value": "+200",
-      "label": "mensajes al mes, a menos de **$8** cada uno",
-      "note": "Dos clínicas de Aguascalientes, campañas de agosto y septiembre."
-    },
-    "estimator": {
-      "title": "¿Cuántos mensajes te daría tu presupuesto?",
-      "minCost": 7,
-      "maxCost": 14,
-      "minBudget": 1000,
-      "maxBudget": 15000,
-      "step": 500,
-      "defaultBudget": 3000,
-      "note": "Estimación con el costo por conversación de campañas reales de Logik ($7 a $14). Cada giro es distinto.",
-      "ctaLabel": "Quiero esos mensajes"
-    },
-    "isProvisional": true
-  },
-  "services": {
-    "title": "Todo tu marketing, en un solo equipo.",
-    "items": [
-      {
-        "title": "Manejo de redes",
-        "description": "Facebook, Instagram y TikTok con **calendario mensual**, publicaciones, historias y respuesta a tu comunidad.",
-        "image": "/media/servicios/redes.webp",
-        "imageAlt": "Publicaciones de Logik para sus clientes"
-      },
-      {
-        "title": "Contenido y fotografía",
-        "description": "Grabamos reels y hacemos **fotografía de producto** en nuestro estudio o en tu negocio.",
-        "image": "/media/servicios/fotografia.webp",
-        "imageAlt": "Fotografía de producto: helado de Techani"
-      },
-      {
-        "title": "Campañas de publicidad",
-        "description": "Meta, Google y TikTok Ads con planeación de medios y **optimización semanal**. Certificadas por Meta.",
-        "image": "/media/servicios/campanas.webp",
-        "imageAlt": "Revisión de una campaña en el administrador de anuncios de Meta"
-      },
-      {
-        "title": "Identidad de marca",
-        "description": "Logotipo, naming y **manual de identidad** para que tu marca se vea igual en todos lados.",
-        "image": "/media/servicios/identidad.webp",
-        "imageAlt": "Diseños de marca hechos por Logik"
-      },
-      {
-        "title": "Páginas web y landing pages",
-        "description": "Sitios rápidos para tus campañas, con **pixel de Meta y botón de WhatsApp**, para que cada anuncio termine en una venta.",
-        "image": "/media/servicios/web.webp",
-        "imageAlt": "Equipo de Logik trabajando en una laptop"
-      },
-      {
-        "title": "Asesoría mercadológica",
-        "description": "Análisis situacional, **FODA** y estrategia para saber a quién hablarle y cómo.",
-        "image": "/media/servicios/asesoria.webp",
-        "imageAlt": "Reunión de planeación en la oficina de Logik"
+        "value": 10,
+        "prefix": "",
+        "suffix": "",
+        "label": "servicios bajo un mismo techo"
       }
     ]
   },
-  "showcase": {
-    "title": "Más de 70 marcas.",
-    "video": "/media/showcase/marcas.mp4",
-    "poster": "/media/showcase/marcas.webp",
-    "caption": "Ya crecen con nosotras, de Aguascalientes a todo México."
-  },
-  "work": {
-    "lead": "Hemos hecho crecer",
-    "items": [
+  "results": {
+    "title": "Resultados que",
+    "script": "se miden",
+    "intro": "Gráficas reales de campañas de nuestros clientes. Pasa el cursor para ver el detalle.",
+    "cases": [
       {
-        "name": "Hampton by Hilton",
-        "image": "/media/trabajo/hampton.webp"
+        "id": "techani",
+        "tab": "Techani",
+        "client": "Techani · Heladería artesanal",
+        "headline": "+67 % de resultados con la mitad del presupuesto",
+        "summary": "Antes de Logik invertían en anuncios con pocos resultados y a costos altos.",
+        "more": "Optimizamos sus campañas de interacción en Facebook e Instagram: en abril lograron 2,686 interacciones a $0.37 cada una, y en junio–julio de 2021, 3,385 interacciones a solo $0.12.",
+        "chart": {
+          "kind": "area",
+          "title": "Alcance diario de sus publicaciones",
+          "unit": "personas al día",
+          "note": "Leído de la gráfica de Meta Business Suite de Techani (promedio mensual), jun 2020 – abr 2022.",
+          "markerIndex": 4,
+          "markerLabel": "Llega Logik",
+          "points": [
+            {
+              "label": "jun 2020",
+              "value": 0,
+              "peak": 0
+            },
+            {
+              "label": "jul 2020",
+              "value": 0,
+              "peak": 0
+            },
+            {
+              "label": "ago 2020",
+              "value": 0,
+              "peak": 0
+            },
+            {
+              "label": "sep 2020",
+              "value": 0,
+              "peak": 0
+            },
+            {
+              "label": "oct 2020",
+              "value": 1540,
+              "peak": 7060
+            },
+            {
+              "label": "nov 2020",
+              "value": 960,
+              "peak": 6870
+            },
+            {
+              "label": "dic 2020",
+              "value": 2390,
+              "peak": 3780
+            },
+            {
+              "label": "ene 2021",
+              "value": 5820,
+              "peak": 7820
+            },
+            {
+              "label": "feb 2021",
+              "value": 2330,
+              "peak": 3540
+            },
+            {
+              "label": "mar 2021",
+              "value": 2780,
+              "peak": 5600
+            },
+            {
+              "label": "abr 2021",
+              "value": 4790,
+              "peak": 7180
+            },
+            {
+              "label": "may 2021",
+              "value": 4660,
+              "peak": 5930
+            },
+            {
+              "label": "jun 2021",
+              "value": 6130,
+              "peak": 8250
+            },
+            {
+              "label": "jul 2021",
+              "value": 5480,
+              "peak": 7440
+            },
+            {
+              "label": "ago 2021",
+              "value": 3420,
+              "peak": 7750
+            },
+            {
+              "label": "sep 2021",
+              "value": 5390,
+              "peak": 7920
+            },
+            {
+              "label": "oct 2021",
+              "value": 7710,
+              "peak": 12440
+            },
+            {
+              "label": "nov 2021",
+              "value": 4070,
+              "peak": 7250
+            },
+            {
+              "label": "dic 2021",
+              "value": 5140,
+              "peak": 10360
+            },
+            {
+              "label": "ene 2022",
+              "value": 9770,
+              "peak": 10100
+            },
+            {
+              "label": "feb 2022",
+              "value": 9710,
+              "peak": 10050
+            },
+            {
+              "label": "mar 2022",
+              "value": 8760,
+              "peak": 9290
+            },
+            {
+              "label": "abr 2022",
+              "value": 9080,
+              "peak": 13426
+            }
+          ],
+          "steps": [],
+          "items": []
+        },
+        "kpis": [
+          {
+            "value": 67,
+            "prefix": "+",
+            "suffix": " %",
+            "label": "resultados",
+            "detail": "Con la mitad del presupuesto anterior."
+          },
+          {
+            "value": 100,
+            "prefix": "+",
+            "suffix": " %",
+            "label": "alcance",
+            "detail": "Más del doble de personas vieron sus publicaciones."
+          },
+          {
+            "value": 95,
+            "prefix": "+",
+            "suffix": " %",
+            "label": "interacción",
+            "detail": "Y sigue creciendo."
+          }
+        ]
       },
       {
-        "name": "Techani",
-        "image": "/media/trabajo/techani.webp"
+        "id": "gase",
+        "tab": "GASE Dental",
+        "client": "GASE Dental Group · Clínica dental",
+        "headline": "De 72 mil personas alcanzadas a 5 citas en un mes",
+        "summary": "Una campaña de mensajes para la Dra. Xochitl Serna.",
+        "more": "Los pacientes escribieron por Messenger y WhatsApp: \"Hoy agendamos a 1 persona más\", \"Ya cayó la primera cita\", \"Pudimos agendar 4 pacientes\".",
+        "chart": {
+          "kind": "steps",
+          "title": "Del anuncio a la cita",
+          "unit": "",
+          "note": "Resultados de un mes de campaña compartidos por la clínica.",
+          "markerIndex": null,
+          "markerLabel": null,
+          "points": [],
+          "steps": [
+            {
+              "label": "Personas alcanzadas",
+              "value": 72000,
+              "detail": "Vieron la campaña al menos una vez."
+            },
+            {
+              "label": "Seguidores nuevos",
+              "value": 166,
+              "detail": "Se quedaron siguiendo la página."
+            },
+            {
+              "label": "Mensajes",
+              "value": 141,
+              "detail": "Escribieron para pedir información."
+            },
+            {
+              "label": "Citas agendadas",
+              "value": 5,
+              "detail": "Pacientes nuevos en la agenda."
+            }
+          ],
+          "items": []
+        },
+        "kpis": []
       },
       {
-        "name": "GASE Dental Group",
-        "image": "/media/trabajo/gase.webp"
+        "id": "clinicas",
+        "tab": "Clínicas",
+        "client": "Clínicas y consultorios",
+        "headline": "Más de 200 mensajes al mes, a menos de $8 cada uno",
+        "summary": "Campañas de mensajes para doctoras de Aguascalientes.",
+        "more": "En el primer mes de redes de una tricóloga capilar: +510 seguidores, más de 86 mil personas alcanzadas, más de 2,800 visitas al perfil y 188 mensajes.",
+        "chart": {
+          "kind": "bars",
+          "title": "Costo por conversación de WhatsApp",
+          "unit": "MXN por conversación",
+          "note": "Datos del administrador de anuncios de Meta, 2025.",
+          "markerIndex": null,
+          "markerLabel": null,
+          "points": [],
+          "steps": [],
+          "items": [
+            {
+              "label": "Doctora · campaña A",
+              "value": 6.8,
+              "detail": "254 conversaciones · ago–sep"
+            },
+            {
+              "label": "Campaña DEL",
+              "value": 7.34,
+              "detail": "177 conversaciones · dic, $1,300"
+            },
+            {
+              "label": "Doctora · campaña B",
+              "value": 7.72,
+              "detail": "232 conversaciones · ago–sep"
+            },
+            {
+              "label": "Campaña CH",
+              "value": 9.77,
+              "detail": "133 conversaciones · dic, $1,300"
+            },
+            {
+              "label": "Tricóloga · primer mes",
+              "value": 14,
+              "detail": "188 mensajes en su primer mes"
+            }
+          ]
+        },
+        "kpis": [
+          {
+            "value": 200,
+            "prefix": "+",
+            "suffix": "",
+            "label": "mensajes al mes",
+            "detail": "Dos doctoras, campañas de agosto y septiembre."
+          },
+          {
+            "value": 8,
+            "prefix": "<$",
+            "suffix": "",
+            "label": "por conversación",
+            "detail": "El costo más bajo fue de $6.80."
+          }
+        ]
       },
       {
-        "name": "Secret Plus",
-        "image": "/media/trabajo/secret-plus.webp"
-      },
-      {
-        "name": "Desperrucados",
-        "image": "/media/trabajo/desperrucados.webp"
-      },
-      {
-        "name": "Novedades y Cosméticos",
-        "image": "/media/trabajo/novedades.webp"
-      },
-      {
-        "name": "Li-Kaan",
-        "image": "/media/trabajo/li-kaan.webp"
-      },
-      {
-        "name": "Glüu",
-        "image": "/media/trabajo/gluu.webp"
-      },
-      {
-        "name": "Plan B",
-        "image": "/media/trabajo/plan-b.webp"
-      },
-      {
-        "name": "Olaya",
-        "image": null
-      },
-      {
-        "name": "Shekinah Amma",
-        "image": null
-      },
-      {
-        "name": "Pepe's Burgers",
-        "image": null
-      },
-      {
-        "name": "La Patrona",
-        "image": null
-      },
-      {
-        "name": "Camelia",
-        "image": null
-      },
-      {
-        "name": "Holistik",
-        "image": null
-      },
-      {
-        "name": "Sr. Sorbete",
-        "image": null
+        "id": "meta",
+        "tab": "Meta Ads",
+        "client": "Notificaciones de Meta Ads",
+        "headline": "Hasta 97 % más barato que negocios similares",
+        "summary": "Así amanecemos casi a diario: Meta nos avisa que los anuncios de nuestros clientes cuestan menos que los de la competencia.",
+        "more": "Cada punto es una notificación real de \"Tu anuncio tiene buen rendimiento\" que compartimos en nuestras historias de Resultados.",
+        "chart": {
+          "kind": "dots",
+          "title": "Costo por resultado más bajo que el de negocios similares",
+          "unit": "% más bajo",
+          "note": "Notificaciones de Meta Ads de campañas de clientes, 2024–2026.",
+          "markerIndex": null,
+          "markerLabel": null,
+          "points": [],
+          "steps": [],
+          "items": [
+            {
+              "label": "Notificación",
+              "value": 97,
+              "detail": "Anuncios un 97 % más bajos que los similares"
+            },
+            {
+              "label": "Notificación",
+              "value": 97,
+              "detail": "De nuevo, 97 %"
+            },
+            {
+              "label": "Notificación",
+              "value": 96,
+              "detail": "Amanecimos con esta notificación"
+            },
+            {
+              "label": "Notificación",
+              "value": 96,
+              "detail": "\"Algo bien\""
+            },
+            {
+              "label": "Notificación",
+              "value": 85,
+              "detail": "12:59 a. m."
+            },
+            {
+              "label": "Notificación",
+              "value": 84,
+              "detail": "Your ad is performing well"
+            },
+            {
+              "label": "Notificación",
+              "value": 81,
+              "detail": "Terminando la noche con algo bien"
+            },
+            {
+              "label": "Recomendación",
+              "value": 64,
+              "detail": "Conjunto ene–feb 2025"
+            },
+            {
+              "label": "Notificación",
+              "value": 64,
+              "detail": "Empezando bien el día"
+            },
+            {
+              "label": "Recomendación",
+              "value": 60,
+              "detail": "Comenzando bien el día"
+            },
+            {
+              "label": "Recomendación",
+              "value": 59,
+              "detail": "Certificación, dic 2024"
+            },
+            {
+              "label": "Notificación",
+              "value": 56,
+              "detail": "Amanecimos con esta notificación"
+            },
+            {
+              "label": "Recomendación",
+              "value": 41,
+              "detail": "Cerrando la semana con algo bien"
+            },
+            {
+              "label": "Recomendación",
+              "value": 40,
+              "detail": "Conjunto ene–feb 2025"
+            },
+            {
+              "label": "Recomendación",
+              "value": 18,
+              "detail": "Campaña ene–feb 2025"
+            }
+          ]
+        },
+        "kpis": []
       }
     ],
-    "note": "Más de 70 marcas en Aguascalientes, Chihuahua, Zacatecas, Guanajuato, CDMX y Jalisco, desde 2020.",
     "isProvisional": true
   },
-  "process": {
-    "steps": [
+  "posts": {
+    "title": "Contenido para",
+    "script": "todo tipo de marcas",
+    "intro": "Desliza y mira cómo se ve cada diseño publicado en Instagram.",
+    "categories": [
       {
-        "verb": "Analizamos",
-        "text": "Revisamos tu negocio, tu competencia y tus números antes de publicar nada.",
-        "image": "/media/proceso/analizamos.webp",
-        "imageAlt": "El equipo de Logik en una reunión de planeación"
+        "id": "logik",
+        "label": "Logik"
       },
       {
-        "verb": "Creamos",
-        "text": "Grabamos y diseñamos en nuestro estudio, con un calendario aprobado por ti.",
-        "image": "/media/proceso/creamos.webp",
-        "imageAlt": "Grabación con aros de luz en el estudio de Logik"
+        "id": "gastronomia",
+        "label": "Gastronomía"
       },
       {
-        "verb": "Anunciamos",
-        "text": "Lanzamos campañas con un presupuesto claro y las optimizamos cada semana.",
-        "image": "/media/proceso/anunciamos.webp",
-        "imageAlt": "Laptop con el administrador de anuncios abierto"
+        "id": "salud",
+        "label": "Salud"
       },
       {
-        "verb": "Medimos",
-        "text": "Cada mes recibes un reporte con lo que funcionó y lo que vamos a mejorar.",
-        "image": "/media/proceso/medimos.webp",
-        "imageAlt": "Reporte mensual de resultados en una tableta"
+        "id": "belleza",
+        "label": "Belleza"
+      },
+      {
+        "id": "turismo",
+        "label": "Turismo y hoteles"
+      },
+      {
+        "id": "servicios",
+        "label": "Servicios"
+      }
+    ],
+    "items": [
+      {
+        "image": "/media/v2/posts/logik-015.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "Ser mercadólogo hoy va mucho más allá de la creatividad. 💻\n\n🚀 Implica analizar datos, entender consumidor y ejecutar estrategia que genera resultados. Hoy se reconoce a quienes convierten información en estrategia y estrategia en crecimiento.\n\nFeliz Día del Mercadólogo. 🩷\n\n#DiaDelMercadologo #MarketingDigital #Aguascalientes #LogikMarketing #MarketingMexico",
+        "permalink": "https://www.instagram.com/logikmkt/p/DYhddY6id3e/"
+      },
+      {
+        "image": "/media/v2/posts/logik-017.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "🌟 Hoy celebramos el esfuerzo que construye grandes resultados.\nPero en marketing, no gana quien más hace… gana quien lo hace con estrategia. ¡Feliz Día del Trabajo! 🩷\n\nHoy también es momento de trabajar mejor en tu marca.\n📩 Convierte tu contenido en resultados, contáctanos.\n\n#MarketingDigital #SocialMediaMarketing #Branding #Emprendedores #LogikMarketing",
+        "permalink": "https://www.instagram.com/logikmkt/p/DXzRyEAFQPa/"
+      },
+      {
+        "image": "/media/v2/posts/logik-019.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "✨ Hoy no se trata solo de ser creativo, se trata de hacerlo con intención.\n\nEn un mundo donde todo compite por atención, las ideas que realmente funcionan son las que entienden al cliente, conectan y tienen un propósito claro. 🩷\n\n📩 Si quieres llevar tu contenido a otro nivel, contáctanos.\n\n#CreatividadEInnovacion #LogikMarketing #MarketingQueFunciona #AguascalientesEmprende #EstrategiaDigital",
+        "permalink": "https://www.instagram.com/logikmkt/p/DXZjmyjFQAJ/"
+      },
+      {
+        "image": "/media/v2/posts/logik-024.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "💡 Las mujeres no solo trabajan en marketing… lo están transformando.\n\nSon mayoría en la industria 👩‍💻, pero no en las mesas de decisión 📉\nExiste brecha salarial, menor presencia en dirección y una carga operativa que pocas veces recibe crédito.\n\nY aquí está la verdad 🚀\nLa equidad no es tendencia, es estrategia.\nLos equipos diversos generan más resultados.\n\nEn LOGIK creemos en un marketing con voz, liderazgo y oportunidades reales 💜\n\n#LogikMarketing #AgenciaDeMarketing #MarketingConProposito #MujeresEnMarketing #LiderazgoFemenino",
+        "permalink": "https://www.instagram.com/logikmkt/p/DVltN4oDY7D/"
+      },
+      {
+        "image": "/media/v2/posts/logik-025.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "Un buen video no empieza cuando grabas 🎬\nEmpieza cuando planeas, estructuras y defines el mensaje correcto.\n\nEstrategia, producción y copy trabajando juntos = contenido que sí conecta 🚀\n\nNada es improvisado. Todo tiene intención.\n\n#LogikMarketing #AgenciaDeMarketing #EstrategiaDigital #CreacionDeContenido #MarketingConProposito",
+        "permalink": "https://www.instagram.com/logikmkt/p/DVrLVZkiFoe/"
+      },
+      {
+        "image": "/media/v2/posts/logik-027.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "🚨 ¿Tus anuncios iban bien… y de repente bajaron?\n\nNo siempre es el presupuesto 👀\nPuede ser saturación: tu audiencia ya vio lo mismo demasiadas veces y dejó de reaccionar.\n\nLa solución no es gastar más 💸\nEs refrescar, ampliar y optimizar 🎯\n\nNuevos creativos, público más amplio y estrategia inteligente = campañas que vuelven a rendir 🚀\n\n📩 Déjalo en nuestras manos y hagamos que tus campañas vuelvan a despegar\n\n#LogikMarketing #AgenciaDeMarketing #MetaAds #PublicidadDigital #MarketingEstrategico",
+        "permalink": "https://www.instagram.com/logikmkt/reel/DVPEWp_jW_K/"
+      },
+      {
+        "image": "/media/v2/posts/logik-039.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "✨ Febrero es corto, pero ideal para fortalecer la conexión con tu audiencia.\nContenido con intención, fechas clave y un calendario que te ayuda a aprovechar cada oportunidad del mes. 📅💡\n\n#LogikMarketing #AgenciaDeMarketing #Marketing2026 #CommunityManager",
+        "permalink": "https://www.instagram.com/logikmkt/p/DTyXr14k3tB/"
+      },
+      {
+        "image": "/media/v2/posts/logik-041.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "Cuando la creatividad queda en nuestras manos…\nasí se ve lo que no siempre se muestra ✨🧠\n\n#LogikMarketing #ProcesoCreativo #AgenciaDeMarketing  #CreatividadReal #Humor",
+        "permalink": "https://www.instagram.com/logikmkt/reel/DTi0G8bCnAo/"
+      },
+      {
+        "image": "/media/v2/posts/logik-043.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "Menos hashtags no significa menos alcance, significa mejor estrategia 🎯\nElegir los correctos puede cambiar por completo el rendimiento de tu contenido.\nHaz que cada hashtag trabaje a tu favor 🚀\n\n#LogikMarketing #MarketingDigital #EstrategiaDeContenido #ActualizaciónInstagram",
+        "permalink": "https://www.instagram.com/logikmkt/p/DTDfHHWjAGH/"
+      },
+      {
+        "image": "/media/v2/posts/logik-052.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "✨ Cerrar el año también es parte de la estrategia.\nOrganiza tus redes, limpia tus pendientes y deja todo listo para arrancar el 2026 con más enfoque y mejores resultados. 📲🚀\n\n#LogikMarketing #AgenciaDeMarketing #CierreDeAño #MarketingDigital #SocialMediaTips",
+        "permalink": "https://www.instagram.com/logikmkt/p/DR7mhofD42o/"
+      },
+      {
+        "image": "/media/v2/posts/logik-061.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "¡Hoy es el día internacional del marketing! 🤩🥳\n\nY por ese motivo te compartimos 5 de las campañas más exitosas del mundo ✨\n\nTodas estas campañas tienen algo en común:\n👉 No vendían productos. Vendían ideas, emociones y significado.\nY eso es, en esencia, lo que el marketing bien hecho logra.\n\n💬 Cuéntanos: ¿qué campaña te inspira más?\n\n#diainternacionaldelmarketing #diadelmarketing #marketing #mkt #campañasexitosasdemarketing",
+        "permalink": "https://www.instagram.com/logikmkt/p/DQpXI81iTJG/"
+      },
+      {
+        "image": "/media/v2/posts/logik-063.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "🧘‍♀️ Hoy en el Día Mundial de la Salud Mental recordamos algo clave: en marketing, cuidarte a ti es cuidar tus resultados 💜.\n\n🎯 Metas claras, 📅 organización, ⚡ automatización y pausas reales = más creatividad y mejores campañas 🚀.\n\n#LogikMarketing #SaludMental #MarketingConConciencia #CreatividadSinBurnout",
+        "permalink": "https://www.instagram.com/logikmkt/p/DPogpx3CWUd/"
+      },
+      {
+        "image": "/media/v2/posts/logik-073.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "🎃 Octubre llega con calabazas, café y mucho contenido por crear ☕🍂\nYa está listo el calendario de octubre 🗓️ para que aproveches cada fecha clave y mantengas tu marca siempre presente. ¡No dejes pasar ninguna oportunidad de conectar con tu audiencia! 🚀\n\n \n\n#CalendarioCM #CommunityManager #ContenidoDigital #MarketingDigital #LogikMarketing",
+        "permalink": "https://www.instagram.com/logikmkt/p/DPCozj4Cb8i/"
+      },
+      {
+        "image": "/media/v2/posts/logik-077.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "Así se ve el proceso creativo por dentro: Un poco de café, mucha cabeza y, a veces, una carrera contra el reloj. 🤯💡\n\n¡Pero el resultado siempre vale la pena! ✨\n\n¿Cuál es tu etapa favorita (o la más temida)?\n\n#Creatividad #MarketingDigital #Diseño #LogikMarketing",
+        "permalink": "https://www.instagram.com/logikmkt/p/DOwL2KJDeyj/"
+      },
+      {
+        "image": "/media/v2/posts/logik-081.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "Si aún no sabes qué hace una agencia como Logik…\n\n💡 Aquí va un resumen rápido:\n\n📱 Redes, 🎥 contenido, 📊 pauta, 🧠 estrategia…\n\nY ahora, con nueva imagen.\n\nHablemos de cómo hacer que tu marca destaque. 🙌\n\n.\n.\n.\n#AgenciaCreativa #MarketingDigital #EstrategiaDeMarca #ContenidoQueVende #HazQueTeVean",
+        "permalink": "https://www.instagram.com/logikmkt/reel/DLNl3SyvaLZ/"
+      },
+      {
+        "image": "/media/v2/posts/logik-085.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "📢 Ya está listo el calendario de septiembre para que tu contenido ¡arrase! 🗓️ Adapta tus publicaciones a las fechas clave y no te pierdas ninguna oportunidad de conectar con tu audiencia.\n\n \n\n#CalendarioCM #CommunityManager #ContenidoDigital #MarketingDigital #LogikMarketing",
+        "permalink": "https://www.instagram.com/logikmkt/p/DNvfQvWRTww/"
+      },
+      {
+        "image": "/media/v2/posts/logik-089.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "Impulsa tus redes sociales!🚀 Hacemos crecer tu presencia en Facebook con estrategias. Alcanza tus objetivos y haz que tu marca brille 📈\n\n¡Contáctanos ahora y comienza tu transformación digital! 💬\n\n#CrecimientoEnRedes #MarketingDigital #LogikMarketing #ResultadosGarantizados  #AgenciadeMarketing",
+        "permalink": "https://www.instagram.com/logikmkt/p/DNrF1t43Mf0/"
+      },
+      {
+        "image": "/media/v2/posts/logik-093.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "¡Instagram trae novedades que te encantarán! 🤩\n\nDesliza para descubrir las últimas actualizaciones que cambiarán tu forma de interactuar: desde gestionar tu tiempo, editar tu contenido de forma pro, hasta conectar con el mundo entero 🌐.\n\n \n\n#InstagramUpdates  #MarketingDigital #SocialMedia #LokigMarketing",
+        "permalink": "https://www.instagram.com/logikmkt/p/DM8BJxXxfUq/"
+      },
+      {
+        "image": "/media/v2/posts/logik-099.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "Planifica tu contenido de agosto con ideas clave y mantén tu estrategia activa todo el mes. 📆✨\n\n#MarketingDeContenido #CommunityManager #LogikMarketing",
+        "permalink": "https://www.instagram.com/logikmkt/p/DMp282lO5Rc/"
+      },
+      {
+        "image": "/media/v2/posts/gastronomia-06.webp",
+        "category": "gastronomia",
+        "account": "Techani",
+        "caption": "Diseño de Logik Marketing para Techani.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/gastronomia-09.webp",
+        "category": "gastronomia",
+        "account": "Techani",
+        "caption": "Diseño de Logik Marketing para Techani.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/gastronomia-18.webp",
+        "category": "gastronomia",
+        "account": "Techani",
+        "caption": "Diseño de Logik Marketing para Techani.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/gastronomia-22.webp",
+        "category": "gastronomia",
+        "account": "Techani",
+        "caption": "Diseño de Logik Marketing para Techani.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/gastronomia-40.webp",
+        "category": "gastronomia",
+        "account": "Techani",
+        "caption": "Diseño de Logik Marketing para Techani.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/gastronomia-19.webp",
+        "category": "gastronomia",
+        "account": "Glüu",
+        "caption": "Diseño de Logik Marketing para Glüu.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/gastronomia-32.webp",
+        "category": "gastronomia",
+        "account": "Comida a domicilio",
+        "caption": "Diseño de Logik Marketing para Comida a domicilio.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/gastronomia-05.webp",
+        "category": "gastronomia",
+        "account": "Pizzería",
+        "caption": "Diseño de Logik Marketing para Pizzería.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/salud-08.webp",
+        "category": "salud",
+        "account": "GASE Dental Group",
+        "caption": "Diseño de Logik Marketing para GASE Dental Group.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/salud-12.webp",
+        "category": "salud",
+        "account": "GASE Dental Group",
+        "caption": "Diseño de Logik Marketing para GASE Dental Group.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/salud-27.webp",
+        "category": "salud",
+        "account": "GASE Dental Group",
+        "caption": "Diseño de Logik Marketing para GASE Dental Group.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/salud-37.webp",
+        "category": "salud",
+        "account": "GASE Dental Group",
+        "caption": "Diseño de Logik Marketing para GASE Dental Group.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/salud-07.webp",
+        "category": "salud",
+        "account": "Holistik",
+        "caption": "Diseño de Logik Marketing para Holistik.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/salud-21.webp",
+        "category": "salud",
+        "account": "Velo Bye",
+        "caption": "Diseño de Logik Marketing para Velo Bye.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/salud-47.webp",
+        "category": "salud",
+        "account": "Velo Bye",
+        "caption": "Diseño de Logik Marketing para Velo Bye.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/belleza-10.webp",
+        "category": "belleza",
+        "account": "Novedades y Cosméticos",
+        "caption": "Diseño de Logik Marketing para Novedades y Cosméticos.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/belleza-13.webp",
+        "category": "belleza",
+        "account": "Novedades y Cosméticos",
+        "caption": "Diseño de Logik Marketing para Novedades y Cosméticos.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/belleza-43.webp",
+        "category": "belleza",
+        "account": "Novedades y Cosméticos",
+        "caption": "Diseño de Logik Marketing para Novedades y Cosméticos.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/belleza-11.webp",
+        "category": "belleza",
+        "account": "Moira",
+        "caption": "Diseño de Logik Marketing para Moira.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/belleza-24.webp",
+        "category": "belleza",
+        "account": "Moira",
+        "caption": "Diseño de Logik Marketing para Moira.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/belleza-03.webp",
+        "category": "belleza",
+        "account": "Moira",
+        "caption": "Diseño de Logik Marketing para Moira.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/turismo-02.webp",
+        "category": "turismo",
+        "account": "Hampton by Hilton",
+        "caption": "Diseño de Logik Marketing para Hampton by Hilton.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/turismo-04.webp",
+        "category": "turismo",
+        "account": "Hampton by Hilton",
+        "caption": "Diseño de Logik Marketing para Hampton by Hilton.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/turismo-15.webp",
+        "category": "turismo",
+        "account": "Hampton by Hilton",
+        "caption": "Diseño de Logik Marketing para Hampton by Hilton.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/turismo-17.webp",
+        "category": "turismo",
+        "account": "Hampton by Hilton",
+        "caption": "Diseño de Logik Marketing para Hampton by Hilton.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/turismo-41.webp",
+        "category": "turismo",
+        "account": "Hampton by Hilton",
+        "caption": "Diseño de Logik Marketing para Hampton by Hilton.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/turismo-29.webp",
+        "category": "turismo",
+        "account": "Li-Kaan",
+        "caption": "Diseño de Logik Marketing para Li-Kaan.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/turismo-39.webp",
+        "category": "turismo",
+        "account": "Li-Kaan",
+        "caption": "Diseño de Logik Marketing para Li-Kaan.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/turismo-16.webp",
+        "category": "turismo",
+        "account": "Agencia de viajes",
+        "caption": "Diseño de Logik Marketing para Agencia de viajes.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/turismo-36.webp",
+        "category": "turismo",
+        "account": "Agencia de viajes",
+        "caption": "Diseño de Logik Marketing para Agencia de viajes.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/servicios-30.webp",
+        "category": "servicios",
+        "account": "Desperrucados",
+        "caption": "Diseño de Logik Marketing para Desperrucados.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/servicios-33.webp",
+        "category": "servicios",
+        "account": "Desperrucados",
+        "caption": "Diseño de Logik Marketing para Desperrucados.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/servicios-23.webp",
+        "category": "servicios",
+        "account": "Plan B",
+        "caption": "Diseño de Logik Marketing para Plan B.",
+        "permalink": null
+      },
+      {
+        "image": "/media/v2/posts/servicios-44.webp",
+        "category": "servicios",
+        "account": "Plan B",
+        "caption": "Diseño de Logik Marketing para Plan B.",
+        "permalink": null
+      }
+    ]
+  },
+  "services": {
+    "title": "Todo tu marketing,",
+    "script": "en un solo equipo",
+    "intro": "Elige uno o combínalos: trabajamos como una sola estrategia.",
+    "items": [
+      {
+        "title": "Manejo de redes sociales",
+        "summary": "Facebook, Instagram y TikTok con calendario mensual.",
+        "detail": "Gestionamos tus redes creando una conexión real con tus clientes, siempre de la mano del objetivo que buscas: más alcance, interacción, seguidores o ventas.",
+        "image": "/media/v2/posts/logik-089.webp"
+      },
+      {
+        "title": "Facebook e Instagram Ads",
+        "summary": "Campañas que acercan tu producto a quien lo busca.",
+        "detail": "Acercamos tu mercado potencial a tu producto con publicidad efectiva en Facebook e Instagram. Somos Meta Certified Media Buying Professional.",
+        "image": "/media/servicios/campanas.webp"
+      },
+      {
+        "title": "Google Ads",
+        "summary": "Aparece en las primeras búsquedas.",
+        "detail": "Acercamos tu producto a tus potenciales consumidores y lo posicionamos en las primeras búsquedas de Google.",
+        "image": "/media/proceso/anunciamos.webp"
+      },
+      {
+        "title": "TikTok Ads",
+        "summary": "Tú creas la comunidad, nosotras la convertimos.",
+        "detail": "Despega tu marca en TikTok: tú haces los TikToks, nosotras los anuncios. Tú creas una comunidad y nosotras la transformamos en tus potenciales clientes.",
+        "image": "/media/proceso/creamos.webp"
+      },
+      {
+        "title": "Contenido y video",
+        "summary": "Reels y sesiones en nuestro estudio.",
+        "detail": "Planeamos, grabamos y editamos reels y videos en nuestro estudio o en tu negocio, con guion, música y portada.",
+        "image": "/media/v2/equipo/marke-team.webp"
+      },
+      {
+        "title": "Fotografía de producto",
+        "summary": "Tus productos, listos para vender.",
+        "detail": "Capturamos y presentamos tus artículos de manera atractiva y estratégica para tus potenciales clientes.",
+        "image": "/media/servicios/fotografia.webp"
+      },
+      {
+        "title": "Manual de identidad",
+        "summary": "Una marca que se ve igual en todos lados.",
+        "detail": "Creamos la identidad de tu marca: su filosofía, logotipo, tipografía, colorimetría, tarjetas de presentación y aplicaciones digitales.",
+        "image": "/media/servicios/identidad.webp"
+      },
+      {
+        "title": "Logotipo y naming",
+        "summary": "El concepto de tu marca, desde cero.",
+        "detail": "Te ayudamos a nombrar tu marca y a diseñar su logotipo, con propuestas y ajustes hasta que te represente.",
+        "image": "/media/v2/marcas/techani.webp"
+      },
+      {
+        "title": "Páginas web y landing pages",
+        "summary": "Sitios rápidos que convierten tus anuncios en ventas.",
+        "detail": "Llevamos tu negocio al mundo de la web: sitios y páginas de aterrizaje para tus campañas, con pixel de Meta y botón de WhatsApp, para que cada anuncio termine en un mensaje.",
+        "image": "/media/servicios/web.webp"
+      },
+      {
+        "title": "Asesoría mercadológica",
+        "summary": "Estrategia antes de publicar.",
+        "detail": "Te asesoramos con profesionales en Mercadotecnia: análisis situacional, FODA, competencia y plan de medios para alcanzar tus objetivos.",
+        "image": "/media/servicios/asesoria.webp"
       }
     ]
   },
   "packages": {
-    "lead": "Tus redes, desde",
-    "price": "$2,499",
-    "period": "al mes.",
-    "includes": "Estrategia integral, 10 publicaciones, una campaña con 4 anuncios, portada de Facebook, análisis situacional y reporte de resultados. **La primera consulta es gratis.**",
-    "ctaLabel": "Quiero este paquete",
-    "others": [
+    "title": "Paquetes",
+    "script": "a tu medida",
+    "intro": "Todos incluyen estrategia, diseño y reporte de resultados. La primera consulta es gratis.",
+    "items": [
+      {
+        "name": "Facebook Plus",
+        "tagline": "Para empezar con orden",
+        "price": "$2,499",
+        "period": "al mes",
+        "highlighted": false,
+        "features": [
+          "Página de Facebook",
+          "10 publicaciones al mes",
+          "1 campaña con 4 anuncios",
+          "Portada de Facebook",
+          "Análisis situacional",
+          "Reporte de resultados"
+        ]
+      },
       {
         "name": "Emprendedor",
-        "description": "Facebook e Instagram, 12 publicaciones con 5 reels, historias, 1 campaña y sesión de contenido de 1 hora.",
-        "price": null
+        "tagline": "El más pedido",
+        "price": null,
+        "period": "al mes",
+        "highlighted": true,
+        "features": [
+          "Facebook e Instagram",
+          "12 publicaciones (incluye 5 reels)",
+          "Historias",
+          "1 campaña",
+          "Sesión de contenido de 1 hora",
+          "Reporte de resultados"
+        ]
       },
       {
         "name": "Paquete'n Redes",
-        "description": "Facebook, Instagram y TikTok, 18 publicaciones con 8 reels, 2 campañas y remarketing.",
-        "price": null
+        "tagline": "Presencia completa",
+        "price": null,
+        "period": "al mes",
+        "highlighted": false,
+        "features": [
+          "Facebook, Instagram y TikTok",
+          "18 publicaciones (incluye 8 reels)",
+          "2 campañas",
+          "Remarketing",
+          "Reporte de resultados"
+        ]
       },
       {
         "name": "Paquete Flash",
-        "description": "Contenido profesional y una campaña publicitaria, para resultados rápidos.",
-        "price": null
+        "tagline": "Resultados rápidos",
+        "price": null,
+        "period": "por proyecto",
+        "highlighted": false,
+        "features": [
+          "Contenido profesional",
+          "Una campaña publicitaria",
+          "Reporte de resultados"
+        ]
       }
     ],
     "note": "El presupuesto para anuncios se paga aparte, directo a Meta.",
     "isProvisional": true
   },
-  "testimonials": {
-    "featured": {
-      "quote": "Se interesan no solo por cumplir.",
-      "name": "Roberto Chávez",
-      "role": "Cliente",
-      "source": "Recomendación en Facebook"
-    },
+  "brands": {
+    "title": "Marcas que",
+    "script": "confían en nosotras",
+    "intro": "Más de 70 marcas en seis estados de México.",
     "items": [
       {
-        "quote": "Excelente trato, son un equipo increíble. Muy profesionales, recomiendo ampliamente su servicio.",
-        "name": "Xochitl Serna"
+        "name": "Hampton by Hilton",
+        "category": "Hotel · Aguascalientes",
+        "description": "Hotel en el centro de Aguascalientes. Diseñamos sus publicaciones y promociones de temporada.",
+        "logo": "/media/v2/logos/logo-15-1.png",
+        "photo": "/media/v2/marcas/hampton-by-hilton.webp",
+        "color": "#0d2c54"
       },
       {
-        "quote": "Un servicio muy profesional, siempre atentas con nosotros los clientes.",
-        "name": "César Eduardo Quezada"
+        "name": "Techani",
+        "category": "Heladería artesanal",
+        "description": "Fotografía de producto, contenido y campañas: +67 % de resultados con la mitad del presupuesto.",
+        "logo": "/media/v2/logos/logo-14-0.png",
+        "photo": "/media/v2/marcas/techani.webp",
+        "color": "#c8143c"
       },
       {
-        "quote": "Buen rendimiento del equipo y atención constante sobre el marketing.",
-        "name": "Alejandro Egure"
-      }
-    ]
-  },
-  "team": {
-    "body": "**Diana Maldonado y Abigail Alcántara** fundaron Logik hace seis años con una idea sencilla: que una pyme de Aguascalientes pudiera tener el mismo marketing que una gran marca.",
-    "second": "Diana compra los anuncios y es Meta Certified Media Buying Professional; Abigail dirige el contenido y la fotografía. Hoy son un equipo de mujeres con oficina y estudio propios, al que ellas llaman el Marke-team.",
-    "portrait": "/media/equipo/fundadoras.webp",
-    "portraitAlt": "Diana Maldonado y Abigail Alcántara",
-    "facts": [
-      "Jesús Gómez Portugal, Ags.",
-      "Desde 2020",
-      "Meta Certified"
-    ],
-    "photos": [
-      {
-        "src": "/media/equipo/oficina.webp",
-        "alt": "El equipo de Logik en su oficina"
+        "name": "GASE Dental Group",
+        "category": "Clínica dental",
+        "description": "Campañas de mensajes que llegaron a 72 mil personas y llenaron la agenda.",
+        "logo": "/media/v2/logos/logo-03-1.png",
+        "photo": "/media/v2/marcas/gase-dental-group.webp",
+        "color": "#1d4f91"
       },
       {
-        "src": "/media/equipo/estudio.webp",
-        "alt": "Grabación en el estudio de Logik"
+        "name": "Novedades y Cosméticos",
+        "category": "Tienda de belleza",
+        "description": "Fotografía de producto y promociones para sus marcas de maquillaje y skincare.",
+        "logo": "/media/v2/logos/logo-15-0.png",
+        "photo": "/media/v2/marcas/novedades-y-cosmeticos.webp",
+        "color": "#1b1b1f"
+      },
+      {
+        "name": "Desperrucados",
+        "category": "Estética canina · Chihuahua",
+        "description": "Alto diseño en estilismo canino. Contenido de servicios y eventos para Chihuahua y CDMX.",
+        "logo": "/media/v2/logos/logo-01-0.png",
+        "photo": "/media/v2/marcas/desperrucados.webp",
+        "color": "#1f4fa0"
+      },
+      {
+        "name": "Li-Kaan",
+        "category": "Agencia de viajes",
+        "description": "Paquetes de viaje con todo incluido, diseñados para vender por redes.",
+        "logo": "/media/v2/logos/logo-12-0.png",
+        "photo": "/media/v2/marcas/li-kaan.webp",
+        "color": "#0b7f8a"
+      },
+      {
+        "name": "Glüu",
+        "category": "Agua purificada",
+        "description": "Lanzamiento de su sucursal en Jesús María, Aguascalientes.",
+        "logo": "/media/v2/logos/logo-18-0.png",
+        "photo": "/media/v2/marcas/gluu.webp",
+        "color": "#1673c6"
+      },
+      {
+        "name": "Plan B",
+        "category": "Asesoría financiera",
+        "description": "Talleres de planeación para el retiro y seguros, comunicados con claridad.",
+        "logo": "/media/v2/logos/logo-16-0.png",
+        "photo": "/media/v2/marcas/plan-b.webp",
+        "color": "#e5881b"
+      },
+      {
+        "name": "Holistik",
+        "category": "Bienestar",
+        "description": "Consciencia en expansión: contenido para sus clases y servicios de bienestar.",
+        "logo": "/media/v2/logos/logo-04-0.png",
+        "photo": "/media/v2/marcas/holistik.webp",
+        "color": "#2f4a37"
       }
     ],
     "isProvisional": true
   },
+  "videos": {
+    "title": "Así se ve",
+    "script": "trabajar con Logik",
+    "intro": "Videos de nuestro estudio y de los resultados de nuestros clientes.",
+    "items": [
+      {
+        "title": "Así trabajamos",
+        "description": "Video marketing, campañas efectivas y fotografía de producto.",
+        "src": "/media/v2/videos/asi-trabajamos.mp4",
+        "poster": "/media/v2/videos/asi-trabajamos.webp",
+        "orientation": "horizontal"
+      },
+      {
+        "title": "Logik en 30 segundos",
+        "description": "Nuestra frase, nuestras marcas y nuestros resultados.",
+        "src": "/media/v2/videos/logik-30s.mp4",
+        "poster": "/media/v2/videos/logik-30s.webp",
+        "orientation": "vertical"
+      },
+      {
+        "title": "Campañas efectivas",
+        "description": "Un mes de campaña: 72 mil personas, 141 mensajes y 5 citas.",
+        "src": "/media/v2/videos/campanas-efectivas.mp4",
+        "poster": "/media/v2/videos/campanas-efectivas.webp",
+        "orientation": "vertical"
+      }
+    ]
+  },
+  "team": {
+    "title": "Las mentes",
+    "script": "detrás de Logik",
+    "intro": "Dos mercadólogas que fundaron Logik y hoy dirigen al Marke-team.",
+    "members": [
+      {
+        "name": "Diana Maldonado Medina",
+        "role": "Directora · Publicidad pagada",
+        "photo": "/media/v2/equipo/diana.webp",
+        "summary": "Compra los anuncios de más de 50 marcas en Meta, TikTok, LinkedIn y Google.",
+        "more": "Licenciada en Mercadotecnia con más de 5 años de experiencia. Es Meta Certified Media Buying Professional y se especializa en campañas que convierten presupuesto en mensajes y ventas."
+      },
+      {
+        "name": "Abigail Alcántara",
+        "role": "Directora · Contenido y comunidad",
+        "photo": "/media/v2/equipo/abigail.webp",
+        "summary": "Dirige el contenido, la fotografía y la comunidad de más de 60 empresas.",
+        "more": "Licenciada en Mercadotecnia con maestría en Marketing y Medios Digitales y más de 5 años de experiencia en community management, creación de contenido y fotografía de producto."
+      }
+    ],
+    "groupPhoto": "/media/v2/equipo/marke-team.webp",
+    "groupCaption": "El Marke-team: un equipo de mujeres con oficina y estudio propios.",
+    "isProvisional": true
+  },
   "contact": {
+    "title": "Hablemos de",
+    "script": "tu marca",
     "intro": "Cuéntanos de tu negocio por WhatsApp. Te respondemos el mismo día.",
     "whatsapp": "5214492119107",
     "whatsappMessage": "Hola Logik, quiero agendar mi consulta gratis.",

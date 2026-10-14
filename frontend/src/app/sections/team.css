@@ -1,0 +1,151 @@
+.team {
+  padding-block: var(--section-pad);
+  background: var(--color-white);
+}
+
+.members {
+  display: grid;
+  gap: var(--space-7);
+  margin-top: var(--space-8);
+}
+
+@media (min-width: 860px) {
+  .members {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-7);
+  }
+  .member:nth-child(2) {
+    margin-top: var(--space-9);
+  }
+}
+
+.member {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.member__photo {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--color-blush);
+}
+
+.member__photo img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center 20%;
+  filter: grayscale(1) contrast(1.08);
+  transform: scale(1.02);
+  transition:
+    filter var(--duration-slow) ease,
+    transform 900ms var(--ease-out);
+}
+
+/* Marco rosa que se dibuja hacia adentro al pasar el cursor. */
+.member__photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 0 var(--color-pink-logo);
+  transition: box-shadow var(--duration-slow) var(--ease-out);
+  pointer-events: none;
+}
+
+.member__role {
+  position: absolute;
+  left: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 1;
+  padding: 0.45rem 0.95rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--duration) var(--ease-spring),
+    background-color var(--duration) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .member:hover .member__photo img {
+    filter: none;
+    transform: scale(1.07);
+  }
+  .member:hover .member__photo::after {
+    box-shadow: inset 0 0 0 8px var(--color-pink-logo);
+  }
+  .member:hover .member__role {
+    transform: translateY(-4px);
+    background: var(--color-pink);
+  }
+}
+
+.member__text {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.member__name {
+  font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+}
+
+.member__text p {
+  font-size: var(--text-lg);
+  line-height: 1.45;
+  color: var(--color-text-soft);
+}
+
+.group {
+  position: relative;
+  display: grid;
+  margin: var(--space-9) 0 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.group img {
+  width: 100%;
+  height: clamp(18rem, 42vw, 30rem);
+  object-fit: cover;
+  object-position: center 40%;
+  transition: transform 1200ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .group:hover img {
+    transform: scale(1.05);
+  }
+}
+
+.group figcaption {
+  position: absolute;
+  left: var(--space-5);
+  bottom: var(--space-5);
+  display: grid;
+  max-width: 22rem;
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius);
+  background: var(--color-white);
+  box-shadow: var(--shadow);
+}
+
+.group figcaption .script {
+  font-size: 2rem;
+}
+
+.group figcaption strong {
+  margin-top: -0.6rem;
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: var(--tracking-display);
+}
+
+.group figcaption span:last-child {
+  font-size: var(--text-sm);
+  color: var(--color-text-soft);
+}

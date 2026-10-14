@@ -1,0 +1,101 @@
+@let c = content();
+
+<section class="results" id="resultados" aria-labelledby="results-title">
+  <div class="wrap">
+    <app-section-heading [title]="c.title" [script]="c.script" [intro]="c.intro" align="center" headingId="results-title" />
+
+    <div class="tabs" role="tablist" aria-label="Casos de éxito" [style.--n]="c.cases.length" [style.--active]="activeIndex()" (keydown)="onKey($event)" appReveal>
+      <span class="tabs__pill" aria-hidden="true"></span>
+      @for (item of c.cases; track item.id) {
+        <button
+          #tab
+          type="button"
+          role="tab"
+          class="tabs__tab"
+          [id]="'tab-' + item.id"
+          [attr.aria-selected]="item.id === activeId()"
+          [attr.aria-controls]="'panel-' + item.id"
+          [attr.tabindex]="item.id === activeId() ? 0 : -1"
+          (click)="activeId.set(item.id)"
+        >
+          {{ item.tab }}
+        </button>
+      }
+    </div>
+
+    @if (active(); as a) {
+      @for (k of [a.id]; track k) {
+        <div class="case" role="tabpanel" [id]="'panel-' + a.id" [attr.aria-labelledby]="'tab-' + a.id">
+          <div class="case__copy">
+            <p class="case__client">{{ a.client }}</p>
+            <h3 class="case__headline">{{ a.headline }}</h3>
+            <app-read-more [more]="a.more">
+              <p class="case__summary">{{ a.summary }}</p>
+            </app-read-more>
+            @if (a.kpis.length) {
+              <ul class="case__kpis" role="list">
+                @for (kpi of a.kpis; track kpi.label) {
+                  <li class="kpi" tabindex="0">
+                    <span class="kpi__value" [appCountUp]="kpi.value" [prefix]="kpi.prefix" [suffix]="kpi.suffix"></span>
+                    <span class="kpi__label">{{ kpi.label }}</span>
+                    @if (kpi.detail) {
+                      <span class="kpi__detail">{{ kpi.detail }}</span>
+                    }
+                  </li>
+                }
+              </ul>
+            }
+          </div>
+
+          <figure class="case__chart">
+            <figcaption class="chart__head">
+              <span class="chart__title">{{ a.chart.title }}</span>
+              @if (a.chart.unit) {
+                <span class="chart__unit">{{ a.chart.unit }}</span>
+              }
+            </figcaption>
+            @switch (a.chart.kind) {
+              @case ('area') {
+                <app-area-chart [points]="a.chart.points" [unit]="a.chart.unit" [markerIndex]="a.chart.markerIndex" [markerLabel]="a.chart.markerLabel" [ariaLabel]="a.chart.title" />
+              }
+              @case ('bars') {
+                <app-bar-chart [items]="a.chart.items" prefix="$" />
+              }
+              @case ('steps') {
+                <app-steps-chart [steps]="a.chart.steps" />
+              }
+              @case ('dots') {
+                <app-dot-chart [items]="a.chart.items" [ariaLabel]="a.chart.title" />
+              }
+            }
+            <p class="chart__note">{{ a.chart.note }}</p>
+            <details class="chart__table">
+              <summary>Ver los datos en tabla</summary>
+              <table>
+                <tbody>
+                  @switch (a.chart.kind) {
+                    @case ('area') {
+                      @for (p of a.chart.points; track p.label) {
+                        <tr><th scope="row">{{ p.label }}</th><td>{{ fmt(p.value) }}</td></tr>
+                      }
+                    }
+                    @case ('steps') {
+                      @for (p of a.chart.steps; track p.label) {
+                        <tr><th scope="row">{{ p.label }}</th><td>{{ fmt(p.value) }}</td></tr>
+                      }
+                    }
+                    @default {
+                      @for (p of a.chart.items; track $index) {
+                        <tr><th scope="row">{{ p.label }}</th><td>{{ fmt(p.value) }}</td><td>{{ p.detail }}</td></tr>
+                      }
+                    }
+                  }
+                </tbody>
+              </table>
+            </details>
+          </figure>
+        </div>
+      }
+    }
+  </div>
+</section>

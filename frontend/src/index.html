@@ -13,6 +13,22 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" href="brand/icon.png">
   <link rel="apple-touch-icon" href="brand/icon.png">
+  <script>
+    // Intro del logo: solo la primera vez en la sesión y si el sistema no pide reducir movimiento.
+    // Si algo falla y la intro no termina, a los 7 s se muestra el sitio igual.
+    (function () {
+      try {
+        // "?intro" en la URL la vuelve a mostrar (y "?intro=lento" la reproduce a un cuarto de velocidad).
+        var forced = /[?&]intro/.test(location.search);
+        var seen = sessionStorage.getItem('logik-intro-visto');
+        var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if ((forced || (!seen && !reduced)) && location.pathname === '/') {
+          document.documentElement.classList.add('intro-pending');
+          setTimeout(function () { document.documentElement.classList.remove('intro-pending'); }, /intro=(lento|t)/.test(location.search) ? 60000 : 7000);
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
   <app-root></app-root>

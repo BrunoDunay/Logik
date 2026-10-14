@@ -14,11 +14,21 @@ describe('contenido inicial', () => {
 });
 
 describe('validación de secciones', () => {
-  it('rechaza una calculadora con el presupuesto inicial fuera de rango', () => {
-    const estimator = { ...settings.results.estimator, defaultBudget: 99_000 };
-    const result = settingsSchemas.results.safeParse({ ...settings.results, estimator });
+  it('rechaza una gráfica con un tipo desconocido', () => {
+    const cases = [{ ...settings.results.cases[0], chart: { ...settings.results.cases[0].chart, kind: 'pastel' } }];
+    const result = settingsSchemas.results.safeParse({ ...settings.results, cases });
     expect(result.success).toBe(false);
-    expect(result.error.issues[0].path).toEqual(['estimator', 'defaultBudget']);
+    expect(result.error.issues[0].path).toEqual(['cases', 0, 'chart', 'kind']);
+  });
+
+  it('rechaza un color de marca que no es hexadecimal', () => {
+    const items = [{ ...settings.brands.items[0], color: 'azul' }];
+    expect(settingsSchemas.brands.safeParse({ ...settings.brands, items }).success).toBe(false);
+  });
+
+  it('convierte un precio vacío en "a cotizar" (null)', () => {
+    const items = [{ ...settings.packages.items[0], price: '' }];
+    expect(settingsSchemas.packages.parse({ ...settings.packages, items }).items[0].price).toBeNull();
   });
 
   it('limpia el número de WhatsApp y la arroba de las redes', () => {
