@@ -16,3 +16,6 @@ Thumbs.db
 
 # Configuración local de Claude Code (permisos de este equipo)
 .claude/settings.local.json
+
+# Caché de Python (scripts de skills)
+__pycache__/
