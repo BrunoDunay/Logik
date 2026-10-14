@@ -64,22 +64,41 @@
 }
 
 .about__stat {
+  position: relative;
   display: grid;
   gap: var(--space-1);
   padding: var(--space-4);
+  overflow: hidden;
+  isolation: isolate;
   border-radius: var(--radius);
   background: var(--color-blush);
   transition:
-    transform var(--duration) var(--ease-spring),
-    background-color var(--duration) ease,
-    box-shadow var(--duration) var(--ease-out);
+    transform 700ms var(--ease-out),
+    box-shadow 700ms var(--ease-out);
+}
+
+/* El rosa sube desde abajo como un nivel que se llena. */
+.about__stat::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-pink);
+  border-radius: 40% 40% 0 0 / 18% 18% 0 0;
+  translate: 0 102%;
+  transition:
+    translate 800ms var(--ease-out),
+    border-radius 800ms var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .about__stat:hover {
-    transform: translateY(-6px) rotate(-1deg);
-    background: var(--color-pink);
+    transform: translateY(-6px);
     box-shadow: var(--shadow-pink);
+  }
+  .about__stat:hover::before {
+    translate: 0 0;
+    border-radius: 0;
   }
 }
 
@@ -126,32 +145,57 @@
 
 .about__photo {
   position: relative;
+  aspect-ratio: 1;
   overflow: hidden;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
+  background: var(--color-ink);
   transform: rotate(-2deg);
-  transition: transform var(--duration-slow) var(--ease-out);
+  transition: transform 900ms var(--ease-out);
 }
 
+/* Las fotos se encadenan con un fundido y un zoom muy lento. */
 .about__photo img {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  aspect-ratio: 16 / 9.5;
+  height: 100%;
   object-fit: cover;
+  opacity: 0;
+  scale: 1.08;
   filter: grayscale(1) contrast(1.15);
   transition:
-    filter var(--duration-slow) ease,
-    transform var(--duration-slow) var(--ease-out);
+    opacity 1200ms ease,
+    scale 6s linear,
+    filter 900ms ease;
 }
 
-/* Tramado de semitono encima de la foto; al pasar el cursor se va y la foto toma color. */
+.about__photo img.is-current {
+  opacity: 1;
+  scale: 1;
+}
+
+/* Tramado de semitono: el tamaño del punto es una variable animable,
+   así los puntos se encogen hasta desaparecer (y vuelven) en lugar de cortarse de golpe. */
+@property --dot {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 1.1px;
+}
+
 .about__photo::after {
+  --dot: 1.1px;
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgb(20 16 18 / 0.55) 1.1px, transparent 1.5px);
+  z-index: 1;
+  background-image: radial-gradient(circle, rgb(20 16 18 / 0.55) var(--dot), transparent calc(var(--dot) + 0.4px));
   background-size: 5px 5px;
   mix-blend-mode: multiply;
-  transition: opacity var(--duration-slow) ease;
+  pointer-events: none;
+  transition:
+    --dot 650ms var(--ease-out),
+    opacity 650ms ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -160,11 +204,42 @@
   }
   .about__visual:hover .about__photo img {
     filter: grayscale(0) contrast(1);
-    transform: scale(1.04);
   }
   .about__visual:hover .about__photo::after {
+    --dot: 0px;
     opacity: 0;
   }
+}
+
+/* Indicador de la foto actual: puntos rosas discretos; el actual se alarga. */
+.about__dots {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(0.25rem, 1.5vw, 0.9rem);
+  z-index: 2;
+  display: flex;
+  gap: 0.4rem;
+  translate: -50% 0;
+}
+
+.about__dots button {
+  width: 0.55rem;
+  height: 0.55rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-pink);
+  opacity: 0.45;
+  transition:
+    width 600ms var(--ease-out),
+    opacity 500ms ease,
+    background-color 500ms ease;
+}
+
+.about__dots button.is-current {
+  width: 1.6rem;
+  opacity: 1;
+  background: var(--color-pink-logo);
 }
 
 .about__spark {

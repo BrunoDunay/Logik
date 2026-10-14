@@ -41,8 +41,7 @@ const about = z.object({
   script: text(30),
   summary: text(320),
   more: optionalText(900),
-  image: media,
-  imageAlt: text(160),
+  photos: list(z.object({ image: media, imageAlt: text(160) }), 8),
   stats: list(stat, 4),
 });
 
@@ -116,8 +115,8 @@ const packages = z.object({
 const brands = z.object({
   ...heading,
   items: list(
-    z.object({ name: text(60), category: text(60), description: text(200), logo: media, photo: media, color }),
-    30,
+    z.object({ name: text(60), category: text(60), description: text(200), logo: media, photo: optionalMedia, color }),
+    40,
   ).min(1),
   isProvisional: provisional,
 });

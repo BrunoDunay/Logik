@@ -4,7 +4,7 @@
   background: var(--color-white);
 }
 
-/* Filtros en píldora, como en la referencia. */
+/* Filtros en píldora. El negro del activo crece desde el centro en lugar de aparecer de golpe. */
 .chips {
   display: flex;
   flex-wrap: wrap;
@@ -14,21 +14,38 @@
 }
 
 .chip {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
   min-height: 2.75rem;
   padding: 0 1.1rem;
+  overflow: hidden;
+  isolation: isolate;
   border: 1.5px solid var(--color-line);
   border-radius: var(--radius-pill);
   background: var(--color-white);
   font-size: var(--text-sm);
   font-weight: 500;
   transition:
-    background-color var(--duration) ease,
-    border-color var(--duration) ease,
-    color var(--duration) ease,
-    transform var(--duration-press) var(--ease-out);
+    border-color 550ms ease,
+    color 550ms ease,
+    transform 220ms var(--ease-out),
+    box-shadow 600ms var(--ease-out);
+}
+
+.chip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--color-ink);
+  scale: 0.2 1;
+  opacity: 0;
+  transition:
+    scale 650ms var(--ease-out),
+    opacity 450ms ease;
 }
 
 .chip:active {
@@ -47,14 +64,19 @@
   font-size: var(--text-xs);
   font-weight: 600;
   transition:
-    background-color var(--duration) ease,
-    color var(--duration) ease;
+    background-color 550ms ease,
+    color 550ms ease,
+    scale 500ms var(--ease-spring);
 }
 
 .chip.is-active {
   border-color: var(--color-ink);
-  background: var(--color-ink);
   color: var(--color-white);
+}
+
+.chip.is-active::before {
+  scale: 1;
+  opacity: 1;
 }
 
 .chip.is-active .chip__count {
@@ -66,147 +88,138 @@
   .chip:not(.is-active):hover {
     border-color: var(--color-pink-logo);
     color: var(--color-pink-deep);
+    box-shadow: 0 8px 20px -14px rgb(254 95 146 / 0.9);
+  }
+  .chip:not(.is-active):hover .chip__count {
+    scale: 1.12;
   }
 }
 
-/* ---- Escenario del carrusel ---- */
+/* ---- Escenario ---- */
 .stage {
-  --card: clamp(15rem, 26vw, 22rem);
+  --card: clamp(15rem, 25vw, 21rem);
   position: relative;
-  display: grid;
-  place-items: center;
-  height: calc(var(--card) * 1.25 + 9rem);
+  height: calc(var(--card) * 1.25 + 15rem);
   margin-top: var(--space-7);
   perspective: 1400px;
   touch-action: pan-y;
   outline-offset: -6px;
+  transition:
+    opacity 340ms ease,
+    filter 340ms ease;
 }
 
-.center {
-  position: relative;
-  z-index: 10;
-  width: var(--card);
-  animation: center-in 520ms var(--ease-out);
+/* Al cambiar de filtro: el escenario se va y las nuevas tarjetas entran desde el centro hacia afuera. */
+.stage.is-switching {
+  opacity: 0;
+  filter: blur(8px);
 }
 
-@keyframes center-in {
-  from {
-    opacity: 0;
-    transform: scale(0.92) translateY(14px);
-  }
-}
-
-/* Tarjetas laterales: se alejan, giran y se encogen según su distancia a la central. */
-.side {
+/* Cada tarjeta se coloca según su distancia a la central (--o) y se desliza al cambiar. */
+.card {
   position: absolute;
   top: 50%;
   left: 50%;
   z-index: calc(10 - var(--abs));
-  width: calc(var(--card) * 0.86);
-  margin: 0;
-  padding: 0;
-  border: 0;
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: var(--color-paper);
-  box-shadow: var(--shadow);
+  width: var(--card);
   transform: translate(-50%, -50%) translateX(calc(var(--o) * var(--card) * 0.62)) rotateY(calc(var(--o) * -9deg))
-    scale(calc(1 - var(--abs) * 0.12));
-  opacity: calc(1 - var(--abs) * 0.22);
-  filter: saturate(calc(1 - var(--abs) * 0.18));
+    scale(calc(0.86 - var(--abs) * 0.1));
+  opacity: calc(1 - var(--abs) * 0.2);
+  filter: saturate(calc(1 - var(--abs) * 0.2));
   transition:
-    transform 560ms var(--ease-out),
-    opacity 560ms ease,
-    filter 560ms ease,
-    box-shadow var(--duration) ease;
-  cursor: var(--cursor-pointer);
+    transform 850ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 650ms ease,
+    filter 650ms ease;
+  animation: card-in 800ms var(--ease-out) backwards;
+  animation-delay: calc(var(--enter) * 70ms);
 }
 
-.side img {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
+.card.is-center {
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  filter: none;
+}
+
+.card.is-hidden {
+  opacity: 0;
   pointer-events: none;
 }
 
+@keyframes card-in {
+  from {
+    opacity: 0;
+    translate: 0 30px;
+  }
+}
+
+/* Las tarjetas laterales son solo la imagen y funcionan como botón. */
+.card__hit {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  cursor: var(--cursor-pointer);
+  transition: box-shadow 600ms var(--ease-out);
+}
+
 @media (hover: hover) and (pointer: fine) {
-  .side:hover {
+  .card:not(.is-center):hover {
     opacity: 1;
     filter: none;
-    box-shadow: var(--shadow-pink);
-    transform: translate(-50%, -50%) translateX(calc(var(--o) * var(--card) * 0.62)) rotateY(calc(var(--o) * -5deg))
-      scale(calc(1.03 - var(--abs) * 0.12));
+  }
+  .card__hit:hover {
+    box-shadow: 0 0 0 3px var(--color-pink-logo), var(--shadow-pink);
   }
 }
 
 @media (max-width: 640px) {
   .stage {
-    --card: min(78vw, 20rem);
+    --card: min(76vw, 20rem);
   }
-  .side {
-    transform: translate(-50%, -50%) translateX(calc(var(--o) * var(--card) * 0.42)) scale(calc(1 - var(--abs) * 0.14));
+  .card:not(.is-center) {
+    transform: translate(-50%, -50%) translateX(calc(var(--o) * var(--card) * 0.4)) scale(calc(0.84 - var(--abs) * 0.12));
   }
 }
 
-/* ---- Controles ---- */
-.controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--space-5);
-  margin-top: var(--space-5);
-}
-
-.arrow {
+/* ---- Indicador ---- */
+.progress {
   display: grid;
-  place-items: center;
-  width: 3.25rem;
-  height: 3.25rem;
-  border: 1.5px solid var(--color-ink);
-  border-radius: 50%;
-  background: var(--color-white);
-  color: var(--color-ink);
-  transition:
-    background-color var(--duration-fast) ease,
-    color var(--duration-fast) ease,
-    transform var(--duration-press) var(--ease-out);
+  justify-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
 }
 
-.arrow svg {
-  width: 22px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: transform var(--duration) var(--ease-out);
+.progress__track {
+  position: relative;
+  width: min(14rem, 60vw);
+  height: 3px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--color-line);
 }
 
-.arrow:active {
-  transform: scale(0.92);
+.progress__thumb {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  --thumb: max(1.25rem, 100% / var(--n));
+  width: var(--thumb);
+  left: calc((100% - var(--thumb)) * var(--i) / max(var(--n) - 1, 1));
+  border-radius: inherit;
+  background: var(--color-pink-logo);
+  transition: left 850ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .arrow:hover {
-    background: var(--color-ink);
-    color: var(--color-white);
-  }
-  .arrow:first-child:hover svg {
-    transform: translateX(-3px);
-  }
-  .arrow:last-child:hover svg {
-    transform: translateX(3px);
-  }
-}
-
-.counter {
-  min-width: 4.5rem;
-  text-align: center;
+.progress__count {
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
   font-variant-numeric: tabular-nums;
-  color: var(--color-text-soft);
 }
 
-.counter strong {
-  color: var(--color-ink);
-  font-size: var(--text-lg);
+.progress__count strong {
+  color: var(--color-pink-deep);
 }

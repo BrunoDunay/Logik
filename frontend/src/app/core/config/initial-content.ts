@@ -20,8 +20,28 @@ export const INITIAL_CONTENT: SiteSettings = {
     "script": "Marketing",
     "summary": "Somos una agencia **100 % digital** de Aguascalientes. Planeamos, creamos, anunciamos y medimos para que tu marca crezca con estrategia, no con suerte.",
     "more": "Trabajamos con pequeñas y medianas empresas de Aguascalientes, Chihuahua, Zacatecas, Guanajuato, CDMX y Jalisco. Cada proyecto empieza con un análisis de tu negocio y tu competencia; después diseñamos el contenido en nuestro estudio, lanzamos campañas con un presupuesto claro y cada mes te entregamos un reporte con lo que funcionó.",
-    "image": "/media/v2/equipo/fundadoras.webp",
-    "imageAlt": "Diana Maldonado y Abigail Alcántara, directoras de Logik",
+    "photos": [
+      {
+        "image": "/media/v2/equipo/nosotras-1.webp",
+        "imageAlt": "El Marke-team de Logik tomándose una selfie en grupo"
+      },
+      {
+        "image": "/media/v2/equipo/nosotras-2.webp",
+        "imageAlt": "Parte del equipo de Logik saludando a la cámara"
+      },
+      {
+        "image": "/media/v2/equipo/nosotras-3.webp",
+        "imageAlt": "Dos integrantes de Logik trabajando con sus laptops en un café"
+      },
+      {
+        "image": "/media/v2/equipo/nosotras-4.webp",
+        "imageAlt": "Diana Maldonado y Abigail Alcántara, directoras de Logik"
+      },
+      {
+        "image": "/media/v2/equipo/nosotras-5.webp",
+        "imageAlt": "Sesión de grabación de contenido en el estudio de Logik"
+      }
+    ],
     "stats": [
       {
         "value": 6,
@@ -446,6 +466,55 @@ export const INITIAL_CONTENT: SiteSettings = {
         "permalink": "https://www.instagram.com/logikmkt/p/DYhddY6id3e/"
       },
       {
+        "image": "/media/v2/posts/logik-002.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "🚨 No todas las agencias de marketing son la mejor opción para tu marca.\n\nSi publicas sin estrategia, tus mensajes se quedan sin respuesta o tu contenido se ve bien pero no genera resultados, es momento de hacerte las preguntas correctas. 👀\n\n🚀 Descubre las señales que podrían estar frenando el crecimiento de tu negocio.\n\n📩 En Logik Marketing creemos en estrategias que conectan, posicionan y generan resultados reales.\n\n#LogikMarketing #AgenciaDeMarketing #SocialMediaMarketing #EmprendedoresMexicanos #MarketingDigital",
+        "permalink": "https://www.instagram.com/logikmkt/p/DaQ7r3ljBMb/"
+      },
+      {
+        "image": "/media/v2/posts/logik-008.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "🚨 No todo en marketing es \"parte del proceso\".\n\nAlgunas situaciones son señales de alerta que podrían estar frenando el crecimiento de tu marca. 👀\n\n💖 En Logik Marketing nos convertimos en aliados de tu crecimiento. Envíanos un mensaje.\n\n#AgenciaDeMarketing #CrecimientoDeMarca #EstrategiaDigital #LogikMarketing #MarketingDigital",
+        "permalink": "https://www.instagram.com/logikmkt/p/DZnhSAWgTRA/"
+      },
+      {
+        "image": "/media/v2/posts/logik-009.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "💻 Los memes no son sólo para reír, también son una herramienta de marketing.\n\nHoy son una de las formas más efectivas de conectar con tu audiencia, generar interacción y darle personalidad a tu marca. 👀\n\n🤔 ¿Tu marca está hablando el mismo idioma que su audiencia?\n\n#ContenidoCreativo #TendenciasDigitales #SocialMediaMarketing #LogikMarketing #MarketingDigital",
+        "permalink": "https://www.instagram.com/logikmkt/p/DZaiXp-E7Io/"
+      },
+      {
+        "image": "/media/v2/posts/logik-010.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "⏰ ¿Publicas a la hora correcta o sólo estás adivinando?\n\nLa mejor hora para publicar no es la misma para todas las marcas. Cada audiencia tiene hábitos, horarios y comportamientos diferentes.\n\n🩷 En Logik Marketing analizamos el comportamiento de tu audiencia para identificar cuándo está realmente conectada y lista para interactuar con tu contenido.\n\n#RedesSociales #MarketingDigital #Aguascalientes #LogikMarketing #MarketingMexico",
+        "permalink": "https://www.instagram.com/logikmkt/p/DZN4Kz0DRpT/"
+      },
+      {
+        "image": "/media/v2/posts/logik-011.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "🚨 ¿Tu cuenta de Instagram está en riesgo?\n\nLa Inteligencia Artificial de Meta está reforzando sus sistemas para detectar spam, bots y actividades sospechosas. Sin embargo, muchas cuentas legítimas también están siendo afectadas por estas medidas.\n\n⚠️ Para negocios, emprendedores y marcas, una suspensión inesperada puede significar la pérdida de alcance, clientes y años de trabajo construyendo una comunidad.\n\n¿Conoces a alguien que haya perdido su cuenta recientemente? 👀\n\n#MarketingDigital #MetaAds #MetaBusiness #LogikMarketing #Aguascalientes",
+        "permalink": "https://www.instagram.com/logikmkt/p/DZDO4oAlblV/"
+      },
+      {
+        "image": "/media/v2/posts/logik-012.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "Desliza y descubre qué tipo de merca ere. Porque entre briefs, cambios y pendientes infinitos, todos tenemos uno. 🤓\n\n🌟 Y seamos honestos, nadie entiende este caos creativo mejor que otro mercadólogo.\n\n#MarketingDigital #SocialMediaMarketing #Emprendedores #MarketingMexico #LogikMarketing",
+        "permalink": "https://www.instagram.com/logikmkt/p/DY2tBC6DV5f/"
+      },
+      {
+        "image": "/media/v2/posts/logik-016.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "💐 Las mejores estrategias de venta no nacieron en una oficina, nacieron en casa.\n\nEntender, conectar, esperar el momento y comunicar bien: siempre ha sido la clave ✨ Hoy celebramos a quienes, sin saberlo, nos enseñaron a vender mejor.\n\n🩷 Feliz Día de las Madres.\n\n#MarketingDigital #SocialMediaMarketing #Branding #DiaDeLasMadres #MarketingMexico",
+        "permalink": "https://www.instagram.com/logikmkt/p/DYKmpQOFVfA/"
+      },
+      {
         "image": "/media/v2/posts/logik-017.webp",
         "category": "logik",
         "account": "logikmkt",
@@ -474,11 +543,25 @@ export const INITIAL_CONTENT: SiteSettings = {
         "permalink": "https://www.instagram.com/logikmkt/p/DVrLVZkiFoe/"
       },
       {
+        "image": "/media/v2/posts/logik-026.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "📊 Los datos capturan la atención y construyen credibilidad.\nDecir que aumentaste la productividad en un 40% abre la puerta.\nEl 81% de las personas necesita confiar en una marca antes de comprar, y las cifras concretas reducen la percepción de riesgo.\nLos datos hablan a la razón.\n\n📖 Pero las historias son las que hacen que ese 40% cobre vida.\nCuando conviertes un número en una experiencia real, en una persona que logró un cambio tangible, transformas información en emoción.\nY las emociones influyen hasta en el 95% de las decisiones de compra.\nLas historias persuaden al corazón.\n\n♟️ Sin embargo, ni los datos ni las historias cierran por sí solos.\nLa estrategia es lo que convierte el interés en acción.\nEs elegir el momento exacto para presentar la propuesta.\nEs estructurar opciones claras.\nEs anticipar objeciones antes de que aparezcan.\nEs eliminar fricción y hacer que el siguiente paso sea obvio.\n\nCuando los tres trabajan juntos:\n✔️ Los datos dan permiso para creer.\n✔️ Las historias dan razones para querer.\n✔️ La estrategia da el mapa para actuar. 🚀\n\nPorque vender no es presionar.\nEs hacer que lo correcto también sea lo más fácil.\n\nEn LOGIK diseñamos comunicación que informa, conecta y convierte con estructura real, no improvisación.\n\n📩 Escríbenos y construyamos una estrategia que transforme tu mensaje en resultados medibles.\n\n#LogikMarketing #AgenciaDeMarketing #MarketingConDatos #Storytelling #EstrategiaDigital",
+        "permalink": "https://www.instagram.com/logikmkt/p/DVeMg5LDXl3/"
+      },
+      {
         "image": "/media/v2/posts/logik-027.webp",
         "category": "logik",
         "account": "logikmkt",
         "caption": "🚨 ¿Tus anuncios iban bien… y de repente bajaron?\n\nNo siempre es el presupuesto 👀\nPuede ser saturación: tu audiencia ya vio lo mismo demasiadas veces y dejó de reaccionar.\n\nLa solución no es gastar más 💸\nEs refrescar, ampliar y optimizar 🎯\n\nNuevos creativos, público más amplio y estrategia inteligente = campañas que vuelven a rendir 🚀\n\n📩 Déjalo en nuestras manos y hagamos que tus campañas vuelvan a despegar\n\n#LogikMarketing #AgenciaDeMarketing #MetaAds #PublicidadDigital #MarketingEstrategico",
         "permalink": "https://www.instagram.com/logikmkt/reel/DVPEWp_jW_K/"
+      },
+      {
+        "image": "/media/v2/posts/logik-037.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "En febrero no gana la marca que grita más…\ngana la que entiende mejor ❤️🧠\n\nSan Valentín se mueve por emociones, no por precios.\nSi sabes leerlas, la venta fluye sola.\n\n#LogikMarketing #PsicologíaDelConsumidor #MarketingEmocional #SanValentín #BrandingEmocional",
+        "permalink": "https://www.instagram.com/logikmkt/p/DUbP0C3kny8/"
       },
       {
         "image": "/media/v2/posts/logik-039.webp",
@@ -502,11 +585,32 @@ export const INITIAL_CONTENT: SiteSettings = {
         "permalink": "https://www.instagram.com/logikmkt/p/DTDfHHWjAGH/"
       },
       {
+        "image": "/media/v2/posts/logik-044.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "El 2026 será un año de IA creativa, comercio social integrado y contenido más emocional que nunca.✨🤖\n\nSi quieres que tu negocio aproveche estas tendencias desde ahora, podemos ayudarte a armar una estrategia completa. 🚀📲\n\n \n\n#LogikMarketing #AgenciaDeMarketing #Tendencias2026 #MarketingDigital #IACreativa",
+        "permalink": "https://www.instagram.com/logikmkt/p/DSk6LLUCWy1/"
+      },
+      {
+        "image": "/media/v2/posts/logik-046.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "La IA ya no solo crea anuncios, los hace vender 🚀🤖\nEstrategia y visuales inteligentes que reducen errores, aceleran resultados y convierten mejor 📈🎨\n\nLa ventaja no está en usar IA…\nestá en usarla bien.\n\n#LogikMarketing #AgenciaDeMarketing #MarketingConIA #PublicidadDigital #InteligenciaArtificial",
+        "permalink": "https://www.instagram.com/logikmkt/p/DTa-0TmD-v-/"
+      },
+      {
         "image": "/media/v2/posts/logik-052.webp",
         "category": "logik",
         "account": "logikmkt",
         "caption": "✨ Cerrar el año también es parte de la estrategia.\nOrganiza tus redes, limpia tus pendientes y deja todo listo para arrancar el 2026 con más enfoque y mejores resultados. 📲🚀\n\n#LogikMarketing #AgenciaDeMarketing #CierreDeAño #MarketingDigital #SocialMediaTips",
         "permalink": "https://www.instagram.com/logikmkt/p/DR7mhofD42o/"
+      },
+      {
+        "image": "/media/v2/posts/logik-055.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "Diciembre es la mejor temporada para vender… pero también donde más se desperdicia dinero por mala estrategia. 🎄💸\nEvita estos errores y prepárate antes del pico navideño. ✨📈\n\n🎯 ¿Quieres que armemos tu campaña estratégica para diciembre? Escríbenos. 💬\n\n \n\n#LogikMarketing #AgenciaDeMarketing #MarketingNavideño #EstrategiaDigital #Ventas2025",
+        "permalink": "https://www.instagram.com/logikmkt/p/DRvYd34icq2/"
       },
       {
         "image": "/media/v2/posts/logik-061.webp",
@@ -521,6 +625,13 @@ export const INITIAL_CONTENT: SiteSettings = {
         "account": "logikmkt",
         "caption": "🧘‍♀️ Hoy en el Día Mundial de la Salud Mental recordamos algo clave: en marketing, cuidarte a ti es cuidar tus resultados 💜.\n\n🎯 Metas claras, 📅 organización, ⚡ automatización y pausas reales = más creatividad y mejores campañas 🚀.\n\n#LogikMarketing #SaludMental #MarketingConConciencia #CreatividadSinBurnout",
         "permalink": "https://www.instagram.com/logikmkt/p/DPogpx3CWUd/"
+      },
+      {
+        "image": "/media/v2/posts/logik-067.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "✅Checklist completado = Buen Fin exitoso.\n\nEn Logik Marketing te ayudamos a optimizar tus campañas y destacar en fechas clave.\n👉 Escríbenos y lanzamos tu estrategia.\n\n#BuenFin2025 #LogikMarketing #CampañasDigitales #MarketingProfesional",
+        "permalink": "https://www.instagram.com/logikmkt/p/DQuzC6MiYTm/"
       },
       {
         "image": "/media/v2/posts/logik-073.webp",
@@ -556,6 +667,13 @@ export const INITIAL_CONTENT: SiteSettings = {
         "account": "logikmkt",
         "caption": "Impulsa tus redes sociales!🚀 Hacemos crecer tu presencia en Facebook con estrategias. Alcanza tus objetivos y haz que tu marca brille 📈\n\n¡Contáctanos ahora y comienza tu transformación digital! 💬\n\n#CrecimientoEnRedes #MarketingDigital #LogikMarketing #ResultadosGarantizados  #AgenciadeMarketing",
         "permalink": "https://www.instagram.com/logikmkt/p/DNrF1t43Mf0/"
+      },
+      {
+        "image": "/media/v2/posts/logik-091.webp",
+        "category": "logik",
+        "account": "logikmkt",
+        "caption": "✨ ¡Listo para dominar Facebook y más? 🚀 ¡Pregunta por nuestros planes y lleva tu marca a la cima! 💬\n\n#RedesSociales #PaquetesDigitales #LogikMarketing #MarketingDigital #AgenciadeMarketing",
+        "permalink": "https://www.instagram.com/logikmkt/p/DNgQTBzhEqm/"
       },
       {
         "image": "/media/v2/posts/logik-093.webp",
@@ -614,20 +732,6 @@ export const INITIAL_CONTENT: SiteSettings = {
         "permalink": null
       },
       {
-        "image": "/media/v2/posts/gastronomia-32.webp",
-        "category": "gastronomia",
-        "account": "Comida a domicilio",
-        "caption": "Diseño de Logik Marketing para Comida a domicilio.",
-        "permalink": null
-      },
-      {
-        "image": "/media/v2/posts/gastronomia-05.webp",
-        "category": "gastronomia",
-        "account": "Pizzería",
-        "caption": "Diseño de Logik Marketing para Pizzería.",
-        "permalink": null
-      },
-      {
         "image": "/media/v2/posts/salud-08.webp",
         "category": "salud",
         "account": "GASE Dental Group",
@@ -663,20 +767,6 @@ export const INITIAL_CONTENT: SiteSettings = {
         "permalink": null
       },
       {
-        "image": "/media/v2/posts/salud-21.webp",
-        "category": "salud",
-        "account": "Velo Bye",
-        "caption": "Diseño de Logik Marketing para Velo Bye.",
-        "permalink": null
-      },
-      {
-        "image": "/media/v2/posts/salud-47.webp",
-        "category": "salud",
-        "account": "Velo Bye",
-        "caption": "Diseño de Logik Marketing para Velo Bye.",
-        "permalink": null
-      },
-      {
         "image": "/media/v2/posts/belleza-10.webp",
         "category": "belleza",
         "account": "Novedades y Cosméticos",
@@ -700,22 +790,22 @@ export const INITIAL_CONTENT: SiteSettings = {
       {
         "image": "/media/v2/posts/belleza-11.webp",
         "category": "belleza",
-        "account": "Moira",
-        "caption": "Diseño de Logik Marketing para Moira.",
+        "account": "Novedades y Cosméticos",
+        "caption": "Diseño de Logik Marketing para Novedades y Cosméticos.",
         "permalink": null
       },
       {
         "image": "/media/v2/posts/belleza-24.webp",
         "category": "belleza",
-        "account": "Moira",
-        "caption": "Diseño de Logik Marketing para Moira.",
+        "account": "Novedades y Cosméticos",
+        "caption": "Diseño de Logik Marketing para Novedades y Cosméticos.",
         "permalink": null
       },
       {
         "image": "/media/v2/posts/belleza-03.webp",
         "category": "belleza",
-        "account": "Moira",
-        "caption": "Diseño de Logik Marketing para Moira.",
+        "account": "Novedades y Cosméticos",
+        "caption": "Diseño de Logik Marketing para Novedades y Cosméticos.",
         "permalink": null
       },
       {
@@ -765,20 +855,6 @@ export const INITIAL_CONTENT: SiteSettings = {
         "category": "turismo",
         "account": "Li-Kaan",
         "caption": "Diseño de Logik Marketing para Li-Kaan.",
-        "permalink": null
-      },
-      {
-        "image": "/media/v2/posts/turismo-16.webp",
-        "category": "turismo",
-        "account": "Agencia de viajes",
-        "caption": "Diseño de Logik Marketing para Agencia de viajes.",
-        "permalink": null
-      },
-      {
-        "image": "/media/v2/posts/turismo-36.webp",
-        "category": "turismo",
-        "account": "Agencia de viajes",
-        "caption": "Diseño de Logik Marketing para Agencia de viajes.",
         "permalink": null
       },
       {
@@ -946,7 +1022,7 @@ export const INITIAL_CONTENT: SiteSettings = {
   "brands": {
     "title": "Marcas que",
     "script": "confían en nosotras",
-    "intro": "Más de 70 marcas en seis estados de México.",
+    "intro": "Más de 70 marcas en seis estados de México. Estas son algunas.",
     "items": [
       {
         "name": "Hampton by Hilton",
@@ -1019,6 +1095,182 @@ export const INITIAL_CONTENT: SiteSettings = {
         "logo": "/media/v2/logos/logo-04-0.png",
         "photo": "/media/v2/marcas/holistik.webp",
         "color": "#2f4a37"
+      },
+      {
+        "name": "La Lotería y sus Alitas",
+        "category": "Restaurante de alitas",
+        "description": "Contenido de antojo y promociones para su restaurante.",
+        "logo": "/media/v2/logos/logo-02-0.png",
+        "photo": null,
+        "color": "#b3261e"
+      },
+      {
+        "name": "Khibuq",
+        "category": "Marca local",
+        "description": "Diseño de identidad y contenido para sus redes sociales.",
+        "logo": "/media/v2/logos/logo-03-0.png",
+        "photo": null,
+        "color": "#3b2a5c"
+      },
+      {
+        "name": "Bárbaras",
+        "category": "Mercería y manualidades",
+        "description": "\"Cose, pega y hila tus ideas\": publicaciones para su tienda.",
+        "logo": "/media/v2/logos/logo-05-0.png",
+        "photo": null,
+        "color": "#8c3b5a"
+      },
+      {
+        "name": "Camelia Accesorios",
+        "category": "Accesorios",
+        "description": "Fotografía y contenido para su catálogo de accesorios.",
+        "logo": "/media/v2/logos/logo-06-0.png",
+        "photo": null,
+        "color": "#a0577a"
+      },
+      {
+        "name": "RCM",
+        "category": "Reparación de celulares",
+        "description": "Publicaciones de servicios y promociones de reparación.",
+        "logo": "/media/v2/logos/logo-06-1.png",
+        "photo": null,
+        "color": "#1e3a5f"
+      },
+      {
+        "name": "Texhi",
+        "category": "Marca local",
+        "description": "Contenido para redes y campañas de su marca.",
+        "logo": "/media/v2/logos/logo-07-0.png",
+        "photo": null,
+        "color": "#22313f"
+      },
+      {
+        "name": "Shekinah Amma",
+        "category": "Agencia de viajes",
+        "description": "Paquetes y destinos comunicados para vender por redes.",
+        "logo": "/media/v2/logos/logo-08-0.png",
+        "photo": null,
+        "color": "#6b4c8a"
+      },
+      {
+        "name": "Greenfood",
+        "category": "Comida saludable",
+        "description": "Contenido de menú y promociones de comida saludable.",
+        "logo": "/media/v2/logos/logo-09-0.png",
+        "photo": null,
+        "color": "#2e7d32"
+      },
+      {
+        "name": "EIC Soluciones Integrales",
+        "category": "Servicios",
+        "description": "Comunicación clara de sus servicios integrales.",
+        "logo": "/media/v2/logos/logo-10-0.png",
+        "photo": null,
+        "color": "#0f4c81"
+      },
+      {
+        "name": "Alisson Tours",
+        "category": "Agencia de viajes",
+        "description": "Promociones de viajes y salidas grupales.",
+        "logo": "/media/v2/logos/logo-10-1.png",
+        "photo": null,
+        "color": "#0e7490"
+      },
+      {
+        "name": "Olaya Accesorios",
+        "category": "Accesorios",
+        "description": "Contenido para su tienda de accesorios.",
+        "logo": "/media/v2/logos/logo-11-0.png",
+        "photo": null,
+        "color": "#7c5c3b"
+      },
+      {
+        "name": "Sr. Sorbete",
+        "category": "Heladería y cafetería",
+        "description": "Publicaciones de producto para su heladería y cafetería.",
+        "logo": "/media/v2/logos/logo-13-a.png",
+        "photo": null,
+        "color": "#c2185b"
+      },
+      {
+        "name": "Moño",
+        "category": "Marca local",
+        "description": "Diseño de contenido para sus redes sociales.",
+        "logo": "/media/v2/logos/logo-13-b.png",
+        "photo": null,
+        "color": "#4a3f6b"
+      },
+      {
+        "name": "Tu Contfiable",
+        "category": "Asesoría contable y fiscal",
+        "description": "Contenido que explica temas contables y fiscales con claridad.",
+        "logo": "/media/v2/logos/logo-16-1.png",
+        "photo": null,
+        "color": "#14532d"
+      },
+      {
+        "name": "Mimpre",
+        "category": "Marca local",
+        "description": "Contenido y campañas para sus redes.",
+        "logo": "/media/v2/logos/logo-17-1.png",
+        "photo": null,
+        "color": "#334155"
+      },
+      {
+        "name": "Inndigo",
+        "category": "Marca local",
+        "description": "Diseño de contenido para sus redes sociales.",
+        "logo": "/media/v2/logos/logo-19-a.png",
+        "photo": null,
+        "color": "#283593"
+      },
+      {
+        "name": "Ribhaus",
+        "category": "BBQ & Wings",
+        "description": "Contenido de antojo para su restaurante de BBQ y alitas.",
+        "logo": "/media/v2/logos/logo-19-b.png",
+        "photo": null,
+        "color": "#5d2e1a"
+      },
+      {
+        "name": "3WS",
+        "category": "Marca local",
+        "description": "Contenido y campañas para sus redes.",
+        "logo": "/media/v2/logos/logo-20-0.png",
+        "photo": null,
+        "color": "#1f2937"
+      },
+      {
+        "name": "Oki Premium",
+        "category": "Detallado automotriz",
+        "description": "Antes y después de sus servicios de detallado.",
+        "logo": "/media/v2/logos/logo-21-0.png",
+        "photo": null,
+        "color": "#0b0b0f"
+      },
+      {
+        "name": "CEECA",
+        "category": "Centro de educación especial",
+        "description": "Comunicación cercana para las familias de su centro.",
+        "logo": "/media/v2/logos/logo-21-1.png",
+        "photo": null,
+        "color": "#1565c0"
+      },
+      {
+        "name": "California Frutería",
+        "category": "Frutería",
+        "description": "Contenido fresco de producto y promociones.",
+        "logo": "/media/v2/logos/logo-22-0.png",
+        "photo": null,
+        "color": "#d9480f"
+      },
+      {
+        "name": "Sin Justificar",
+        "category": "Marca local",
+        "description": "Contenido y campañas para sus redes.",
+        "logo": "/media/v2/logos/logo-22-1.png",
+        "photo": null,
+        "color": "#262626"
       }
     ],
     "isProvisional": true

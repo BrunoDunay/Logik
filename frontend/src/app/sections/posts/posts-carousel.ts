@@ -1,16 +1,17 @@
-import { ChangeDetectionStrategy, Component, computed, input, linkedSignal, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, computed, inject, input, linkedSignal, signal } from '@angular/core';
 import { Reveal } from '../../components/reveal/reveal.directive';
 import { SectionHeading } from '../../components/section-heading/section-heading';
-import { PostsSettings } from '../../core/types/settings.model';
-import { IgPost } from './ig-post';
+import { Brand, PostsSettings } from '../../core/types/settings.model';
+import { IgPost, PostBrand } from './ig-post';
 
 /** Cuántas tarjetas se ven a cada lado de la central. */
 const SIDE = 3;
 
 /**
- * Carrusel tipo "coverflow" (referencia: "Carrusel para publicaciones"): filtros por giro arriba,
- * la publicación central se ve como en Instagram y las demás se apilan en perspectiva a los lados.
- * Se mueve con las flechas, el teclado, arrastrando o tocando una tarjeta lateral.
+ * Carrusel tipo "coverflow" (referencia: "Carrusel para publicaciones"), navegado como un catálogo:
+ * todas las tarjetas existen siempre y solo cambian de lugar, así que al avanzar se deslizan, giran
+ * y la que llega al centro se convierte en una publicación de Instagram (encabezado, like y texto).
+ * Se mueve tocando una tarjeta lateral, arrastrando o con las flechas del teclado.
  */
 @Component({
   selector: 'app-posts-carousel',
@@ -21,29 +22,37 @@ const SIDE = 3;
 })
 export class PostsCarousel {
   readonly content = input.required<PostsSettings>();
+  /** Marcas del carrusel de clientes: dan el logo y el color del avatar de cada publicación. */
+  readonly brands = input<Brand[]>([]);
 
   protected readonly category = linkedSignal(() => this.content().categories[0]?.id ?? '');
   protected readonly filtered = computed(() => this.content().items.filter((p) => p.category === this.category()));
   /** La publicación central; vuelve a la primera al cambiar de filtro. */
   protected readonly index = linkedSignal({ source: () => this.filtered(), computation: () => 0 });
-  protected readonly current = computed(() => this.filtered()[this.index()] ?? null);
-  protected readonly categoryIndex = computed(() => Math.max(0, this.content().categories.findIndex((c) => c.id === this.category())));
+  /** Mientras cambia el filtro, el escenario se desvanece antes de mostrar las nuevas tarjetas. */
+  protected readonly switching = signal(false);
+  protected readonly n = computed(() => this.filtered().length);
+
+  protected readonly brandOf = computed(() => {
+    const map = new Map<string, PostBrand>();
+    for (const b of this.brands()) map.set(b.name, { logo: b.logo, color: b.color });
+    return map;
+  });
 
   /**
-   * Tarjetas laterales visibles con su desplazamiento respecto a la central (-3 … 3, sin el 0).
-   * El carrusel es circular: a la izquierda de la primera aparecen las últimas.
+   * Cada tarjeta con su distancia a la central. Con pocas tarjetas la fila es lineal;
+   * con muchas es circular (a la izquierda de la primera aparecen las últimas).
    */
-  protected readonly sides = computed(() => {
+  protected readonly cards = computed(() => {
     const items = this.filtered();
     const n = items.length;
-    const side = Math.min(SIDE, Math.floor((n - 1) / 2));
-    const out: { post: (typeof items)[number]; offset: number; i: number }[] = [];
-    for (let offset = -side; offset <= side; offset++) {
-      if (offset === 0) continue;
-      const i = (((this.index() + offset) % n) + n) % n;
-      out.push({ post: items[i], offset, i });
-    }
-    return out;
+    const index = this.index();
+    const circular = n > SIDE * 2 + 1;
+    const half = Math.floor(n / 2);
+    return items.map((post, i) => {
+      const o = circular ? ((((i - index + half) % n) + n) % n) - half : i - index;
+      return { post, i, o, abs: Math.abs(o), hidden: Math.abs(o) > SIDE };
+    });
   });
 
   protected readonly counts = computed(() => {
@@ -53,10 +62,24 @@ export class PostsCarousel {
   });
 
   private dragX: number | null = null;
-  protected readonly dragging = signal(false);
+  private timer: ReturnType<typeof setTimeout> | undefined;
+
+  constructor() {
+    inject(DestroyRef).onDestroy(() => clearTimeout(this.timer));
+  }
+
+  protected pick(id: string): void {
+    if (id === this.category() || this.switching()) return;
+    this.switching.set(true);
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this.category.set(id);
+      this.switching.set(false);
+    }, 340);
+  }
 
   protected go(delta: number): void {
-    const n = this.filtered().length;
+    const n = this.n();
     if (!n) return;
     this.index.set((this.index() + delta + n) % n);
   }
@@ -69,7 +92,7 @@ export class PostsCarousel {
   }
 
   protected down(event: PointerEvent): void {
-    if ((event.target as HTMLElement).closest('button, a')) return;
+    if ((event.target as HTMLElement).closest('.card.is-center button, .card.is-center a')) return;
     this.dragX = event.clientX;
   }
 

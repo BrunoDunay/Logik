@@ -40,7 +40,7 @@ const NAV: NavLink[] = [
     <main class="site-chrome">
       <app-about [content]="s.about" />
       <app-results [content]="s.results" />
-      <app-posts-carousel [content]="s.posts" />
+      <app-posts-carousel [content]="s.posts" [brands]="s.brands.items" />
       <app-services [content]="s.services" />
       <app-packages [content]="s.packages" [whatsapp]="s.contact.whatsapp" />
       <app-brands-carousel [content]="s.brands" />

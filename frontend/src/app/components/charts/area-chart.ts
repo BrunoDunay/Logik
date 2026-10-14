@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, linkedSignal, signal } from '@angular/core';
 import { ChartPoint } from '../../core/types/settings.model';
 import { formatNumber, formatShort, niceMax, useDraw } from './chart-draw';
 
@@ -6,6 +6,8 @@ let nextId = 0;
 const W = 720;
 const H = 330;
 const PAD = { top: 24, right: 18, bottom: 40, left: 52 };
+
+type Tip = ChartPoint & { x: number; y: number };
 
 /**
  * Área de una sola serie (rosa sobre negro) con línea de 2px, marca vertical opcional ("Llega Logik"),
@@ -44,8 +46,8 @@ const PAD = { top: 24, right: 18, bottom: 40, left: 52 };
         }
         <rect class="hit" [attr.x]="pad.left" [attr.y]="0" [attr.width]="innerW" [attr.height]="h" />
       </svg>
-      @if (activePoint(); as p) {
-        <div class="tip" [style.left.%]="(p.x / w) * 100" [style.top.%]="(p.y / h) * 100">
+      @if (tipAt(); as p) {
+        <div class="tip" [class.is-on]="!!activePoint()" [style.left.%]="(p.x / w) * 100" [style.top.%]="(p.y / h) * 100">
           <strong>{{ p.label }}</strong>
           <span>{{ fmt(p.value) }} {{ unit() }}</span>
           @if (p.peak) {
@@ -106,6 +108,12 @@ export class AreaChart {
     if (i === null) return null;
     const p = this.points()[i];
     return p ? { ...p, x: this.xs()[i], y: this.y(p.value) } : null;
+  });
+
+  /** El tooltip recuerda el último punto para desvanecerse en su lugar en vez de desaparecer de golpe. */
+  protected readonly tipAt = linkedSignal<Tip | null, Tip | null>({
+    source: this.activePoint,
+    computation: (now, previous) => now ?? previous?.value ?? null,
   });
 
   protected hover(event: PointerEvent): void {

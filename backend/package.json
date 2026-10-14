@@ -14,7 +14,8 @@
     "migrate": "node --env-file=.env src/config/migrate.js up",
     "migrate:down": "node --env-file=.env src/config/migrate.js down",
     "test": "vitest run",
-    "content:export": "node scripts/export-content.js"
+    "content:export": "node scripts/export-content.js",
+    "content:sync": "node --env-file=.env scripts/sync-content.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

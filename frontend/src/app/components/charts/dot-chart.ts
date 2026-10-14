@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, linkedSignal, signal } from '@angular/core';
 import { ChartItem } from '../../core/types/settings.model';
 import { useDraw } from './chart-draw';
 
@@ -6,6 +6,8 @@ const W = 720;
 const H = 220;
 const PAD = { left: 24, right: 24, axis: 176 };
 const R = 11;
+
+type Tip = ChartItem & { cx: number; cy: number };
 
 /**
  * Gráfica de puntos en una escala de 0 a 100 %: cada punto es una notificación real.
@@ -38,8 +40,8 @@ const R = 11;
           />
         }
       </svg>
-      @if (activeDot(); as d) {
-        <div class="tip" [style.left.%]="(d.cx / w) * 100" [style.top.%]="(d.cy / h) * 100">
+      @if (tipAt(); as d) {
+        <div class="tip" [class.is-on]="!!activeDot()" [style.left.%]="(d.cx / w) * 100" [style.top.%]="(d.cy / h) * 100">
           <strong>{{ d.value }} % más bajo</strong>
           <span class="tip__soft">{{ d.label }} · {{ d.detail }}</span>
         </div>
@@ -78,5 +80,11 @@ export class DotChart {
   protected readonly activeDot = computed(() => {
     const i = this.active();
     return i === null ? null : this.dots()[i];
+  });
+
+  /** El tooltip recuerda el último punto para desvanecerse en su lugar en vez de desaparecer de golpe. */
+  protected readonly tipAt = linkedSignal<Tip | null, Tip | null>({
+    source: this.activeDot,
+    computation: (now, previous) => now ?? previous?.value ?? null,
   });
 }

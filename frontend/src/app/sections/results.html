@@ -16,26 +16,25 @@
           [attr.aria-selected]="item.id === activeId()"
           [attr.aria-controls]="'panel-' + item.id"
           [attr.tabindex]="item.id === activeId() ? 0 : -1"
-          (click)="activeId.set(item.id)"
+          (click)="select(item.id)"
         >
           {{ item.tab }}
         </button>
       }
     </div>
 
-    @if (active(); as a) {
-      @for (k of [a.id]; track k) {
-        <div class="case" role="tabpanel" [id]="'panel-' + a.id" [attr.aria-labelledby]="'tab-' + a.id">
+    @for (a of shown(); track a.id) {
+      <div class="case" [class.is-leaving]="leaving()" role="tabpanel" [id]="'panel-' + a.id" [attr.aria-labelledby]="'tab-' + a.id">
           <div class="case__copy">
-            <p class="case__client">{{ a.client }}</p>
-            <h3 class="case__headline">{{ a.headline }}</h3>
-            <app-read-more [more]="a.more">
+            <p class="case__client" appReveal="blur" style="--i: 0">{{ a.client }}</p>
+            <h3 class="case__headline" appReveal="blur" [revealDelay]="100" style="--i: 1">{{ a.headline }}</h3>
+            <app-read-more [more]="a.more" appReveal [revealDelay]="200" style="--i: 2">
               <p class="case__summary">{{ a.summary }}</p>
             </app-read-more>
             @if (a.kpis.length) {
               <ul class="case__kpis" role="list">
-                @for (kpi of a.kpis; track kpi.label) {
-                  <li class="kpi" tabindex="0">
+                @for (kpi of a.kpis; track kpi.label; let i = $index) {
+                  <li class="kpi" tabindex="0" appReveal [revealDelay]="300 + i * 90" [style.--i]="3 + i">
                     <span class="kpi__value" [appCountUp]="kpi.value" [prefix]="kpi.prefix" [suffix]="kpi.suffix"></span>
                     <span class="kpi__label">{{ kpi.label }}</span>
                     @if (kpi.detail) {
@@ -47,7 +46,8 @@
             }
           </div>
 
-          <figure class="case__chart">
+          <figure class="case__chart" appReveal="zoom" [revealDelay]="450" (pointermove)="glow($event)">
+            <span class="case__glow" aria-hidden="true"></span>
             <figcaption class="chart__head">
               <span class="chart__title">{{ a.chart.title }}</span>
               @if (a.chart.unit) {
@@ -94,8 +94,7 @@
               </table>
             </details>
           </figure>
-        </div>
-      }
+      </div>
     }
   </div>
 </section>

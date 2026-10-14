@@ -39,9 +39,14 @@ export interface AboutSettings {
   script: string;
   summary: string;
   more: string | null;
+  /** Fotos del equipo que rotan en la sección, todas con el semitono. */
+  photos: Photo[];
+  stats: Stat[];
+}
+
+export interface Photo {
   image: string;
   imageAlt: string;
-  stats: Stat[];
 }
 
 export type ChartKind = 'area' | 'bars' | 'steps' | 'dots';
@@ -128,7 +133,7 @@ export interface Brand {
   category: string;
   description: string;
   logo: string;
-  photo: string;
+  photo: string | null;
   color: string;
 }
 
@@ -151,7 +156,7 @@ export interface VideosSettings extends SectionHeading {
 export interface TeamMember {
   name: string;
   role: string;
-  photo: string;
+  photo: string | null;
   summary: string;
   more: string | null;
 }

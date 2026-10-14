@@ -21,6 +21,7 @@ export function niceMax(v: number): number {
 /**
  * Estado de "dibujado" de una gráfica: pasa a verdadero cuando entra en pantalla y se reinicia
  * cada vez que cambian sus datos (al cambiar de pestaña la gráfica se vuelve a dibujar).
+ * Espera un momento antes de dibujar: primero aparece el texto, luego la tarjeta negra y al final la gráfica.
  * En el servidor y con "reducir movimiento", la gráfica sale ya dibujada.
  */
 export function useDraw(trigger: () => unknown) {
@@ -30,9 +31,11 @@ export function useDraw(trigger: () => unknown) {
   let visible = false;
   let ready = false;
 
-  const replay = () => {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const replay = (delay: number) => {
     drawn.set(false);
-    requestAnimationFrame(() => requestAnimationFrame(() => drawn.set(true)));
+    clearTimeout(timer);
+    timer = setTimeout(() => requestAnimationFrame(() => drawn.set(true)), delay);
   };
 
   afterNextRender(() => {
@@ -43,17 +46,20 @@ export function useDraw(trigger: () => unknown) {
       ([entry]) => {
         if (!entry.isIntersecting || visible) return;
         visible = true;
-        replay();
+        replay(900);
       },
       { rootMargin: '0px 0px -15% 0px' },
     );
     observer.observe(host);
-    destroyRef.onDestroy(() => observer.disconnect());
+    destroyRef.onDestroy(() => {
+      observer.disconnect();
+      clearTimeout(timer);
+    });
   });
 
   effect(() => {
     trigger();
-    if (ready && visible) replay();
+    if (ready && visible) replay(500);
   });
 
   return drawn;
