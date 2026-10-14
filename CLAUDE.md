@@ -10,7 +10,7 @@ El usuario hace páginas web. Una conocida trabaja en **Logik Marketing** (https
 - No busca necesariamente entrar a su plantilla. Le sirve que lo contacten como **externo** cuando un cliente contrate ese servicio, y está abierto a distintos flujos de trabajo: por proyecto, marca blanca, comisión o mantenimiento mensual.
 - Para convencerlas, quiere presentarse con **un prototipo de la propia página de Logik**, ya que la actual no es tan atractiva visualmente.
 
-## Estado actual (actualizado el 14 oct 2026, sesión 6)
+## Estado actual (actualizado el 14 oct 2026, sesión 7)
 
 Al retomar, leer en este orden: este archivo, `docs/diseno-v2.md` (manda sobre `docs/diseno-prototipo.md`), `docs/investigacion-redes.md` y `README.md`.
 
@@ -21,6 +21,13 @@ Al retomar, leer en este orden: este archivo, `docs/diseno-v2.md` (manda sobre `
 4. Video de marca con HyperFrames en `videos/logik-marcas/`, ya integrado en la sección de videos.
 5. **Pulido de la sesión 5** (lista larga del usuario): intro nueva (blanco → negro, la luz crea las letras, la flecha encaja al final), hover del logo solo con destello, navbar con logo desde el inicio, cursores rosas, favicon sobre blanco, LinkedIn, nada instantáneo (duraciones más largas), carruseles que se deslizan como catálogo, marcas en ciclo con 31 marcas, videos con lista de miniaturas, biografías originales con la insignia de Meta, contacto menos rosa, pie normal y páginas de privacidad, términos y cookies. Detalle en `docs/diseno-v2.md`.
 6. PostgreSQL local: usuario `logik_app`, bases `logik` y `logik_test` (credenciales en `backend/.env`). En Windows la URL usa `127.0.0.1`. **Correr el backend con `npm start`, no con `npm run dev`**: en la carpeta de OneDrive, `node --watch` se reinicia sin parar y se queda colgado.
+
+**Desplegado** (sesión 7): cada push a `main` en GitHub (`BrunoDunay/Logik`) publica solo.
+- Sitio: https://logik-marketing.vercel.app (Vercel `logik-marketing`, carpeta `frontend/`, portada y legales prerenderizadas).
+- API: https://logik-api-nine.vercel.app/api (Vercel `logik-api`, carpeta `backend/`, entrada `api/index.js`).
+- Base: Neon, proyecto `logik` (`weathered-mud-20997319`, us-east-1). La cadena de conexión está solo en las variables de Vercel.
+- Migraciones nuevas: aplicarlas a mano contra Neon (`DATABASE_URL=… DATABASE_SSL=true npm run migrate`); la función no migra al arrancar.
+- Cambios de contenido del seeder: `npm run content:sync -- <secciones>` con la `DATABASE_URL` de Neon.
 
 **Pendiente**
 - Ajustes del usuario tras revisar la sesión 6 (ver "Ajustes de la sesión 6" en `docs/diseno-v2.md`).
