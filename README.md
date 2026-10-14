@@ -63,7 +63,7 @@ Está desplegado en Vercel, conectado a este repositorio: **cada push a `main` p
 | Parte | Dónde | Proyecto |
 |---|---|---|
 | Sitio (Angular, prerenderizado) | https://logik-marketing.vercel.app | Vercel `logik-marketing`, carpeta `frontend/` |
-| API (Express como función) | https://logik-api.vercel.app/api | Vercel `logik-api`, carpeta `backend/` (`api/index.js`) |
+| API (Express como función) | https://logik-api-nine.vercel.app/api | Vercel `logik-api`, carpeta `backend/` (`api/index.js`) |
 | Base de datos | Neon, proyecto `logik` (us-east-1) | PostgreSQL 17 |
 
 - Las variables de la API (`DATABASE_URL`, `JWT_SECRET`, `ADMIN_*`, `CORS_ORIGINS`…) están en el proyecto de Vercel, no en el repositorio.
