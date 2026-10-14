@@ -23,6 +23,22 @@ const LABELS: Record<string, string> = {
   tiktok: 'TikTok (usuario)', invitation: 'Invitación final', isProvisional: 'Pendiente de confirmar',
 };
 
+/** Orden en que se muestran los campos (PostgreSQL guarda el JSON con las claves reordenadas). */
+const ORDER = [
+  'id', 'tab', 'name', 'title', 'lead', 'accent', 'script', 'kicker', 'invitation', 'client', 'headline', 'category', 'account',
+  'role', 'tagline', 'phrase', 'subtitle', 'intro', 'summary', 'description', 'detail', 'more', 'caption', 'price', 'period',
+  'highlighted', 'features', 'label', 'value', 'prefix', 'suffix', 'peak', 'kind', 'unit', 'markerIndex', 'markerLabel',
+  'points', 'steps', 'items', 'kpis', 'chart', 'cases', 'categories', 'members', 'stats', 'image', 'imageAlt', 'photo', 'logo',
+  'color', 'src', 'poster', 'orientation', 'groupPhoto', 'groupCaption', 'permalink', 'whatsapp', 'whatsappMessage',
+  'phoneDisplay', 'email', 'city', 'address', 'location', 'instagram', 'facebook', 'tiktok', 'ctaLabel', 'note', 'isProvisional',
+];
+
+/** Claves de un objeto en el orden de ORDER; las desconocidas van al final. */
+export function orderedKeys(v: object): string[] {
+  const rank = (k: string) => (ORDER.includes(k) ? ORDER.indexOf(k) : ORDER.length);
+  return Object.keys(v).sort((a, b) => rank(a) - rank(b));
+}
+
 const LONG = new Set(['summary', 'more', 'detail', 'description', 'caption', 'intro', 'note', 'subtitle', 'groupCaption']);
 const MEDIA = new Set(['image', 'photo', 'logo', 'poster', 'groupPhoto']);
 
@@ -123,7 +139,7 @@ export class JsonField {
   }
 
   protected keys(v: JsonObject): string[] {
-    return Object.keys(v);
+    return orderedKeys(v);
   }
 
   protected isMedia(): boolean {

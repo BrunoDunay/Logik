@@ -23,7 +23,7 @@ import { Reveal } from '../reveal/reveal.directive';
   styles: `
     :host { display: grid; gap: var(--space-4); max-width: 48rem; }
     :host(.is-center) { justify-items: center; text-align: center; margin-inline: auto; }
-    .title { position: relative; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.28em; font-size: var(--text-xl); }
+    .title { position: relative; width: fit-content; max-width: 100%; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.28em; font-size: var(--text-xl); }
     :host(.is-center) .title { justify-content: center; }
     .title__script { font-size: 1.3em; padding-inline: 0.04em 0.12em; }
     .title__spark { position: absolute; width: 0.42em; height: 0.42em; right: -0.5em; top: -0.25em; fill: var(--color-pink-logo); animation: spark-spin 6s linear infinite; }

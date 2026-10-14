@@ -10,22 +10,21 @@ El usuario hace páginas web. Una conocida trabaja en **Logik Marketing** (https
 - No busca necesariamente entrar a su plantilla. Le sirve que lo contacten como **externo** cuando un cliente contrate ese servicio, y está abierto a distintos flujos de trabajo: por proyecto, marca blanca, comisión o mantenimiento mensual.
 - Para convencerlas, quiere presentarse con **un prototipo de la propia página de Logik**, ya que la actual no es tan atractiva visualmente.
 
-## Estado actual (actualizado el 14 oct 2026, fin de la sesión 3)
+## Estado actual (actualizado el 14 oct 2026, sesión 4)
 
-Al retomar, leer en este orden: este archivo, `docs/investigacion-redes.md`, `docs/diseno-prototipo.md` y `README.md`.
+Al retomar, leer en este orden: este archivo, `docs/diseno-v2.md` (manda sobre `docs/diseno-prototipo.md`), `docs/investigacion-redes.md` y `README.md`.
 
 **Hecho**
-1. Investigación de Instagram (99 publicaciones y 6 historias destacadas), Facebook y el sitio actual con OpenCLI y agent-browser: `docs/investigacion-redes.md`. Precio real de entrada: **$2,499 al mes** (el sitio está desactualizado).
-2. Diseño con taste-skill (dirección `sentence-as-layout`), ui-ux-pro-max y emil-design-eng: `docs/diseno-prototipo.md`.
-3. Proyecto completo: `backend/` (Express 5 + PostgreSQL, contenido por secciones en `site_settings`) y `frontend/` (Angular 22 + SSR). La portada pasa el inspector de taste-skill sin fallos a 1440, 768 y 390 px.
-4. Video de marca con HyperFrames en `videos/logik-marcas/` (30 s, 1080×1920, sin audio): gancho, montaje de trabajo, muro de logos, resultados de Meta y cierre con precio. `hyperframes check` pasa. Render aprobado: el original (20.9 MB, calidad de entrega) queda en `videos/logik-marcas/renders/` (no se sube a git) y la versión web (720×1280, 2 MB) está en `frontend/public/media/showcase/marcas.mp4`.
-5. PostgreSQL local configurado: usuario `logik_app`, bases `logik` y `logik_test`; credenciales en `backend/.env` (no se sube). Las 20 pruebas del backend pasan, incluidas las de integración. En Windows, la URL usa `127.0.0.1`, no `localhost`.
+1. Investigación de redes y sitio: `docs/investigacion-redes.md`.
+2. **Rediseño v2** a partir de las referencias del usuario (`referencias/Referencias web/` y `referencias/Referencias para diseño/`): intro con el logo construyéndose, hero estilo "TURA", resultados con gráficas propias, carrusel de publicaciones estilo Instagram, servicios, paquetes, carrusel de marcas, videos, directoras y contacto. Ver `docs/diseno-v2.md`.
+3. **Panel** en `/login` y `/panel`: edita todas las secciones (formulario generado desde el JSON de cada una). Cuenta en `backend/.env`.
+4. Video de marca con HyperFrames en `videos/logik-marcas/`, ya integrado en la sección de videos.
+5. PostgreSQL local: usuario `logik_app`, bases `logik` y `logik_test` (credenciales en `backend/.env`). En Windows la URL usa `127.0.0.1`. **Correr el backend con `npm start`, no con `npm run dev`**: en la carpeta de OneDrive, `node --watch` se reinicia sin parar y se queda colgado.
 
 **Pendiente**
-- Ajustes que pida el usuario después de revisar el sitio.
-- Panel de edición (login y formularios por sección), que se vende con el mantenimiento.
-- Confirmar con la agencia lo marcado en "Pendiente de confirmar" de `docs/diseno-prototipo.md`.
-- Opcional: versión del video con música para Instagram.
+- Ajustes del usuario tras revisar el rediseño.
+- Confirmar con la agencia lo listado en `docs/diseno-v2.md`.
+- Opcional: logos a color de las marcas; versión del video con música.
 
 **Repositorios con estrella del usuario, evaluados para este proyecto**
 

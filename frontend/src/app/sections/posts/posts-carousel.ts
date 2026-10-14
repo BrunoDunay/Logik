@@ -29,14 +29,19 @@ export class PostsCarousel {
   protected readonly current = computed(() => this.filtered()[this.index()] ?? null);
   protected readonly categoryIndex = computed(() => Math.max(0, this.content().categories.findIndex((c) => c.id === this.category())));
 
-  /** Tarjetas laterales visibles con su desplazamiento respecto a la central (-3 … 3, sin el 0). */
+  /**
+   * Tarjetas laterales visibles con su desplazamiento respecto a la central (-3 … 3, sin el 0).
+   * El carrusel es circular: a la izquierda de la primera aparecen las últimas.
+   */
   protected readonly sides = computed(() => {
     const items = this.filtered();
+    const n = items.length;
+    const side = Math.min(SIDE, Math.floor((n - 1) / 2));
     const out: { post: (typeof items)[number]; offset: number; i: number }[] = [];
-    for (let offset = -SIDE; offset <= SIDE; offset++) {
+    for (let offset = -side; offset <= side; offset++) {
       if (offset === 0) continue;
-      const i = this.index() + offset;
-      if (i >= 0 && i < items.length) out.push({ post: items[i], offset, i });
+      const i = (((this.index() + offset) % n) + n) % n;
+      out.push({ post: items[i], offset, i });
     }
     return out;
   });

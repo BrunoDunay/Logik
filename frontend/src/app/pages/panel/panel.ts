@@ -6,7 +6,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { SeoService } from '../../core/services/seo.service';
 import { SiteContentService } from '../../core/services/site-content.service';
 import { SectionKey, SiteSettings } from '../../core/types/settings.model';
-import { JsonField } from './json-field';
+import { JsonField, orderedKeys } from './json-field';
 
 const SECTIONS: { key: SectionKey; label: string; hint: string }[] = [
   { key: 'hero', label: 'Portada', hint: 'Textos alrededor del logo' },
@@ -61,7 +61,7 @@ export class Panel {
   }
 
   protected keys(): string[] {
-    return Object.keys(this.draft);
+    return orderedKeys(this.draft);
   }
 
   protected save(): void {

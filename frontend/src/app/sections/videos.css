@@ -13,7 +13,7 @@
 @media (min-width: 900px) {
   .grid {
     grid-template-columns: 1.9fr 1fr 1fr;
-    align-items: end;
+    align-items: center;
   }
 }
 

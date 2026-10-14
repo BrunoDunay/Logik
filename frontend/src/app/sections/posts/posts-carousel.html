@@ -25,7 +25,7 @@
     (pointerup)="up($event)"
     (pointercancel)="up($event)"
   >
-    @for (s of sides(); track s.post.image) {
+    @for (s of sides(); track s.i) {
       <button
         type="button"
         class="side"
