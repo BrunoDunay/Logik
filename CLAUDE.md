@@ -10,22 +10,22 @@ El usuario hace páginas web. Una conocida trabaja en **Logik Marketing** (https
 - No busca necesariamente entrar a su plantilla. Le sirve que lo contacten como **externo** cuando un cliente contrate ese servicio, y está abierto a distintos flujos de trabajo: por proyecto, marca blanca, comisión o mantenimiento mensual.
 - Para convencerlas, quiere presentarse con **un prototipo de la propia página de Logik**, ya que la actual no es tan atractiva visualmente.
 
-## Estado actual (actualizado el 13 oct 2026, fin de la sesión 2)
+## Estado actual (actualizado el 14 oct 2026, fin de la sesión 3)
 
-Al retomar en otro equipo, leer en este orden: este archivo, después `docs/revision-sitio-y-redes.md` y por último las capturas de `referencias/`.
+Al retomar, leer en este orden: este archivo, `docs/investigacion-redes.md`, `docs/diseno-prototipo.md` y `README.md`.
 
 **Hecho**
-1. Análisis de la marca y del sitio actual (secciones de abajo).
-2. Se acordó la forma de trabajar: el mismo stack y la misma estructura que Fitness by Evidence y Armando Ovalle (ver "Forma de trabajar").
-3. Se instalaron las skills de diseño en `.claude/skills/`: `ui-ux-pro-max`, `design-taste-frontend` y `redesign-existing-projects`.
-4. Revisión del sitio y de las redes con esas skills, en `docs/revision-sitio-y-redes.md`. **Conclusión: el prototipo debe trasladar a la web el lenguaje visual de sus redes** (negro con rosa, collage con semitonos, script con sans gruesa), porque el sitio actual no se parece a su Instagram.
+1. Investigación de Instagram (99 publicaciones y 6 historias destacadas), Facebook y el sitio actual con OpenCLI y agent-browser: `docs/investigacion-redes.md`. Precio real de entrada: **$2,499 al mes** (el sitio está desactualizado).
+2. Diseño con taste-skill (dirección `sentence-as-layout`), ui-ux-pro-max y emil-design-eng: `docs/diseno-prototipo.md`.
+3. Proyecto completo: `backend/` (Express 5 + PostgreSQL, contenido por secciones en `site_settings`) y `frontend/` (Angular 22 + SSR). La portada pasa el inspector de taste-skill sin fallos a 1440, 768 y 390 px.
+4. Video de marca con HyperFrames en `videos/logik-marcas/` (30 s, 1080×1920, sin audio): gancho, montaje de trabajo, muro de logos, resultados de Meta y cierre con precio. `hyperframes check` pasa. **Falta el render** (se pide aprobación antes de renderizar) y reemplazar con él `frontend/public/media/showcase/marcas.mp4`.
 
-**Pendiente de decidir con el usuario**
-- Si el prototipo lleva backend y panel desde el inicio. La recomendación es crear `frontend/` y `backend/` completos, pero construir primero la portada y los paquetes con el contenido en `seeders/initial-content.js`; el panel de edición queda como parte de lo que se vende con el mantenimiento.
-- Si se copia la skill `itshover-icons` desde `PROYECTOS/Germain/.claude/skills/` (no viaja con este repositorio; está en el repositorio `BrunoDunay/Panel-administrativo-web-Fitness`).
-- Precio real del paquete de entrada: Instagram dice $2,499 y el sitio, $3,499.
-
-**Siguiente paso**: crear la estructura del proyecto (Angular 22 + SSR y Express 5 + PostgreSQL) y construir la portada primero para celular, aplicando `design-taste-frontend` con la dirección de `docs/revision-sitio-y-redes.md`.
+**Pendiente**
+- Render del video y su póster; después actualizar `showcase` en el seeder si cambia el texto.
+- Contraseña de PostgreSQL local para correr el backend y las pruebas de integración (`backend/.env`).
+- Panel de edición (login y formularios por sección), que se vende con el mantenimiento.
+- Confirmar con la agencia lo marcado en "Pendiente de confirmar" de `docs/diseno-prototipo.md`.
+- Opcional: versión del video con música para Instagram.
 
 **Repositorios con estrella del usuario, evaluados para este proyecto**
 

@@ -1,0 +1,6 @@
+# Archivos temporales de HyperFrames (capturas, revisiones, miniaturas)
+.hyperframes/
+.thumbnails/
+renders/
+# Primera versión de las fotos, sin uso (la reemplazó assets/montaje)
+assets/fotos/

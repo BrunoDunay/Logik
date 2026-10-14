@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #fc7cab;
+          color: #141012;
+          font-family: 'Poppins', sans-serif;
+        }
+        #marcas-dots {
+          position: absolute;
+          inset: -120px;
+          background-image: radial-gradient(circle, rgba(20, 16, 18, 0.14) 2.4px, transparent 3px);
+          background-size: 30px 30px;
+        }
+        #marcas-head {
+          position: absolute;
+          left: 80px;
+          right: 80px;
+          top: 130px;
+        }
+        #marcas-number {
+          display: block;
+          font-size: 230px;
+          font-weight: 800;
+          line-height: 0.9;
+          letter-spacing: -0.06em;
+        }
+        #marcas-sub {
+          display: block;
+          margin-top: 18px;
+          font-size: 60px;
+          font-weight: 800;
+          line-height: 1;
+          letter-spacing: -0.04em;
+        }
+        #marcas-wall {
+          position: absolute;
+          left: 60px;
+          right: 60px;
+          top: 560px;
+          height: 1120px;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-auto-rows: 142px;
+          gap: 0 20px;
+          align-items: center;
+          justify-items: center;
+        }
+        .marcas-logo {
+          display: block;
+          max-width: 310px;
+          max-height: 132px;
+          width: auto;
+          height: auto;
+          /* Los logos vienen en blanco: aquí van en tinta sobre el rosa. */
+          filter: brightness(0);
+          opacity: 0.88;
+        }
+      </style>
+
+      <div data-hf-id="hf-0lvm" id="root" data-composition-id="marcas" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-n6bc" id="marcas-dots" data-layout-allow-overflow=""></div>
+        <div data-hf-id="hf-hn0t" id="marcas-head">
+          <span data-hf-id="hf-db5q" id="marcas-number">+<span data-hf-id="hf-4av3" id="marcas-n">70</span></span>
+          <span data-hf-id="hf-owoc" id="marcas-sub">marcas ya crecen con nosotras</span>
+        </div>
+        <div data-hf-id="hf-6e0b" id="marcas-wall"></div>
+      </div>
+
+      <script>
+        (function () {
+          const wall = document.getElementById('marcas-wall');
+          const ids = [];
+          for (let i = 1; i <= 22; i++) {
+            const img = document.createElement('img');
+            img.className = 'marcas-logo';
+            img.id = `marcas-l${i}`;
+            img.alt = '';
+            img.src = `assets/logos/logo-${String(i).padStart(2, '0')}.png`;
+            wall.appendChild(img);
+            ids.push(`#marcas-l${i}`);
+          }
+
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo('#marcas-dots', { y: 0 }, { y: -60, duration: 6.6, ease: 'none' }, 0);
+
+          // La cifra cuenta de 0 a 70 mientras el muro se arma.
+          const counter = { v: 0 };
+          const out = document.getElementById('marcas-n');
+          tl.fromTo('#marcas-number', { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power4.out' }, 0);
+          tl.fromTo(
+            counter,
+            { v: 0 },
+            { v: 70, duration: 2.2, ease: 'power2.out', onUpdate: () => (out.textContent = Math.round(counter.v)) },
+            0.1,
+          );
+          tl.fromTo('#marcas-sub', { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.5, ease: 'expo.out' }, 0.35);
+
+          // Cascada: cada logo entra a su lugar con una pequeña subida y escala, sin rebote.
+          ids.forEach((sel, i) => {
+            tl.fromTo(sel, { opacity: 0, y: 40, scale: 0.86 }, { opacity: 0.88, y: 0, scale: 1, duration: 0.42, ease: 'power3.out' }, 0.45 + i * 0.07);
+          });
+
+          // El muro respira y luego la cámara se aleja: hay más marcas de las que caben.
+          tl.fromTo('#marcas-wall', { scale: 1, y: 0 }, { scale: 0.9, y: -20, duration: 2.6, ease: 'power2.inOut' }, 3.6);
+          tl.to('#marcas-head', { y: -20, duration: 2.6, ease: 'power2.inOut' }, 3.6);
+
+          window.__timelines['marcas'] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: 'Great Vibes';
+          src: url('assets/fonts/great-vibes-latin-400-normal.woff2') format('woff2');
+          font-weight: 400;
+          font-style: normal;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #141012;
+          color: #f7f3f1;
+          font-family: 'Poppins', sans-serif;
+        }
+        #resultados-dots {
+          position: absolute;
+          inset: -120px;
+          background-image: radial-gradient(circle, rgba(252, 124, 171, 0.18) 2.6px, transparent 3.2px);
+          background-size: 34px 34px;
+        }
+        #resultados-glow {
+          position: absolute;
+          left: 50%;
+          top: 1240px;
+          width: 1200px;
+          height: 1200px;
+          margin: -600px 0 0 -600px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(254, 95, 146, 0.38), rgba(254, 95, 146, 0) 60%);
+        }
+        #resultados-note {
+          position: absolute;
+          right: 80px;
+          top: 120px;
+          font-family: 'Great Vibes', cursive;
+          font-size: 96px;
+          line-height: 1;
+          color: #fe5f92;
+          transform-origin: right center;
+        }
+        #resultados-stack {
+          position: absolute;
+          left: 80px;
+          right: 80px;
+          top: 250px;
+          display: flex;
+          flex-direction: column;
+          gap: 22px;
+        }
+        /* Notificación de Meta Ads tal como llega al celular. */
+        .resultados-card {
+          display: flex;
+          gap: 26px;
+          align-items: flex-start;
+          padding: 28px 32px;
+          border-radius: 34px;
+          background: #ffffff;
+          color: #1c1c1e;
+          box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.7);
+        }
+        .resultados-card:nth-child(even) {
+          margin-left: 60px;
+        }
+        .resultados-app {
+          flex: none;
+          width: 76px;
+          height: 76px;
+          border-radius: 18px;
+          background: #0866ff;
+          color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .resultados-app svg {
+          display: block;
+          width: 48px;
+          height: 48px;
+        }
+        .resultados-body {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          min-width: 0;
+        }
+        .resultados-title {
+          font-size: 36px;
+          font-weight: 600;
+          letter-spacing: -0.01em;
+        }
+        .resultados-text {
+          font-size: 34px;
+          line-height: 1.3;
+          color: #3a3a3c;
+        }
+        .resultados-text strong {
+          font-weight: 800;
+          color: #1c1c1e;
+        }
+        #resultados-hero {
+          position: absolute;
+          left: 80px;
+          right: 80px;
+          top: 1120px;
+        }
+        #resultados-number {
+          display: block;
+          font-size: 360px;
+          font-weight: 800;
+          line-height: 0.85;
+          letter-spacing: -0.065em;
+          color: #fe5f92;
+          transform-origin: left bottom;
+        }
+        #resultados-label {
+          display: block;
+          margin-top: 30px;
+          max-width: 900px;
+          font-size: 58px;
+          font-weight: 800;
+          line-height: 1.04;
+          letter-spacing: -0.04em;
+        }
+        #resultados-source {
+          display: block;
+          margin-top: 24px;
+          font-size: 30px;
+          color: #cfc3c8;
+        }
+      </style>
+
+      <div data-hf-id="hf-xshx" id="root" data-composition-id="resultados" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-xkpj" id="resultados-dots" data-layout-allow-overflow=""></div>
+        <div data-hf-id="hf-wqgo" id="resultados-glow" data-layout-allow-overflow=""></div>
+        <p data-hf-id="hf-qe5j" id="resultados-note">¡resultados reales!</p>
+        <div data-hf-id="hf-ifnc" id="resultados-stack">
+          <div data-hf-id="hf-vpdy" class="resultados-card" id="resultados-c1">
+            <span data-hf-id="hf-hs5d" class="resultados-app"><svg data-hf-id="hf-ulu9" viewBox="0 0 24 24"><path data-hf-id="hf-53lf" fill="currentColor" d="M5.6 15.9c0 1.2.3 2 .8 2.5.6.6 1.5.5 2.3-.3.9-.9 2-2.8 2.9-4.3l1.2-2c1-1.5 2.2-3.3 3.6-3.3 1.9 0 3.4 2.2 3.4 5.5 0 2-.8 3.1-2.2 3.1-1.3 0-2-.9-3.2-3l-1.1-1.9-.7 1.1.8 1.4c1.4 2.4 2.5 3.7 4.3 3.7 2.3 0 3.6-1.9 3.6-4.6 0-4.3-2.2-7.3-5.1-7.3-1.8 0-3.2 1.3-4.6 3.4-1.5-2.1-2.7-3.4-4.4-3.4-2.8 0-4.9 3.6-4.9 7.3Zm1.6-.1c0-2.7 1.4-5.6 3.2-5.6 1 0 1.8.8 3 2.6l-1.3 2c-1.2 2-2 3.1-2.9 3.1-1.3 0-2-.8-2-2.1Z" /></svg></span>
+            <span data-hf-id="hf-xejo" class="resultados-body"><span data-hf-id="hf-0mhp" class="resultados-title">Tu anuncio tiene buen rendimiento</span><span data-hf-id="hf-g5jc" class="resultados-text">El costo por resultado es un <strong data-hf-id="hf-wo67">64 %</strong> más bajo que el de negocios como el tuyo.</span></span>
+          </div>
+          <div data-hf-id="hf-rr9x" class="resultados-card" id="resultados-c2">
+            <span data-hf-id="hf-g3it" class="resultados-app"><svg data-hf-id="hf-1tol" viewBox="0 0 24 24"><path data-hf-id="hf-nvmb" fill="currentColor" d="M5.6 15.9c0 1.2.3 2 .8 2.5.6.6 1.5.5 2.3-.3.9-.9 2-2.8 2.9-4.3l1.2-2c1-1.5 2.2-3.3 3.6-3.3 1.9 0 3.4 2.2 3.4 5.5 0 2-.8 3.1-2.2 3.1-1.3 0-2-.9-3.2-3l-1.1-1.9-.7 1.1.8 1.4c1.4 2.4 2.5 3.7 4.3 3.7 2.3 0 3.6-1.9 3.6-4.6 0-4.3-2.2-7.3-5.1-7.3-1.8 0-3.2 1.3-4.6 3.4-1.5-2.1-2.7-3.4-4.4-3.4-2.8 0-4.9 3.6-4.9 7.3Zm1.6-.1c0-2.7 1.4-5.6 3.2-5.6 1 0 1.8.8 3 2.6l-1.3 2c-1.2 2-2 3.1-2.9 3.1-1.3 0-2-.8-2-2.1Z" /></svg></span>
+            <span data-hf-id="hf-5org" class="resultados-body"><span data-hf-id="hf-4mwh" class="resultados-title">Tu anuncio tiene buen rendimiento</span><span data-hf-id="hf-bm9s" class="resultados-text">El costo por resultado es un <strong data-hf-id="hf-vl22">85 %</strong> más bajo que el de negocios como el tuyo.</span></span>
+          </div>
+          <div data-hf-id="hf-os0c" class="resultados-card" id="resultados-c3">
+            <span data-hf-id="hf-hafw" class="resultados-app"><svg data-hf-id="hf-30lo" viewBox="0 0 24 24"><path data-hf-id="hf-nhba" fill="currentColor" d="M5.6 15.9c0 1.2.3 2 .8 2.5.6.6 1.5.5 2.3-.3.9-.9 2-2.8 2.9-4.3l1.2-2c1-1.5 2.2-3.3 3.6-3.3 1.9 0 3.4 2.2 3.4 5.5 0 2-.8 3.1-2.2 3.1-1.3 0-2-.9-3.2-3l-1.1-1.9-.7 1.1.8 1.4c1.4 2.4 2.5 3.7 4.3 3.7 2.3 0 3.6-1.9 3.6-4.6 0-4.3-2.2-7.3-5.1-7.3-1.8 0-3.2 1.3-4.6 3.4-1.5-2.1-2.7-3.4-4.4-3.4-2.8 0-4.9 3.6-4.9 7.3Zm1.6-.1c0-2.7 1.4-5.6 3.2-5.6 1 0 1.8.8 3 2.6l-1.3 2c-1.2 2-2 3.1-2.9 3.1-1.3 0-2-.8-2-2.1Z" /></svg></span>
+            <span data-hf-id="hf-4hud" class="resultados-body"><span data-hf-id="hf-5ttk" class="resultados-title">Tu anuncio tiene buen rendimiento</span><span data-hf-id="hf-afcp" class="resultados-text">El costo por resultado es un <strong data-hf-id="hf-b2s6">96 %</strong> más bajo que el de negocios como el tuyo.</span></span>
+          </div>
+        </div>
+        <div data-hf-id="hf-suo0" id="resultados-hero">
+          <span data-hf-id="hf-08od" id="resultados-number"><span data-hf-id="hf-4fa5" id="resultados-n">97</span>%</span>
+          <span data-hf-id="hf-49ms" id="resultados-label">más bajo el costo por resultado que el de negocios similares</span>
+          <span data-hf-id="hf-cpz6" id="resultados-source">Notificaciones reales de Meta Ads, campañas de clientes de Logik</span>
+        </div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo('#resultados-dots', { x: 0 }, { x: 68, duration: 6.6, ease: 'none' }, 0);
+        tl.fromTo('#resultados-glow', { scale: 0.7, opacity: 0.4 }, { scale: 1.1, opacity: 1, duration: 6.6, ease: 'sine.inOut' }, 0);
+
+        // Las notificaciones llegan como al celular: bajan un poco y aparecen, una tras otra.
+        ['#resultados-c1', '#resultados-c2', '#resultados-c3'].forEach((sel, i) => {
+          tl.fromTo(sel, { opacity: 0, y: -70, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: 'back.out(1.4)' }, 0.2 + i * 0.55);
+        });
+        tl.fromTo('#resultados-note', { opacity: 0, rotation: -14, scale: 0.7 }, { opacity: 1, rotation: -6, scale: 1, duration: 0.6, ease: 'back.out(2)' }, 1.4);
+
+        // La cifra explota: crece y cuenta hasta 97 en un solo golpe.
+        const counter = { v: 0 };
+        const out = document.getElementById('resultados-n');
+        tl.fromTo('#resultados-number', { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.9, ease: 'expo.out' }, 2.2);
+        tl.fromTo(counter, { v: 0 }, { v: 97, duration: 1.3, ease: 'power3.out', onUpdate: () => (out.textContent = Math.round(counter.v)) }, 2.2);
+        tl.fromTo('#resultados-label', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 2.9);
+        tl.fromTo('#resultados-source', { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'power2.out' }, 3.4);
+        // Las notificaciones retroceden un poco para que la cifra mande.
+        tl.to('#resultados-stack', { opacity: 0.55, scale: 0.96, y: -20, duration: 0.8, ease: 'power2.inOut' }, 2.4);
+        tl.to('#resultados-hero', { y: -14, duration: 3, ease: 'sine.inOut' }, 3.6);
+
+        window.__timelines['resultados'] = tl;
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #141012;
+          color: #f7f3f1;
+          font-family: 'Poppins', sans-serif;
+        }
+        #cierre-dots {
+          position: absolute;
+          inset: -120px;
+          background-image: radial-gradient(circle, rgba(252, 124, 171, 0.2) 2.6px, transparent 3.2px);
+          background-size: 34px 34px;
+        }
+        #cierre-glow {
+          position: absolute;
+          left: 50%;
+          top: 760px;
+          width: 1300px;
+          height: 1300px;
+          margin: -650px 0 0 -650px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(254, 95, 146, 0.34), rgba(254, 95, 146, 0) 62%);
+        }
+        /* Primer tiempo: la frase completa, que luego se limpia para dejar sitio al logo. */
+        #cierre-phrase {
+          position: absolute;
+          left: 90px;
+          right: 90px;
+          top: 620px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0 0.22em;
+          font-size: 132px;
+          font-weight: 800;
+          line-height: 0.98;
+          letter-spacing: -0.05em;
+        }
+        .cierre-w {
+          display: inline-block;
+        }
+        .cierre-w--pink {
+          color: #fe5f92;
+        }
+        #cierre-lockup {
+          position: absolute;
+          left: 90px;
+          right: 90px;
+          top: 660px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+        #cierre-logo {
+          display: block;
+          width: 760px;
+          height: auto;
+        }
+        #cierre-claim {
+          display: block;
+          margin-top: 70px;
+          font-size: 56px;
+          font-weight: 800;
+          line-height: 1.05;
+          letter-spacing: -0.04em;
+        }
+        #cierre-price {
+          display: inline-block;
+          margin-top: 26px;
+          padding: 10px 30px;
+          background: #fe5f92;
+          color: #141012;
+          font-size: 76px;
+          font-weight: 800;
+          letter-spacing: -0.045em;
+        }
+        #cierre-contact {
+          display: block;
+          margin-top: 64px;
+          font-size: 48px;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+        }
+        #cierre-handle {
+          display: block;
+          margin-top: 10px;
+          font-size: 40px;
+          color: #cfc3c8;
+        }
+      </style>
+
+      <div data-hf-id="hf-mly1" id="root" data-composition-id="cierre" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-ju73" id="cierre-dots" data-layout-allow-overflow=""></div>
+        <div data-hf-id="hf-jjlc" id="cierre-glow" data-layout-allow-overflow=""></div>
+        <div data-hf-id="hf-trgv" id="cierre-phrase">
+          <span data-hf-id="hf-5ojb" class="cierre-w" id="cierre-w1">No</span>
+          <span data-hf-id="hf-56st" class="cierre-w" id="cierre-w2">hacemos</span>
+          <span data-hf-id="hf-52gt" class="cierre-w" id="cierre-w3">magia,</span>
+          <span data-hf-id="hf-hy3d" class="cierre-w cierre-w--pink" id="cierre-w4">hacemos</span>
+          <span data-hf-id="hf-1fec" class="cierre-w cierre-w--pink" id="cierre-w5">marketing.</span>
+        </div>
+        <div data-hf-id="hf-miza" id="cierre-lockup">
+          <img data-hf-id="hf-uvoz" id="cierre-logo" src="assets/logo-light.png" alt="Logik Marketing">
+          <span data-hf-id="hf-23sh" id="cierre-claim">Redes, contenido y campañas</span>
+          <span data-hf-id="hf-mq79" id="cierre-price">desde $2,499 al mes</span>
+          <span data-hf-id="hf-u5ml" id="cierre-contact">WhatsApp 449 211 9107</span>
+          <span data-hf-id="hf-scon" id="cierre-handle">@logikmkt · logikmkt.com</span>
+        </div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo('#cierre-dots', { y: 0 }, { y: -68, duration: 6.6, ease: 'none' }, 0);
+        tl.fromTo('#cierre-glow', { scale: 0.8, opacity: 0.5 }, { scale: 1.1, opacity: 1, duration: 6.6, ease: 'sine.inOut' }, 0);
+
+        // La frase se arma palabra por palabra (escalonado corto) y se sostiene un momento.
+        ['#cierre-w1', '#cierre-w2', '#cierre-w3', '#cierre-w4', '#cierre-w5'].forEach((sel, i) => {
+          tl.fromTo(sel, { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.42, ease: 'power4.out' }, 0.1 + i * 0.14);
+        });
+        // Se limpia: la frase se encoge y desaparece para dejar el escenario vacío.
+        tl.to('#cierre-phrase', { opacity: 0, scale: 0.9, filter: 'blur(8px)', duration: 0.45, ease: 'power2.in' }, 1.9);
+
+        // El logo florece al centro y el resto del cierre entra debajo.
+        tl.fromTo('#cierre-logo', { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(1.6)' }, 2.35);
+        tl.fromTo('#cierre-claim', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, 2.95);
+        tl.fromTo('#cierre-price', { opacity: 0, scaleX: 0.2 }, { opacity: 1, scaleX: 1, duration: 0.5, ease: 'expo.out' }, 3.15);
+        tl.fromTo('#cierre-contact', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, 3.45);
+        tl.fromTo('#cierre-handle', { opacity: 0 }, { opacity: 1, duration: 0.45, ease: 'power2.out' }, 3.65);
+        // Cierre quieto: el logo apenas respira hasta el final.
+        tl.to('#cierre-logo', { scale: 1.03, duration: 2.5, ease: 'sine.inOut' }, 4.1);
+
+        window.__timelines['cierre'] = tl;
+      </script>
+    </template>
+  </body>
+</html>

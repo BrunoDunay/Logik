@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #141012;
+          color: #f7f3f1;
+          font-family: 'Poppins', sans-serif;
+        }
+        #trabajo-title {
+          position: absolute;
+          left: 80px;
+          top: 150px;
+          font-size: 104px;
+          font-weight: 800;
+          line-height: 0.95;
+          letter-spacing: -0.05em;
+        }
+        #trabajo-frame {
+          position: absolute;
+          left: 80px;
+          top: 340px;
+          width: 920px;
+          height: 1150px;
+          overflow: hidden;
+          background: #1f191c;
+        }
+        .trabajo-photo {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          opacity: 0;
+        }
+        /* Barra rosa del nombre del cliente, como los rótulos de sus historias. */
+        #trabajo-label {
+          position: absolute;
+          left: 80px;
+          top: 1525px;
+          height: 120px;
+          padding: 0 36px;
+          display: flex;
+          align-items: center;
+          background: #fe5f92;
+          color: #141012;
+          font-size: 64px;
+          font-weight: 800;
+          letter-spacing: -0.04em;
+          white-space: nowrap;
+        }
+        .trabajo-name {
+          display: none;
+        }
+      </style>
+
+      <div data-hf-id="hf-zy1u" id="root" data-composition-id="trabajo" data-width="1080" data-height="1920">
+        <h2 data-hf-id="hf-7ab6" id="trabajo-title">Hacemos crecer</h2>
+        <div data-hf-id="hf-c66m" id="trabajo-frame">
+          <img data-hf-id="hf-mxfc" class="trabajo-photo" id="trabajo-p1" src="assets/montaje/01-techani.jpg" alt="">
+          <img data-hf-id="hf-rtej" class="trabajo-photo" id="trabajo-p2" src="assets/montaje/02-hampton.jpg" alt="">
+          <img data-hf-id="hf-ouiw" class="trabajo-photo" id="trabajo-p3" src="assets/montaje/03-gase.jpg" alt="">
+          <img data-hf-id="hf-9ptz" class="trabajo-photo" id="trabajo-p4" src="assets/montaje/04-novedades.jpg" alt="">
+          <img data-hf-id="hf-im7u" class="trabajo-photo" id="trabajo-p5" src="assets/montaje/05-desperrucados.jpg" alt="">
+          <img data-hf-id="hf-j0jh" class="trabajo-photo" id="trabajo-p6" src="assets/montaje/06-li-kaan.jpg" alt="">
+          <img data-hf-id="hf-32rc" class="trabajo-photo" id="trabajo-p7" src="assets/montaje/07-fresas.jpg" alt="">
+          <img data-hf-id="hf-p9x3" class="trabajo-photo" id="trabajo-p8" src="assets/montaje/08-joyeria.jpg" alt="">
+          <img data-hf-id="hf-cr99" class="trabajo-photo" id="trabajo-p9" src="assets/montaje/09-estudio.jpg" alt="">
+        </div>
+        <div data-hf-id="hf-im2b" id="trabajo-label">
+          <span data-hf-id="hf-p14l" class="trabajo-name" id="trabajo-n1">Techani</span>
+          <span data-hf-id="hf-c7qs" class="trabajo-name" id="trabajo-n2">Hampton by Hilton</span>
+          <span data-hf-id="hf-nkxm" class="trabajo-name" id="trabajo-n3">GASE Dental Group</span>
+          <span data-hf-id="hf-aa71" class="trabajo-name" id="trabajo-n4">Novedades y Cosméticos</span>
+          <span data-hf-id="hf-qhbv" class="trabajo-name" id="trabajo-n5">Desperrucados</span>
+          <span data-hf-id="hf-vk9r" class="trabajo-name" id="trabajo-n6">Li-Kaan</span>
+          <span data-hf-id="hf-ocq0" class="trabajo-name" id="trabajo-n7">Fotografía de producto</span>
+          <span data-hf-id="hf-i7vb" class="trabajo-name" id="trabajo-n8">Joyería</span>
+          <span data-hf-id="hf-dvn6" class="trabajo-name" id="trabajo-n9">Nuestro estudio</span>
+        </div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo('#trabajo-title', { opacity: 0, x: -80 }, { opacity: 1, x: 0, duration: 0.5, ease: 'expo.out' }, 0);
+        tl.fromTo('#trabajo-frame', { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.55, ease: 'power4.out' }, 0.05);
+        tl.fromTo('#trabajo-label', { scaleX: 0, transformOrigin: 'left center' }, { scaleX: 1, duration: 0.4, ease: 'power3.out' }, 0.25);
+
+        // Montaje en ráfaga: corte seco cada 0.6 s, cada foto con un pequeño empujón y su nombre.
+        const STEP = 0.6;
+        for (let i = 1; i <= 9; i++) {
+          const at = 0.05 + (i - 1) * STEP;
+          tl.set(`#trabajo-p${i}`, { opacity: 1 }, at);
+          tl.set(`#trabajo-n${i}`, { display: 'inline' }, at);
+          tl.fromTo(`#trabajo-p${i}`, { scale: 1.14 }, { scale: 1, duration: STEP + 0.3, ease: 'power2.out' }, at);
+          if (i < 9) {
+            tl.set(`#trabajo-p${i}`, { opacity: 0 }, at + STEP);
+            tl.set(`#trabajo-n${i}`, { display: 'none' }, at + STEP);
+          }
+        }
+        // La última foto (el estudio) se queda y la escena respira hasta el corte.
+        tl.to('#trabajo-frame', { scale: 0.96, duration: 0.6, ease: 'power2.inOut' }, 5.3);
+
+        window.__timelines['trabajo'] = tl;
+      </script>
+    </template>
+  </body>
+</html>
