@@ -10,7 +10,7 @@ El usuario hace páginas web. Una conocida trabaja en **Logik Marketing** (https
 - No busca necesariamente entrar a su plantilla. Le sirve que lo contacten como **externo** cuando un cliente contrate ese servicio, y está abierto a distintos flujos de trabajo: por proyecto, marca blanca, comisión o mantenimiento mensual.
 - Para convencerlas, quiere presentarse con **un prototipo de la propia página de Logik**, ya que la actual no es tan atractiva visualmente.
 
-## Estado actual (actualizado el 14 oct 2026, sesión 4)
+## Estado actual (actualizado el 14 oct 2026, sesión 5)
 
 Al retomar, leer en este orden: este archivo, `docs/diseno-v2.md` (manda sobre `docs/diseno-prototipo.md`), `docs/investigacion-redes.md` y `README.md`.
 
@@ -19,10 +19,12 @@ Al retomar, leer en este orden: este archivo, `docs/diseno-v2.md` (manda sobre `
 2. **Rediseño v2** a partir de las referencias del usuario (`referencias/Referencias web/` y `referencias/Referencias para diseño/`): intro con el logo construyéndose, hero estilo "TURA", resultados con gráficas propias, carrusel de publicaciones estilo Instagram, servicios, paquetes, carrusel de marcas, videos, directoras y contacto. Ver `docs/diseno-v2.md`.
 3. **Panel** en `/login` y `/panel`: edita todas las secciones (formulario generado desde el JSON de cada una). Cuenta en `backend/.env`.
 4. Video de marca con HyperFrames en `videos/logik-marcas/`, ya integrado en la sección de videos.
-5. PostgreSQL local: usuario `logik_app`, bases `logik` y `logik_test` (credenciales en `backend/.env`). En Windows la URL usa `127.0.0.1`. **Correr el backend con `npm start`, no con `npm run dev`**: en la carpeta de OneDrive, `node --watch` se reinicia sin parar y se queda colgado.
+5. **Pulido de la sesión 5** (lista larga del usuario): intro nueva (blanco → negro, la luz crea las letras, la flecha encaja al final), hover del logo solo con destello, navbar con logo desde el inicio, cursores rosas, favicon sobre blanco, LinkedIn, nada instantáneo (duraciones más largas), carruseles que se deslizan como catálogo, marcas en ciclo con 31 marcas, videos con lista de miniaturas, biografías originales con la insignia de Meta, contacto menos rosa, pie normal y páginas de privacidad, términos y cookies. Detalle en `docs/diseno-v2.md`.
+6. PostgreSQL local: usuario `logik_app`, bases `logik` y `logik_test` (credenciales en `backend/.env`). En Windows la URL usa `127.0.0.1`. **Correr el backend con `npm start`, no con `npm run dev`**: en la carpeta de OneDrive, `node --watch` se reinicia sin parar y se queda colgado.
 
 **Pendiente**
-- Ajustes del usuario tras revisar el rediseño.
+- Ajustes del usuario tras revisar el pulido de la sesión 5.
+- Si cambia el seeder, pasar las secciones a la base local con `npm run content:sync -- <secciones>` (en `backend/`) y al frontend con `npm run content:export`.
 - Confirmar con la agencia lo listado en `docs/diseno-v2.md`.
 - Opcional: logos a color de las marcas; versión del video con música.
 

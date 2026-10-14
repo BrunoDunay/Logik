@@ -309,8 +309,10 @@ button {
 .reveal:not(.is-visible) {
   opacity: 0;
 }
+/* Lo que entra al hacer scroll sube, se enfoca y se aclara a la vez: se siente "creado", no pegado. */
 .reveal--up:not(.is-visible) {
-  transform: translateY(32px);
+  transform: translateY(40px) scale(0.985);
+  filter: blur(6px);
 }
 .reveal--left:not(.is-visible) {
   transform: translateX(-40px);
@@ -319,7 +321,8 @@ button {
   transform: translateX(40px);
 }
 .reveal--zoom:not(.is-visible) {
-  transform: scale(0.94);
+  transform: scale(0.92) translateY(24px);
+  filter: blur(4px);
 }
 .reveal--blur:not(.is-visible) {
   filter: blur(12px);
