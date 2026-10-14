@@ -7,10 +7,12 @@ export const routes: Routes = [
     pathMatch: 'full',
     loadComponent: () => import('./pages/home/home').then((m) => m.Home),
   },
-  {
-    path: 'privacidad',
+  // ---- Páginas legales: una sola plantilla, el documento va en data ----
+  ...(['privacidad', 'terminos', 'cookies'] as const).map((doc) => ({
+    path: doc,
+    data: { doc },
     loadComponent: () => import('./pages/legal/legal').then((m) => m.Legal),
-  },
+  })),
   // ---- Panel de contenido (sin sesión ni siquiera se descarga) ----
   {
     path: 'login',

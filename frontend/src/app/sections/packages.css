@@ -46,12 +46,14 @@
   transform: rotateX(var(--rx)) rotateY(var(--ry));
   transform-style: preserve-3d;
   transition:
-    transform 260ms var(--ease-out),
-    box-shadow var(--duration) var(--ease-out);
+    transform 650ms var(--ease-out),
+    box-shadow 700ms var(--ease-out),
+    translate 700ms var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
+    translate: 0 -6px;
     box-shadow: 0 30px 60px -24px rgb(254 95 146 / 0.55);
   }
 }
@@ -140,6 +142,12 @@
   grid-template-columns: 1.4rem 1fr;
   gap: var(--space-2);
   align-items: start;
+  margin-inline: -0.5rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: var(--radius-sm);
+  transition:
+    background-color 500ms ease,
+    translate 600ms var(--ease-out);
 }
 
 .card__features svg {
@@ -150,21 +158,32 @@
   stroke-width: 2.6;
   stroke-linecap: round;
   stroke-linejoin: round;
+  transition: scale 500ms var(--ease-spring);
 }
 
 .card.is-featured .card__features svg {
   stroke: var(--color-ink);
 }
 
-/* Al pasar el cursor, las palomitas se vuelven a dibujar en cascada. */
+/* La palomita se dibuja al pasar el cursor por ella o por su texto. */
 .card__features path {
   stroke-dasharray: 1;
   stroke-dashoffset: 0;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .card:hover .card__features path {
-    animation: check-draw 420ms var(--ease-out) calc(var(--j) * 60ms) both;
+  .card__features li:hover {
+    background: rgb(254 95 146 / 0.1);
+    translate: 4px 0;
+  }
+  .card.is-featured .card__features li:hover {
+    background: rgb(255 255 255 / 0.35);
+  }
+  .card__features li:hover svg {
+    scale: 1.15;
+  }
+  .card__features li:hover path {
+    animation: check-draw 650ms var(--ease-out) both;
   }
 }
 
@@ -187,13 +206,14 @@
   font-weight: 600;
   font-size: var(--text-sm);
   transition:
-    background-color var(--duration-fast) ease,
-    color var(--duration-fast) ease,
-    transform var(--duration-press) var(--ease-out);
+    background-color 500ms ease,
+    color 500ms ease,
+    transform 220ms var(--ease-out),
+    box-shadow 600ms var(--ease-out);
 }
 
 .card__cta app-icon {
-  transition: transform var(--duration) var(--ease-out);
+  transition: transform 600ms var(--ease-out);
 }
 
 .card__cta:active {
@@ -204,6 +224,7 @@
   .card__cta:hover {
     background: var(--color-pink-logo);
     color: var(--color-ink);
+    box-shadow: 0 12px 26px -14px rgb(254 95 146 / 0.9);
   }
   .card.is-featured .card__cta:hover {
     background: var(--color-white);

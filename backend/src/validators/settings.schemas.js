@@ -131,9 +131,18 @@ const videos = z.object({
 
 const team = z.object({
   ...heading,
-  members: list(z.object({ name: text(80), role: text(80), photo: media, summary: text(200), more: optionalText(600) }), 6),
-  groupPhoto: optionalMedia,
-  groupCaption: optionalText(160),
+  members: list(
+    z.object({
+      name: text(80),
+      role: text(80),
+      photo: media,
+      summary: text(400),
+      more: optionalText(1500),
+      /** Insignias de certificaciones (por ejemplo, Meta Certified). */
+      badges: list(z.object({ image: media, label: text(80) }), 4).default([]),
+    }),
+    6,
+  ),
   isProvisional: provisional,
 });
 

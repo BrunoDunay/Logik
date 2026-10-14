@@ -159,12 +159,16 @@ export interface TeamMember {
   photo: string | null;
   summary: string;
   more: string | null;
+  badges: Badge[];
+}
+
+export interface Badge {
+  image: string;
+  label: string;
 }
 
 export interface TeamSettings extends SectionHeading, Provisional {
   members: TeamMember[];
-  groupPhoto: string | null;
-  groupCaption: string | null;
 }
 
 export interface ContactSettings extends SectionHeading, Provisional {

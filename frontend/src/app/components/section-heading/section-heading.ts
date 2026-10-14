@@ -11,6 +11,9 @@ import { Reveal } from '../reveal/reveal.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { '[class.is-center]': "align() === 'center'", '[class.is-light]': "tone() === 'light'" },
   template: `
+    @if (kicker()) {
+      <p class="kicker" appReveal="fade"><span class="kicker__dot" aria-hidden="true"></span>{{ kicker() }}</p>
+    }
     <h2 class="title" [id]="headingId()" appReveal="blur">
       <span class="title__lead">{{ title() }}</span>
       <span class="title__script script">{{ script() }}</span>
@@ -27,6 +30,9 @@ import { Reveal } from '../reveal/reveal.directive';
     :host(.is-center) .title { justify-content: center; }
     .title__script { font-size: 1.3em; padding-inline: 0.04em 0.12em; }
     .title__spark { position: absolute; width: 0.42em; height: 0.42em; right: -0.5em; top: -0.25em; fill: var(--color-pink-logo); animation: spark-spin 6s linear infinite; }
+    .kicker { display: inline-flex; align-items: center; gap: 0.6rem; font-size: var(--text-sm); font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-pink-deep); }
+    .kicker__dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-pink-logo); box-shadow: 0 0 0 4px rgb(254 95 146 / 0.18); }
+    :host(.is-light) .kicker { color: var(--color-pink-logo); }
     .intro { max-width: 40rem; font-size: var(--text-lg); line-height: 1.45; color: var(--color-text-soft); font-weight: 400; }
     :host(.is-light) .title { color: var(--color-on-ink); }
     :host(.is-light) .intro { color: var(--color-on-ink-soft); }
@@ -37,6 +43,8 @@ export class SectionHeading {
   readonly title = input.required<string>();
   readonly script = input.required<string>();
   readonly intro = input<string | null>(null);
+  /** Texto pequeño arriba del título, para decir de qué trata la sección. */
+  readonly kicker = input<string | null>(null);
   readonly align = input<'start' | 'center'>('start');
   readonly tone = input<'dark' | 'light'>('dark');
   readonly headingId = input<string | null>(null);

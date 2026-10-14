@@ -8,8 +8,9 @@ import { whatsappLink } from '../core/utils/links';
 import { SocialLink } from './hero';
 
 /**
- * Contacto: datos a la izquierda y un mini formulario que arma el mensaje de WhatsApp
- * (no hay servidor de correo: el mensaje sale del teléfono de quien escribe).
+ * Contacto: datos y redes a la izquierda, sobre blanco; a la derecha, una tarjeta negra con un mini
+ * formulario que arma el mensaje de WhatsApp (no hay servidor de correo: el mensaje sale del teléfono
+ * de quien escribe). Cada red se llena con su color al pasar el cursor.
  */
 @Component({
   selector: 'app-contact',
@@ -44,9 +45,12 @@ import { SocialLink } from './hero';
             </li>
           </ul>
           <ul class="socials" role="list">
-            @for (s of socials(); track s.href) {
-              <li>
-                <a [href]="s.href" target="_blank" rel="noopener"><app-icon [name]="s.icon" [size]="18" /> {{ s.label }}</a>
+            @for (s of socials(); track s.href; let i = $index) {
+              <li appReveal [revealDelay]="200 + i * 70">
+                <a [class]="'social social--' + s.icon" [href]="s.href" target="_blank" rel="noopener">
+                  <span class="social__icon"><app-icon [name]="s.icon" [size]="18" /></span>
+                  <span class="social__label">{{ s.label }}</span>
+                </a>
               </li>
             }
           </ul>

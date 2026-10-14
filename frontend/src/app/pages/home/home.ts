@@ -48,7 +48,7 @@ const NAV: NavLink[] = [
       <app-team [content]="s.team" />
       <app-contact [content]="s.contact" [socials]="socials()" />
     </main>
-    <app-site-footer [brand]="s.brand" [closing]="s.closing" [links]="nav" [socials]="socials()" [whatsapp]="whatsapp()" />
+    <app-site-footer [brand]="s.brand" [closing]="s.closing" [contact]="s.contact" [links]="nav" [socials]="socials()" [whatsapp]="whatsapp()" />
     <app-whatsapp-float [href]="whatsapp()" [visible]="pastHero()" />
   `,
 })

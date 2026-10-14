@@ -17,7 +17,7 @@ const LABELS: Record<string, string> = {
   categories: 'Filtros', category: 'Categoría', account: 'Cuenta', caption: 'Texto de la publicación', permalink: 'Enlace a Instagram',
   price: 'Precio (vacío = a cotizar)', period: 'Periodo', highlighted: 'Destacado', features: 'Incluye', description: 'Descripción',
   logo: 'Logotipo', photo: 'Foto', color: 'Color de la marca', src: 'Archivo de video', poster: 'Portada del video',
-  orientation: 'Orientación', members: 'Integrantes', role: 'Puesto', groupPhoto: 'Foto del equipo', groupCaption: 'Texto de la foto del equipo',
+  orientation: 'Orientación', members: 'Integrantes', role: 'Puesto', photos: 'Fotos', badges: 'Certificaciones',
   whatsapp: 'WhatsApp (con lada)', whatsappMessage: 'Mensaje inicial de WhatsApp', phoneDisplay: 'Teléfono como se muestra',
   email: 'Correo', city: 'Ciudad', address: 'Dirección', instagram: 'Instagram (usuario)', facebook: 'Facebook (usuario)',
   tiktok: 'TikTok (usuario)', linkedin: 'LinkedIn (empresa)', invitation: 'Invitación final', isProvisional: 'Pendiente de confirmar',
@@ -29,7 +29,7 @@ const ORDER = [
   'role', 'tagline', 'phrase', 'subtitle', 'intro', 'summary', 'description', 'detail', 'more', 'caption', 'price', 'period',
   'highlighted', 'features', 'label', 'value', 'prefix', 'suffix', 'peak', 'kind', 'unit', 'markerIndex', 'markerLabel',
   'points', 'steps', 'items', 'kpis', 'chart', 'cases', 'categories', 'members', 'stats', 'image', 'imageAlt', 'photo', 'logo',
-  'color', 'src', 'poster', 'orientation', 'groupPhoto', 'groupCaption', 'permalink', 'whatsapp', 'whatsappMessage',
+  'color', 'src', 'poster', 'orientation', 'photos', 'badges', 'permalink', 'whatsapp', 'whatsappMessage',
   'phoneDisplay', 'email', 'city', 'address', 'location', 'instagram', 'facebook', 'tiktok', 'linkedin', 'ctaLabel', 'note', 'isProvisional',
 ];
 
@@ -39,8 +39,8 @@ export function orderedKeys(v: object): string[] {
   return Object.keys(v).sort((a, b) => rank(a) - rank(b));
 }
 
-const LONG = new Set(['summary', 'more', 'detail', 'description', 'caption', 'intro', 'note', 'subtitle', 'groupCaption']);
-const MEDIA = new Set(['image', 'photo', 'logo', 'poster', 'groupPhoto']);
+const LONG = new Set(['summary', 'more', 'detail', 'description', 'caption', 'intro', 'note', 'subtitle']);
+const MEDIA = new Set(['image', 'photo', 'logo', 'poster']);
 
 /**
  * Campo del editor de contenido, recursivo: muestra el control adecuado según el tipo del valor

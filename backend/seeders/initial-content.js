@@ -180,9 +180,9 @@ export const settings = {
   },
 
   services: {
-    title: 'Todo tu marketing,',
-    script: 'en un solo equipo',
-    intro: 'Elige uno o combínalos: trabajamos como una sola estrategia.',
+    title: 'Lo que hacemos',
+    script: 'por tu marca',
+    intro: 'Estos son los servicios de Logik. Elige uno o combínalos: trabajamos todo como una sola estrategia.',
     items: [
       { title: 'Manejo de redes sociales', summary: 'Facebook, Instagram y TikTok con calendario mensual.', detail: 'Gestionamos tus redes creando una conexión real con tus clientes, siempre de la mano del objetivo que buscas: más alcance, interacción, seguidores o ventas.', image: '/media/v2/posts/logik-089.webp' },
       { title: 'Facebook e Instagram Ads', summary: 'Campañas que acercan tu producto a quien lo busca.', detail: 'Acercamos tu mercado potencial a tu producto con publicidad efectiva en Facebook e Instagram. Somos Meta Certified Media Buying Professional.', image: '/media/servicios/campanas.webp' },
@@ -271,19 +271,19 @@ export const settings = {
         name: 'Diana Maldonado Medina',
         role: 'Directora · Publicidad pagada',
         photo: '/media/v2/equipo/diana.webp',
-        summary: 'Compra los anuncios de más de 50 marcas en Meta, TikTok, LinkedIn y Google.',
-        more: 'Licenciada en Mercadotecnia con más de 5 años de experiencia. Es Meta Certified Media Buying Professional y se especializa en campañas que convierten presupuesto en mensajes y ventas.',
+        summary: 'Soy Diana Maldonado Medina, Licenciada en Mercadotecnia con 29 años y una sólida trayectoria de 5 años en el mundo del social media marketing. Mi experiencia abarca desde la planeación estratégica hasta el análisis de datos y resultados, siempre enfocada en obtener el máximo rendimiento para cada campaña.',
+        more: 'Especialista en el área de Paid Media, domino plataformas clave como Meta Ads, TikTok Ads, LinkedIn Ads y Google Ads, gestionando estrategias publicitarias efectivas y personalizadas. He tenido la oportunidad de colaborar con más de 50 marcas de distintos giros, adaptándome a diversos sectores y necesidades, lo que me ha permitido desarrollar una visión integral y enfocada en resultados medibles.\n\nMi pasión por la mercadotecnia digital y mi compromiso con la excelencia me han llevado a construir campañas innovadoras, optimizar presupuestos y generar un impacto significativo en la presencia digital de las marcas con las que trabajo.',
+        badges: [{ image: '/media/v2/equipo/meta-certified.png', label: 'Meta Certified Media Buying Professional' }],
       },
       {
         name: 'Abigail Alcántara',
         role: 'Directora · Contenido y comunidad',
         photo: '/media/v2/equipo/abigail.webp',
-        summary: 'Dirige el contenido, la fotografía y la comunidad de más de 60 empresas.',
-        more: 'Licenciada en Mercadotecnia con maestría en Marketing y Medios Digitales y más de 5 años de experiencia en community management, creación de contenido y fotografía de producto.',
+        summary: 'Soy Abigail Alcantara, Licenciada en Mercadotecnia con 26 años y más de 5 años de experiencia en el ámbito del marketing digital. A lo largo de mi trayectoria, he trabajado en la planeación, desarrollo y ejecución de estrategias digitales que generan resultados medibles y valor para las marcas.',
+        more: 'Especialista en Community Management y estrategias multicanal, domino la creación de contenido atractivo, fotografía de producto y campañas que fortalecen la conexión entre marcas y audiencias. He colaborado con más de 60 empresas de diferentes sectores, adaptando estrategias innovadoras para cada necesidad.\n\nMi pasión por el marketing digital, respaldada por una maestría en Marketing y Medios Digitales, me impulsa a crear campañas creativas, optimizar recursos y potenciar la presencia digital de las marcas con las que colaboro. Estoy comprometida con la excelencia y con ofrecer soluciones que marquen la diferencia.\n\n¡Juntos desarrollaremos el mejor potencial de tu empresa!',
+        badges: [],
       },
     ],
-    groupPhoto: '/media/v2/equipo/marke-team.webp',
-    groupCaption: 'El Marke-team: un equipo de mujeres con oficina y estudio propios.',
     isProvisional: true,
   },
 

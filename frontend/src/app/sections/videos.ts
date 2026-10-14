@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, computed, input, linkedSignal, signal, viewChild } from '@angular/core';
 import { Reveal } from '../components/reveal/reveal.directive';
 import { SectionHeading } from '../components/section-heading/section-heading';
 import { VideosSettings } from '../core/types/settings.model';
 
 /**
- * Sus videos: al pasar el cursor se reproducen en silencio como vista previa;
- * al hacer clic se reproducen con sonido y controles.
+ * Sus videos como una sala: el reproductor a la derecha y, a la izquierda, la lista de miniaturas.
+ * Elegir una miniatura cambia el video con un fundido y lo reproduce. La lista se desplaza sola
+ * hasta la elegida y tiene su propio scroll cuando hay muchos videos.
  */
 @Component({
   selector: 'app-videos',
@@ -16,34 +17,58 @@ import { VideosSettings } from '../core/types/settings.model';
     <section class="videos" id="videos" aria-labelledby="videos-title">
       <div class="wrap">
         <app-section-heading [title]="c.title" [script]="c.script" [intro]="c.intro" tone="light" headingId="videos-title" />
-        <ul class="grid" role="list">
-          @for (v of c.items; track v.src; let i = $index) {
-            <li class="video" [class.is-vertical]="v.orientation === 'vertical'" [class.is-playing]="playing() === i" appReveal="zoom" [revealDelay]="i * 100">
-              <div class="video__frame" (pointerenter)="preview($event, true)" (pointerleave)="preview($event, false)">
-                <video
-                  [src]="v.src"
-                  [poster]="v.poster"
-                  [controls]="playing() === i"
-                  muted
-                  loop
-                  playsinline
-                  preload="metadata"
-                  [attr.aria-label]="v.title"
-                ></video>
-                @if (playing() !== i) {
-                  <button type="button" class="video__play" [attr.aria-label]="'Reproducir: ' + v.title" (click)="play($event, i)">
-                    <span class="video__ring" aria-hidden="true"></span>
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5L8 5.5Z" /></svg>
+        @if (current(); as v) {
+          <div class="room">
+            <ol class="list" role="list" #list appReveal="left" [class.has-scroll]="c.items.length > 4">
+              @for (item of c.items; track item.src; let i = $index) {
+                <li>
+                  <button type="button" class="thumb" [class.is-current]="i === selected()" [attr.aria-current]="i === selected() ? 'true' : null" (click)="choose(i)">
+                    <span class="thumb__img" [class.is-vertical]="item.orientation === 'vertical'">
+                      @if (item.poster) {
+                        <img [src]="item.poster" alt="" width="320" height="180" loading="lazy" decoding="async" />
+                      }
+                      <span class="thumb__play" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5L8 5.5Z" /></svg>
+                      </span>
+                    </span>
+                    <span class="thumb__text">
+                      <span class="thumb__num">{{ (i + 1).toString().padStart(2, '0') }}</span>
+                      <strong>{{ item.title }}</strong>
+                      <span class="thumb__desc">{{ item.description }}</span>
+                    </span>
                   </button>
-                }
-              </div>
-              <div class="video__text">
-                <h3>{{ v.title }}</h3>
-                <p>{{ v.description }}</p>
-              </div>
-            </li>
-          }
-        </ul>
+                </li>
+              }
+            </ol>
+
+            <div class="player" appReveal="zoom" [revealDelay]="150" [class.is-switching]="switching()">
+              <!-- Fondo difuminado con la portada: llena los costados de los videos verticales. -->
+              @if (v.poster) {
+                <img class="player__backdrop" [src]="v.poster" alt="" aria-hidden="true" />
+              }
+              <video
+                #video
+                [src]="v.src"
+                [poster]="v.poster"
+                [controls]="started()"
+                playsinline
+                preload="metadata"
+                [attr.aria-label]="v.title"
+                (ended)="started.set(false)"
+              ></video>
+              @if (!started()) {
+                <button type="button" class="player__play" [attr.aria-label]="'Reproducir: ' + v.title" (click)="start()">
+                  <span class="player__ring" aria-hidden="true"></span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5L8 5.5Z" /></svg>
+                </button>
+              }
+              <p class="player__caption">
+                <strong>{{ v.title }}</strong>
+                <span>{{ v.description }}</span>
+              </p>
+            </div>
+          </div>
+        }
       </div>
     </section>
   `,
@@ -51,23 +76,40 @@ import { VideosSettings } from '../core/types/settings.model';
 })
 export class Videos {
   readonly content = input.required<VideosSettings>();
-  protected readonly playing = signal<number | null>(null);
+  protected readonly selected = linkedSignal({ source: () => this.content().items, computation: () => 0 });
+  /** El video que se muestra: va un paso detrás de la selección para dar tiempo al fundido. */
+  protected readonly shown = linkedSignal(() => this.selected());
+  protected readonly current = computed(() => this.content().items[this.shown()] ?? null);
+  protected readonly started = signal(false);
+  protected readonly switching = signal(false);
 
-  protected preview(event: PointerEvent, on: boolean): void {
-    if (event.pointerType !== 'mouse') return;
-    const video = (event.currentTarget as HTMLElement).querySelector('video');
-    if (!video || this.playing() !== null) return;
-    if (on && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) void video.play().catch(() => undefined);
-    else video.pause();
+  private readonly video = viewChild<ElementRef<HTMLVideoElement>>('video');
+  private readonly list = viewChild<ElementRef<HTMLElement>>('list');
+
+  protected choose(i: number): void {
+    if (i === this.selected()) {
+      this.start();
+      return;
+    }
+    this.selected.set(i);
+    this.switching.set(true);
+    this.video()?.nativeElement.pause();
+    // La lista se acomoda para que la miniatura elegida quede a la vista.
+    const item = this.list()?.nativeElement.children[i] as HTMLElement | undefined;
+    item?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    setTimeout(() => {
+      this.shown.set(i);
+      this.switching.set(false);
+      // El clic del usuario permite reproducir con sonido.
+      requestAnimationFrame(() => this.start());
+    }, 350);
   }
 
-  protected play(event: Event, i: number): void {
-    const video = (event.currentTarget as HTMLElement).parentElement?.querySelector('video');
-    document.querySelectorAll<HTMLVideoElement>('.videos video').forEach((v) => v !== video && v.pause());
-    this.playing.set(i);
+  protected start(): void {
+    const video = this.video()?.nativeElement;
     if (!video) return;
+    this.started.set(true);
     video.muted = false;
-    video.currentTime = 0;
-    void video.play().catch(() => undefined);
+    void video.play().catch(() => this.started.set(false));
   }
 }

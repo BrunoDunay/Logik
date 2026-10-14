@@ -268,6 +268,36 @@ button {
   color: var(--color-pink-logo);
 }
 
+/* Nombres de redes y plataformas con el color de cada marca (pipe brandWords).
+   Tonos un poco más oscuros que los oficiales para que se lean sobre blanco (4.5:1 o más). */
+.kw {
+  font-weight: 600;
+}
+.kw--facebook {
+  color: #1565d8;
+}
+.kw--instagram {
+  background: linear-gradient(90deg, #833ab4, #d62976 55%, #e1306c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.kw--tiktok {
+  color: #111;
+  text-shadow:
+    -1px -1px 0 rgb(37 244 238 / 0.9),
+    1px 1px 0 rgb(254 44 85 / 0.9);
+}
+.kw--google {
+  color: #1a73e8;
+}
+.kw--whatsapp {
+  color: #0f7a6e;
+}
+.kw--meta {
+  color: #0467df;
+}
+
 /* ---- Aparición al hacer scroll (directiva appReveal) ----
    Solo se aplica a lo que empieza fuera de la vista: sin JavaScript todo se ve. */
 .reveal {

@@ -13,7 +13,15 @@
 .row {
   position: relative;
   border-bottom: 1.5px solid rgb(20 16 18 / 0.14);
+  border-radius: 0;
   isolation: isolate;
+  transition:
+    background-color 600ms ease,
+    border-radius 600ms var(--ease-out),
+    box-shadow 700ms var(--ease-out),
+    transform 700ms var(--ease-out),
+    margin 700ms var(--ease-out),
+    border-color 500ms ease;
 }
 
 /* Al pasar el cursor, el rosa llena la fila desde la izquierda. */
@@ -22,15 +30,34 @@
   position: absolute;
   inset: 0;
   z-index: -1;
+  border-radius: inherit;
   background: var(--color-pink);
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform var(--duration-slow) var(--ease-out);
+  transition:
+    transform 700ms var(--ease-out),
+    opacity 500ms ease;
 }
 
-.row.is-hovered::before,
-.row.is-open::before {
+.row.is-hovered:not(.is-open)::before {
   transform: scaleX(1);
+}
+
+/* Servicio abierto: una tarjeta blanca que se levanta hacia el frente. */
+.row.is-open {
+  z-index: var(--z-raised);
+  margin-block: var(--space-4);
+  border-color: transparent;
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  box-shadow:
+    0 30px 60px -30px rgb(20 16 18 / 0.45),
+    0 0 0 1px var(--color-line);
+  transform: translateY(-4px) scale(1.01);
+}
+
+.row.is-open::before {
+  opacity: 0;
 }
 
 .row__head {
@@ -41,7 +68,7 @@
   gap: 0.15rem var(--space-4);
   width: 100%;
   min-height: 5.5rem;
-  padding: var(--space-4) var(--space-3);
+  padding: var(--space-4) var(--space-4);
   border: 0;
   background: none;
   text-align: left;
@@ -53,6 +80,7 @@
     grid-template-columns: 4rem minmax(0, 1.1fr) minmax(0, 1fr) 3rem;
     grid-template-areas: 'num title summary plus';
     min-height: 6.5rem;
+    padding-inline: var(--space-5);
   }
 }
 
@@ -62,7 +90,7 @@
   font-weight: 600;
   color: var(--color-pink-deep);
   font-variant-numeric: tabular-nums;
-  transition: color var(--duration) ease;
+  transition: color 500ms ease;
 }
 
 .row__title {
@@ -71,24 +99,33 @@
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: var(--tracking-display);
-  transition: transform var(--duration-slow) var(--ease-out);
+  transition:
+    transform 700ms var(--ease-out),
+    color 500ms ease;
 }
 
 .row__summary {
   grid-area: summary;
   color: var(--color-text-soft);
   font-size: var(--text-sm);
-  transition: color var(--duration) ease;
+  transition: color 500ms ease;
 }
 
-.row.is-hovered .row__title,
-.row.is-open .row__title {
+.row.is-hovered .row__title {
   transform: translateX(10px);
 }
 
 .row.is-hovered .row__num,
-.row.is-open .row__num,
-.row.is-hovered .row__summary,
+.row.is-hovered .row__summary {
+  color: var(--color-ink);
+}
+
+/* Título en rosa y texto en negro cuando está abierto. */
+.row.is-open .row__title {
+  color: var(--color-pink-deep);
+  transform: none;
+}
+
 .row.is-open .row__summary {
   color: var(--color-ink);
 }
@@ -103,8 +140,8 @@
   border-radius: 50%;
   background: var(--color-white);
   transition:
-    transform var(--duration) var(--ease-spring),
-    background-color var(--duration) ease;
+    transform 700ms var(--ease-out),
+    background-color 500ms ease;
 }
 
 .row__plus::before,
@@ -118,7 +155,7 @@
   margin: -1px 0 0 -7px;
   border-radius: 2px;
   background: var(--color-ink);
-  transition: background-color var(--duration) ease;
+  transition: background-color 500ms ease;
 }
 
 .row__plus::after {
@@ -127,18 +164,18 @@
 
 .row.is-open .row__plus {
   transform: rotate(135deg);
-  background: var(--color-ink);
+  background: var(--color-pink-logo);
 }
 
 .row.is-open .row__plus::before,
 .row.is-open .row__plus::after {
-  background: var(--color-white);
+  background: var(--color-ink);
 }
 
 .row__body {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows var(--duration-slow) var(--ease-out);
+  transition: grid-template-rows 750ms cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .row.is-open .row__body {
@@ -147,63 +184,93 @@
 
 .row__inner {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-5);
+  min-height: 0;
   overflow: hidden;
-  padding-inline: var(--space-3);
+  padding-inline: var(--space-4);
 }
 
-.row__inner p {
+.row__detail {
   max-width: 42rem;
-  padding-bottom: var(--space-5);
   font-size: var(--text-lg);
   line-height: 1.5;
+  color: var(--color-ink);
 }
 
 .row__photo {
-  width: min(100%, 22rem);
+  width: 100%;
+  max-width: 24rem;
   aspect-ratio: 4 / 3;
+  margin-bottom: var(--space-5);
   object-fit: cover;
   border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* El detalle y la foto entran después de que la tarjeta empieza a abrirse. */
+.row__detail,
+.row__photo {
+  opacity: 0;
+  translate: 0 14px;
+  transition:
+    opacity 450ms ease,
+    translate 600ms var(--ease-out);
+}
+
+.row.is-open .row__detail,
+.row.is-open .row__photo {
+  opacity: 1;
+  translate: 0 0;
+  transition-delay: 220ms;
+}
+
+.row.is-open .row__photo {
+  transition-delay: 340ms;
 }
 
 @media (min-width: 900px) {
   .row__inner {
-    grid-template-columns: 4rem 1fr;
+    grid-template-columns: 4rem minmax(0, 1fr) minmax(0, 22rem);
+    align-items: start;
+    padding-inline: var(--space-5);
   }
-  .row__inner p {
+  .row__detail {
     grid-column: 2;
+    padding-bottom: var(--space-6);
   }
-  /* En escritorio la foto ya la muestra el cursor; dentro del detalle no se repite. */
   .row__photo {
-    display: none;
+    grid-column: 3;
+    rotate: 2deg;
   }
 }
 
-/* Foto que sigue al cursor. */
+/* Foto pequeña que acompaña al cursor, abajo a la derecha para no taparlo. */
 .cursor-photo {
   position: absolute;
   left: 0;
   top: 0;
   z-index: 5;
-  width: 15rem;
+  width: 9.5rem;
   aspect-ratio: 4 / 3;
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
   pointer-events: none;
   opacity: 0;
-  scale: 0.8;
-  rotate: -4deg;
+  scale: 0.6;
+  rotate: -6deg;
+  transform-origin: 0 0;
   transition:
-    opacity var(--duration) ease,
-    scale var(--duration) var(--ease-spring),
-    rotate var(--duration-slow) var(--ease-out);
+    transform 260ms var(--ease-out),
+    opacity 500ms ease,
+    scale 600ms var(--ease-out),
+    rotate 800ms var(--ease-out);
 }
 
 .cursor-photo.is-on {
   opacity: 1;
   scale: 1;
-  rotate: 3deg;
+  rotate: 4deg;
 }
 
 .cursor-photo img {
@@ -213,7 +280,7 @@
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity var(--duration) ease;
+  transition: opacity 500ms ease;
 }
 
 .cursor-photo img.is-current {

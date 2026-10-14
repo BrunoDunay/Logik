@@ -7,7 +7,7 @@ import { whatsappLink } from '../core/utils/links';
 
 /**
  * Paquetes en tarjetas blancas sobre negro; el recomendado va en rosa.
- * Al pasar el cursor la tarjeta se inclina en 3D hacia el mouse y las palomitas se dibujan.
+ * Al pasar el cursor la tarjeta se inclina en 3D hacia el mouse; cada palomita se dibuja al pasar sobre ella.
  */
 @Component({
   selector: 'app-packages',
