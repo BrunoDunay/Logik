@@ -19,3 +19,6 @@ Thumbs.db
 
 # Caché de Python (scripts de skills)
 __pycache__/
+
+# Capturas temporales del inspector de taste-skill
+.taste-skill/inspect/
