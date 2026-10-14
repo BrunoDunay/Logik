@@ -105,7 +105,7 @@ export const settings = {
     title: 'Más de 70 marcas.',
     video: '/media/showcase/marcas.mp4',
     poster: '/media/showcase/marcas.webp',
-    caption: 'Ya crecen con nosotras. Así se ve un mes con Logik.',
+    caption: 'Ya crecen con nosotras, de Aguascalientes a todo México.',
   },
 
   work: {

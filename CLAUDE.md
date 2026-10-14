@@ -18,11 +18,11 @@ Al retomar, leer en este orden: este archivo, `docs/investigacion-redes.md`, `do
 1. Investigación de Instagram (99 publicaciones y 6 historias destacadas), Facebook y el sitio actual con OpenCLI y agent-browser: `docs/investigacion-redes.md`. Precio real de entrada: **$2,499 al mes** (el sitio está desactualizado).
 2. Diseño con taste-skill (dirección `sentence-as-layout`), ui-ux-pro-max y emil-design-eng: `docs/diseno-prototipo.md`.
 3. Proyecto completo: `backend/` (Express 5 + PostgreSQL, contenido por secciones en `site_settings`) y `frontend/` (Angular 22 + SSR). La portada pasa el inspector de taste-skill sin fallos a 1440, 768 y 390 px.
-4. Video de marca con HyperFrames en `videos/logik-marcas/` (30 s, 1080×1920, sin audio): gancho, montaje de trabajo, muro de logos, resultados de Meta y cierre con precio. `hyperframes check` pasa. **Falta el render** (se pide aprobación antes de renderizar) y reemplazar con él `frontend/public/media/showcase/marcas.mp4`.
+4. Video de marca con HyperFrames en `videos/logik-marcas/` (30 s, 1080×1920, sin audio): gancho, montaje de trabajo, muro de logos, resultados de Meta y cierre con precio. `hyperframes check` pasa. Render aprobado: el original (20.9 MB, calidad de entrega) queda en `videos/logik-marcas/renders/` (no se sube a git) y la versión web (720×1280, 2 MB) está en `frontend/public/media/showcase/marcas.mp4`.
+5. PostgreSQL local configurado: usuario `logik_app`, bases `logik` y `logik_test`; credenciales en `backend/.env` (no se sube). Las 20 pruebas del backend pasan, incluidas las de integración. En Windows, la URL usa `127.0.0.1`, no `localhost`.
 
 **Pendiente**
-- Render del video y su póster; después actualizar `showcase` en el seeder si cambia el texto.
-- Contraseña de PostgreSQL local para correr el backend y las pruebas de integración (`backend/.env`).
+- Ajustes que pida el usuario después de revisar el sitio.
 - Panel de edición (login y formularios por sección), que se vende con el mantenimiento.
 - Confirmar con la agencia lo marcado en "Pendiente de confirmar" de `docs/diseno-prototipo.md`.
 - Opcional: versión del video con música para Instagram.
