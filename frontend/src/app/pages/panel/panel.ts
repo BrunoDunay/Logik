@@ -12,7 +12,7 @@ import { orderedKeys } from './panel-fields';
 const SECTIONS: { key: SectionKey; label: string; hint: string }[] = [
   { key: 'hero', label: 'Portada', hint: 'Textos alrededor del logo' },
   { key: 'about', label: 'Nosotras', hint: 'La frase, el resumen y las cifras' },
-  { key: 'results', label: 'Resultados', hint: 'Casos, gráficas y cifras clave' },
+  { key: 'results', label: 'Resultados', hint: 'Casos y cifras clave (gráficas con soporte)' },
   { key: 'posts', label: 'Contenido', hint: 'Carrusel de publicaciones' },
   { key: 'services', label: 'Servicios', hint: 'Lista de servicios' },
   { key: 'packages', label: 'Paquetes', hint: 'Precios y lo que incluye cada uno' },

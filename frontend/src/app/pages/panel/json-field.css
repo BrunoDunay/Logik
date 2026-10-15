@@ -276,3 +276,57 @@ textarea:focus {
   outline: 3px solid var(--color-focus);
   outline-offset: 2px;
 }
+
+/* Campo de solo lectura (gráficas): se ve, pero no se edita. */
+.locked {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1.5px dashed var(--color-line);
+  border-radius: var(--radius);
+  background: var(--color-white);
+}
+
+.locked__icon {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--color-blush);
+  color: var(--color-pink-deep);
+}
+
+.locked__icon svg {
+  width: 1.2rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.locked__text {
+  display: grid;
+  gap: 2px;
+}
+
+.locked__label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.locked__meta {
+  font-size: var(--text-xs);
+  color: var(--color-text-soft);
+}
+
+.locked p {
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-soft);
+}

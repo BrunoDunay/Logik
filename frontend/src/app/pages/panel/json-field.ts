@@ -2,7 +2,7 @@ import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDragPlaceholder, CdkDropList, m
 import { Component, forwardRef, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Collection } from './collection';
-import { Json, JsonObject, LONG, MEDIA, TEMPLATES, isObject, labelOf, orderedKeys } from './panel-fields';
+import { Json, JsonObject, LOCKED, LONG, MEDIA, TEMPLATES, chartKind, isObject, labelOf, orderedKeys } from './panel-fields';
 
 export { orderedKeys } from './panel-fields';
 
@@ -45,6 +45,19 @@ export { orderedKeys } from './panel-fields';
           <button type="button" class="add" (click)="addString(v)">+ Agregar</button>
         </fieldset>
       }
+    } @else if (isLocked() && isObj(v)) {
+      <!-- Solo lectura: la gráfica la mantiene soporte. -->
+      <div class="locked" role="group" [attr.aria-label]="label() + ' (solo lectura)'">
+        <span class="locked__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5" /><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" /></svg>
+        </span>
+        <div class="locked__text">
+          <span class="locked__label">{{ label() }} · solo lectura</span>
+          <strong>{{ v['title'] || 'Gráfica del caso' }}</strong>
+          <span class="locked__meta">{{ kind(v['kind']) }}@if (v['unit']) { · {{ v['unit'] }} }</span>
+          <p>Las gráficas se generan a partir de los datos de cada campaña. Si necesitas cambiar esta, contacta a soporte y la actualizamos.</p>
+        </div>
+      </div>
     } @else if (isObj(v)) {
       <fieldset class="group">
         <legend>{{ label() }}</legend>
@@ -121,6 +134,14 @@ export class JsonField {
 
   protected keys(v: JsonObject): string[] {
     return orderedKeys(v);
+  }
+
+  protected isLocked(): boolean {
+    return LOCKED.has(this.key());
+  }
+
+  protected kind(v: Json | undefined): string {
+    return chartKind(v);
   }
 
   protected isMedia(): boolean {

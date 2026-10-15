@@ -80,6 +80,7 @@ Con `ui-ux-pro-max` (densidad alta, movimiento estándar; la paleta que sugirió
 - **Ordenar arrastrando** con Angular CDK (`cdkDropListOrientation="mixed"` en el grid), con botones de mover como alternativa de teclado y de un solo clic (WCAG 2.2).
 - **Búsqueda** en listas de más de 6 elementos (el arrastre se pausa mientras se busca).
 - Encabezado fijo con el estado (guardado o con cambios), **Descartar**, `Ctrl + S` para guardar y aviso del navegador al salir con cambios.
+- **Gráficas de solo lectura**: en Resultados, la gráfica de cada caso se ve bloqueada con una nota para contactar a soporte; los casos no se agregan ni se duplican desde el panel (quedarían sin gráfica válida). Al guardar, la gráfica se envía intacta.
 - La skill `motion-design` no se usó: solo se activa si el usuario la invoca (`/motion-design`).
 
 ## Pendiente de confirmar con la agencia

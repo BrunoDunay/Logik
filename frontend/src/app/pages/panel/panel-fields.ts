@@ -40,6 +40,18 @@ export function orderedKeys(v: object): string[] {
 export const LONG = new Set(['summary', 'more', 'detail', 'description', 'caption', 'intro', 'note', 'subtitle']);
 export const MEDIA = new Set(['image', 'photo', 'logo', 'poster']);
 
+/**
+ * Campos que el panel muestra pero no deja editar: las gráficas de Resultados se generan a partir de los
+ * datos de cada campaña y los mantiene soporte. Al guardar se envían tal cual, así que no se pierden.
+ */
+export const LOCKED = new Set(['chart']);
+
+const KINDS: Record<string, string> = { area: 'Área', bars: 'Barras', steps: 'Pasos', dots: 'Puntos' };
+
+export function chartKind(kind: Json | undefined): string {
+  return typeof kind === 'string' ? (KINDS[kind] ?? kind) : '';
+}
+
 export function labelOf(key: string): string {
   return LABELS[key] ?? key;
 }

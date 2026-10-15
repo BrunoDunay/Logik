@@ -7,6 +7,7 @@ import { JsonField } from './json-field';
 import {
   Json,
   JsonObject,
+  LOCKED,
   blankLike,
   isCompactList,
   isObject,
@@ -70,6 +71,16 @@ export class Collection {
     return this.list()
       .map((item, i) => ({ item, i, title: itemTitle(item, i), subtitle: itemSubtitle(item), thumb: itemThumb(item) }))
       .filter((e) => !q || `${e.title} ${e.subtitle}`.toLowerCase().includes(q));
+  });
+
+  /**
+   * Listas cuyos elementos llevan un campo de solo lectura (los casos con su gráfica): no se agregan
+   * ni se duplican desde el panel, porque el elemento nuevo quedaría sin una gráfica válida.
+   */
+  protected readonly locked = computed(() => {
+    this.version();
+    const first = this.list().find(isObject);
+    return !!first && Object.keys(first).some((k) => LOCKED.has(k));
   });
 
   /** Si ningún elemento tiene imagen, las tarjetas son de solo texto (más compactas). */
