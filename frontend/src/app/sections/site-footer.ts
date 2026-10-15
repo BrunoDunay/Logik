@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, afterNextRender, inject, input, viewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Icon } from '../components/icon/icon';
+import { gsap } from 'gsap';
 import { Logo } from '../components/logo/logo';
 import { buildLogo } from '../components/logo/logo-build';
 import { BrandSettings, ClosingSettings, ContactSettings } from '../core/types/settings.model';
@@ -115,7 +116,6 @@ export class SiteFooter {
   private async build(): Promise<void> {
     this.building = true;
     const el = this.logo().nativeElement;
-    const { gsap } = await import('gsap');
     const tl = buildLogo(gsap, el, { sweep: 1.1 });
     el.classList.remove('is-waiting');
     await tl.then();

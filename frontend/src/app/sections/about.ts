@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, afterNextRender, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { CountUp } from '../components/count-up/count-up.directive';
 import { ReadMore } from '../components/read-more/read-more';
 import { Reveal } from '../components/reveal/reveal.directive';
@@ -7,7 +7,7 @@ import { EmphasisPipe } from '../core/utils/emphasis.pipe';
 
 const SPARK = 'M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z';
 
-/** La frase de la marca como sección propia: qué hacen, con fotos del Marke-team en semitono que rotan solas. */
+/** La frase de la marca como sección propia: qué hacen, con fotos del Marke-team en semitono que cambian con un clic. */
 @Component({
   selector: 'app-about',
   imports: [CountUp, ReadMore, Reveal, EmphasisPipe],
@@ -45,8 +45,6 @@ const SPARK = 'M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.
             class="about__photo"
             aria-label="Ver la siguiente foto del equipo"
             (click)="next()"
-            (pointerenter)="paused.set(true)"
-            (pointerleave)="paused.set(false)"
           >
             @for (p of c.photos; track p.image; let i = $index) {
               <img
@@ -89,38 +87,6 @@ const SPARK = 'M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.
 export class About {
   readonly content = input.required<AboutSettings>();
   protected readonly current = signal(0);
-  /** Con el cursor encima la foto se queda quieta (y a color). */
-  protected readonly paused = signal(false);
-
-  constructor() {
-    const destroyRef = inject(DestroyRef);
-    afterNextRender(() => {
-      this.schedule();
-      destroyRef.onDestroy(() => clearTimeout(this.timer));
-    });
-  }
-
-  private timer: ReturnType<typeof setTimeout> | undefined;
-
-  /** Cada clic en la foto pasa a la siguiente; el avance solo se reinicia para no saltar dos de golpe. */
-  protected next(): void {
-    this.show((this.current() + 1) % Math.max(1, this.content().photos.length));
-  }
-
-  protected show(i: number): void {
-    this.current.set(i);
-    this.schedule();
-  }
-
-  /** Si nadie hace clic, las fotos siguen pasando solas (y esperan mientras el cursor está encima). */
-  private schedule(): void {
-    clearTimeout(this.timer);
-    this.timer = setTimeout(() => {
-      const total = this.content().photos.length;
-      if (!this.paused() && total > 1 && document.visibilityState === 'visible') this.current.update((i) => (i + 1) % total);
-      this.schedule();
-    }, 4800);
-  }
   protected readonly sparkPath = SPARK;
   protected readonly sparks = [
     { x: '6%', y: '8%', s: '2.4rem', d: '0s' },
@@ -128,4 +94,13 @@ export class About {
     { x: '94%', y: '70%', s: '2.8rem', d: '1.2s' },
     { x: '2%', y: '78%', s: '1.4rem', d: '1.8s' },
   ];
+
+  /** Cada clic en la foto pasa a la siguiente; los puntos de abajo llevan a una en particular. */
+  protected next(): void {
+    this.show((this.current() + 1) % Math.max(1, this.content().photos.length));
+  }
+
+  protected show(i: number): void {
+    this.current.set(i);
+  }
 }

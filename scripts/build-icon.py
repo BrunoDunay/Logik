@@ -76,6 +76,12 @@ render(180, keys, box, 0.16).save(OUT / 'apple-touch-icon.png')
 render(48, keys, box, 0.08).save(OUT / 'favicon-48.png')
 render(32, keys, box, 0.06).save(OUT / 'favicon-32.png')
 
+# Imagen para compartir (Open Graph, 1200 x 630): la misma K sobre blanco, centrada y con aire.
+square = render(630, keys, box, 0.14)
+share = Image.new('RGB', (1200, 630), (255, 255, 255))
+share.paste(square, ((1200 - 630) // 2, 0))
+share.save(OUT / 'share.png', optimize=True)
+
 # Versión vectorial para los navegadores que aceptan SVG.
 side = max(box[2] - box[0], box[3] - box[1]) * 1.16
 cx, cy = (box[0] + box[2]) / 2, (box[1] + box[3]) / 2

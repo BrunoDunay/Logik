@@ -347,6 +347,11 @@ html.intro-pending .site-chrome {
   transition: opacity 700ms var(--ease-out);
 }
 
+/* Espacio que ocupa una sección mientras se carga (solo si se llega sin el HTML prerenderizado). */
+.section-placeholder {
+  min-height: 100svh;
+}
+
 /* ---- Scroll suave (Lenis, core/utils/smooth-scroll.ts) ---- */
 html.lenis,
 html.lenis body {

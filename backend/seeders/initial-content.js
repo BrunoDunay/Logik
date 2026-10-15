@@ -8,7 +8,7 @@ const data = (file) => JSON.parse(readFileSync(new URL(`./data/${file}`, import.
 export const settings = {
   brand: {
     name: 'Logik Marketing',
-    tagline: 'Estrategas del mercado digital',
+    tagline: 'Manejo de redes sociales para empresas',
     phrase: 'No hacemos magia, hacemos marketing.',
   },
 

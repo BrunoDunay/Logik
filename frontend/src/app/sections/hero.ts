@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, afterNextRender, inject, input, viewChild } from '@angular/core';
 import { Icon, IconName } from '../components/icon/icon';
+import { gsap } from 'gsap';
 import { Logo } from '../components/logo/logo';
 import { buildLogo } from '../components/logo/logo-build';
 import { IntroService } from '../core/services/intro.service';
@@ -42,9 +43,10 @@ export class Hero {
   }
 
   private async playIntro(destroyRef: DestroyRef): Promise<void> {
-    const { gsap } = await import('gsap');
     const host = this.logoEl().nativeElement;
     const veil = this.veilEl().nativeElement;
+    // Avisa al seguro de index.html que la intro ya arrancó: desde aquí se deja terminar.
+    document.documentElement.dataset['introStarted'] = '1';
 
     const tl = gsap.timeline({
       onComplete: () => {

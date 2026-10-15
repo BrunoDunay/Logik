@@ -5,7 +5,7 @@ import { SiteSettings } from '../types/settings.model';
 export const INITIAL_CONTENT: SiteSettings = {
   "brand": {
     "name": "Logik Marketing",
-    "tagline": "Estrategas del mercado digital",
+    "tagline": "Manejo de redes sociales para empresas",
     "phrase": "No hacemos magia, hacemos marketing."
   },
   "hero": {

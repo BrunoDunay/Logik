@@ -28,7 +28,11 @@ const NAV: NavLink[] = [
   { id: 'contacto', label: 'Contacto' },
 ];
 
-/** Portada: intro del logo, la frase, resultados, contenido, servicios, paquetes, marcas, videos, equipo y contacto. */
+/**
+ * Portada: intro del logo, la frase, resultados, contenido, servicios, paquetes, marcas, videos, equipo y contacto.
+ * Las secciones bajo el hero usan hidratación incremental: el HTML prerenderizado llega completo (SEO),
+ * pero cada sección se activa al acercarse a la pantalla, así el hero y su intro quedan listos antes.
+ */
 @Component({
   selector: 'app-home',
   imports: [Hero, SiteNav, About, Results, PostsCarousel, Services, Packages, BrandsCarousel, Videos, Team, Contact, SiteFooter, WhatsappFloat],
@@ -38,17 +42,55 @@ const NAV: NavLink[] = [
     <app-site-nav [links]="nav" [whatsapp]="whatsapp()" />
     <app-hero [content]="s.hero" [socials]="socials()" [whatsapp]="whatsapp()" />
     <main class="site-chrome">
-      <app-about [content]="s.about" />
-      <app-results [content]="s.results" />
-      <app-posts-carousel [content]="s.posts" [brands]="s.brands.items" />
-      <app-services [content]="s.services" />
-      <app-packages [content]="s.packages" [whatsapp]="s.contact.whatsapp" />
-      <app-brands-carousel [content]="s.brands" />
-      <app-videos [content]="s.videos" />
-      <app-team [content]="s.team" />
-      <app-contact [content]="s.contact" [socials]="socials()" />
+      @defer (on idle; hydrate on viewport) {
+        <app-about [content]="s.about" />
+      } @placeholder {
+        <div class="section-placeholder"></div>
+      }
+      @defer (on idle; hydrate on viewport) {
+        <app-results [content]="s.results" />
+      } @placeholder {
+        <div class="section-placeholder"></div>
+      }
+      @defer (on idle; hydrate on viewport) {
+        <app-posts-carousel [content]="s.posts" [brands]="s.brands.items" />
+      } @placeholder {
+        <div class="section-placeholder"></div>
+      }
+      @defer (on idle; hydrate on viewport) {
+        <app-services [content]="s.services" />
+      } @placeholder {
+        <div class="section-placeholder"></div>
+      }
+      @defer (on idle; hydrate on viewport) {
+        <app-packages [content]="s.packages" [whatsapp]="s.contact.whatsapp" />
+      } @placeholder {
+        <div class="section-placeholder"></div>
+      }
+      @defer (on idle; hydrate on viewport) {
+        <app-brands-carousel [content]="s.brands" />
+      } @placeholder {
+        <div class="section-placeholder"></div>
+      }
+      @defer (on idle; hydrate on viewport) {
+        <app-videos [content]="s.videos" />
+      } @placeholder {
+        <div class="section-placeholder"></div>
+      }
+      @defer (on idle; hydrate on viewport) {
+        <app-team [content]="s.team" />
+      } @placeholder {
+        <div class="section-placeholder"></div>
+      }
+      @defer (on idle; hydrate on viewport) {
+        <app-contact [content]="s.contact" [socials]="socials()" />
+      } @placeholder {
+        <div class="section-placeholder"></div>
+      }
     </main>
-    <app-site-footer [brand]="s.brand" [closing]="s.closing" [contact]="s.contact" [links]="nav" [socials]="socials()" [whatsapp]="whatsapp()" />
+    @defer (on idle; hydrate on viewport) {
+      <app-site-footer [brand]="s.brand" [closing]="s.closing" [contact]="s.contact" [links]="nav" [socials]="socials()" [whatsapp]="whatsapp()" />
+    }
     <app-whatsapp-float [href]="whatsapp()" [visible]="pastHero()" />
   `,
 })
@@ -84,7 +126,7 @@ export class Home {
     effect(() => {
       const { brand, hero, contact } = this.site();
       seo.setPage({
-        title: `${brand.name} · ${brand.phrase}`,
+        title: `${brand.name} | ${brand.tagline}`,
         description: `${hero.kicker} en ${hero.location}. ${hero.subtitle}`,
         path: '/',
         jsonLd: {

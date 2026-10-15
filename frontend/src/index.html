@@ -2,7 +2,7 @@
 <html lang="es-MX">
 <head>
   <meta charset="utf-8">
-  <title>Logik Marketing · No hacemos magia, hacemos marketing.</title>
+  <title>Logik Marketing | Manejo de redes sociales para empresas</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Agencia de marketing digital en Aguascalientes. Redes, contenido y campañas de Meta para pymes de todo México.">
@@ -18,7 +18,8 @@
   <script>
     // Intro del logo: la primera vez en la sesión. Se muestra aunque el sistema tenga las animaciones
     // desactivadas (en Windows es común tenerlas apagadas sin saberlo y el usuario pidió que siempre se vea).
-    // Si algo falla y la intro no termina, a los 7 s se muestra el sitio igual.
+    // Seguro: si a los 9 s la intro no ha empezado (JavaScript bloqueado o muy lento), se muestra el sitio.
+    // Si ya empezó, se deja terminar.
     (function () {
       try {
         // "?intro" en la URL la vuelve a mostrar (y "?intro=lento" la reproduce a un cuarto de velocidad).
@@ -26,7 +27,9 @@
         var seen = sessionStorage.getItem('logik-intro-visto');
         if ((forced || !seen) && location.pathname === '/') {
           document.documentElement.classList.add('intro-pending');
-          setTimeout(function () { document.documentElement.classList.remove('intro-pending'); }, /intro=(lento|t)/.test(location.search) ? 60000 : 7000);
+          setTimeout(function () {
+            if (!document.documentElement.dataset.introStarted) document.documentElement.classList.remove('intro-pending');
+          }, /intro=(lento|t)/.test(location.search) ? 60000 : 9000);
         }
       } catch (e) {}
     })();

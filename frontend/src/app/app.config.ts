@@ -1,7 +1,12 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter, withComponentInputBinding, withInMemoryScrolling, withViewTransitions } from '@angular/router';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
-import { provideClientHydration, withEventReplay, withHttpTransferCacheOptions } from '@angular/platform-browser';
+import {
+  provideClientHydration,
+  withEventReplay,
+  withHttpTransferCacheOptions,
+  withIncrementalHydration,
+} from '@angular/platform-browser';
 
 import { routes } from './app.routes';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
@@ -19,6 +24,10 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(withFetch(), withInterceptors([ssrTimeoutInterceptor, authInterceptor])),
     // Las respuestas GET hechas en SSR se reutilizan en el navegador (sin doble petición).
-    provideClientHydration(withEventReplay(), withHttpTransferCacheOptions({ includeRequestsWithAuthHeaders: false })),
+    provideClientHydration(
+      withEventReplay(),
+      withIncrementalHydration(),
+      withHttpTransferCacheOptions({ includeRequestsWithAuthHeaders: false }),
+    ),
   ],
 };

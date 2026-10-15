@@ -10,6 +10,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import { gsap } from 'gsap';
 import { Logo } from '../components/logo/logo';
 import { buildLogo } from '../components/logo/logo-build';
 import { IntroService } from '../core/services/intro.service';
@@ -129,7 +130,6 @@ export class SiteNav {
 
   private async build(delay: number): Promise<void> {
     this.building = true;
-    const { gsap } = await import('gsap');
     const tl = buildLogo(gsap, this.brand().nativeElement, { sweep: 0.9 }).delay(delay);
     // Las máscaras ya ocultan las letras: el contenedor puede mostrarse sin parpadeo.
     this.brandReady.set(true);
