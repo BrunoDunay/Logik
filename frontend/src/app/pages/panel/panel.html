@@ -1,51 +1,72 @@
 <div class="panel">
   <aside class="side">
-    <a class="side__brand" routerLink="/" aria-label="Ver el sitio"><app-logo /></a>
-    <p class="side__hello">Hola, {{ auth.admin()?.name ?? 'Logik' }}</p>
+    <a class="side__brand" routerLink="/" aria-label="Ver el sitio"><app-logo tone="light" /></a>
+    <p class="side__hello">Hola, <strong>{{ auth.admin()?.name ?? 'Logik' }}</strong></p>
     <nav class="side__nav" aria-label="Secciones del sitio">
-      @for (s of sections; track s.key) {
-        <button type="button" class="side__item" [class.is-active]="s.key === selected()" (click)="select(s.key)">
+      @for (s of sections; track s.key; let i = $index) {
+        <button
+          type="button"
+          class="side__item"
+          [class.is-active]="s.key === selected()"
+          [attr.aria-current]="s.key === selected() ? 'page' : null"
+          [style.--i]="i"
+          (click)="select(s.key)"
+        >
           <strong>{{ s.label }}</strong>
           <span>{{ s.hint }}</span>
+          @if (s.key === selected() && dirty()) {
+            <i class="side__dot" aria-label="Cambios sin guardar"></i>
+          }
         </button>
       }
     </nav>
     <div class="side__foot">
-      <a routerLink="/" class="side__link">Ver el sitio ↗</a>
+      <a routerLink="/" class="side__link" target="_blank" rel="noopener">Ver el sitio ↗</a>
       <button type="button" class="side__link" (click)="auth.logout()">Cerrar sesión</button>
     </div>
   </aside>
 
   <main class="editor">
-    @for (k of [selected()]; track k) {
-      <header class="editor__head">
-        <div>
-          <h1>{{ current().label }}</h1>
-          <p>{{ current().hint }}. Los textos admiten <strong>**negritas**</strong>.</p>
-        </div>
-        <button type="button" class="save" [disabled]="saving() || !dirty()" (click)="save()">
-          {{ saving() ? 'Guardando…' : dirty() ? 'Guardar cambios' : 'Sin cambios' }}
+    <header class="bar" [class.is-dirty]="dirty()">
+      <div class="bar__title">
+        <h1>{{ current().label }}</h1>
+        <p>{{ current().hint }}. Los textos admiten <strong>**negritas**</strong>.</p>
+      </div>
+      <div class="bar__actions">
+        <span class="bar__state" aria-live="polite">
+          <i aria-hidden="true"></i>{{ saving() ? 'Guardando…' : dirty() ? 'Cambios sin guardar' : 'Todo guardado' }}
+        </span>
+        @if (dirty() && !saving()) {
+          <button type="button" class="discard" (click)="discard()">Descartar</button>
+        }
+        <button type="button" class="save" [disabled]="saving() || !dirty()" (click)="save()" title="Guardar (Ctrl + S)">
+          {{ saving() ? 'Guardando…' : 'Guardar' }}
         </button>
-      </header>
+      </div>
+    </header>
 
-      @if (message(); as m) {
-        <div class="alert" [class.is-error]="m.kind === 'error'" role="status">
-          <p>{{ m.text }}</p>
-          @if (fieldErrors().length) {
-            <ul>
-              @for (e of fieldErrors(); track e.path) {
-                <li><code>{{ e.path }}</code>: {{ e.text }}</li>
-              }
-            </ul>
-          }
-        </div>
-      }
-
+    @for (k of [version()]; track k) {
       <div class="editor__fields">
-        @for (key of keys(); track key) {
-          <app-json-field [parent]="$any(draft)" [key]="key" (changed)="dirty.set(true); message.set(null)" />
+        @for (key of keys(); track key; let i = $index) {
+          <div class="editor__field" [style.--i]="i">
+            <app-json-field [parent]="$any(draft)" [key]="key" (changed)="dirty.set(true); message.set(null)" />
+          </div>
         }
       </div>
     }
   </main>
+
+  @if (message(); as m) {
+    <div class="toast" [class.is-error]="m.kind === 'error'" role="status">
+      <p>{{ m.text }}</p>
+      @if (fieldErrors().length) {
+        <ul>
+          @for (e of fieldErrors(); track e.path) {
+            <li><code>{{ e.path }}</code>: {{ e.text }}</li>
+          }
+        </ul>
+      }
+      <button type="button" class="toast__close" (click)="message.set(null)" aria-label="Cerrar aviso">×</button>
+    </div>
+  }
 </div>

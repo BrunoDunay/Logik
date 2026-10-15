@@ -1,0 +1,158 @@
+@let items = entries();
+<section class="col" [class.is-compact]="compact()">
+  <header class="col__bar">
+    <h3 class="col__title">{{ label() }} <span class="col__count">{{ list().length }}</span></h3>
+    @if (list().length > 6 && !compact()) {
+      <label class="col__search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4.5 4.5" /></svg>
+        <span class="visually-hidden">Buscar en {{ label() }}</span>
+        <input type="search" placeholder="Buscar…" [ngModel]="query()" (ngModelChange)="query.set($event)" />
+      </label>
+    }
+    <button type="button" class="col__add" (click)="add()">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+      Agregar
+    </button>
+  </header>
+
+  @if (query() && list().length) {
+    <p class="col__hint">{{ items.length }} de {{ list().length }} · el orden se cambia sin búsqueda.</p>
+  } @else if (list().length > 1) {
+    <p class="col__hint">Arrastra para cambiar el orden. {{ compact() ? '' : 'Haz clic en una tarjeta para editarla.' }}</p>
+  }
+
+  @if (compact()) {
+    <!-- Tabla: cada fila con sus campos a la vista. -->
+    <ol class="rows" cdkDropList [cdkDropListData]="list()" (cdkDropListDropped)="drop($event)" role="list">
+      @for (e of items; track e.item; let first = $first; let last = $last) {
+        <li class="row" cdkDrag cdkDragPreviewContainer="parent" [style.--i]="e.i">
+          <span class="row__handle" cdkDragHandle aria-hidden="true" title="Arrastrar">
+            <svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.5" /><circle cx="15" cy="6" r="1.5" /><circle cx="9" cy="12" r="1.5" /><circle cx="15" cy="12" r="1.5" /><circle cx="9" cy="18" r="1.5" /><circle cx="15" cy="18" r="1.5" /></svg>
+          </span>
+          <span class="row__num">{{ e.i + 1 }}</span>
+          <div class="row__fields" [style.--cols]="columns().length">
+            @for (k of keysOf(e.item); track k) {
+              <app-json-field [parent]="asObject(e.item)" [key]="k" [compact]="true" (changed)="touch()" />
+            }
+          </div>
+          <div class="row__actions">
+            <button type="button" class="icon-btn" (click)="move(e.i, -1)" [disabled]="first" aria-label="Subir">
+              <svg viewBox="0 0 24 24"><path d="m6 15 6-6 6 6" /></svg>
+            </button>
+            <button type="button" class="icon-btn" (click)="move(e.i, 1)" [disabled]="last" aria-label="Bajar">
+              <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></svg>
+            </button>
+            <button type="button" class="icon-btn is-danger" (click)="remove(e.i)" aria-label="Quitar">
+              <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" /></svg>
+            </button>
+          </div>
+          <div class="row__placeholder" *cdkDragPlaceholder></div>
+        </li>
+      }
+    </ol>
+  } @else {
+    <!-- Grid de tarjetas. -->
+    <ol
+      class="grid"
+      [class.is-textual]="textual()"
+      cdkDropList
+      cdkDropListOrientation="mixed"
+      [cdkDropListData]="list()"
+      [cdkDropListDisabled]="!!query()"
+      (cdkDropListDropped)="drop($event)"
+      role="list"
+    >
+      @for (e of items; track e.item; let first = $first; let last = $last) {
+        <li class="card" cdkDrag cdkDragPreviewContainer="parent" [cdkDragData]="e.item" [style.--i]="$index" [class.is-open]="openIndex() === e.i">
+          <button type="button" class="card__open" (click)="open(e.i)" [attr.aria-label]="'Editar ' + e.title">
+            <span class="card__thumb" [class.is-empty]="!e.thumb" [class.is-logo]="!!e.thumb && e.thumb.includes('/logos/')">
+              @if (e.thumb) {
+                <img [src]="e.thumb" alt="" loading="lazy" decoding="async" />
+              } @else {
+                <span class="card__initial">{{ e.title.charAt(0) }}</span>
+              }
+              <span class="card__index">{{ e.i + 1 }}</span>
+            </span>
+            <span class="card__text">
+              <strong class="card__title">{{ e.title }}</strong>
+              @if (e.subtitle) {
+                <span class="card__sub">{{ e.subtitle }}</span>
+              }
+            </span>
+          </button>
+          <span class="card__handle" cdkDragHandle aria-hidden="true" title="Arrastrar para ordenar">
+            <svg viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.5" /><circle cx="15" cy="6" r="1.5" /><circle cx="9" cy="12" r="1.5" /><circle cx="15" cy="12" r="1.5" /><circle cx="9" cy="18" r="1.5" /><circle cx="15" cy="18" r="1.5" /></svg>
+          </span>
+          <div class="card__actions">
+            <button type="button" class="icon-btn" (click)="move(e.i, -1)" [disabled]="first || !!query()" aria-label="Mover antes">
+              <svg viewBox="0 0 24 24"><path d="m15 6-6 6 6 6" /></svg>
+            </button>
+            <button type="button" class="icon-btn" (click)="move(e.i, 1)" [disabled]="last || !!query()" aria-label="Mover después">
+              <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6" /></svg>
+            </button>
+            <button type="button" class="icon-btn" (click)="duplicate(e.i)" aria-label="Duplicar">
+              <svg viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="11" rx="2.5" /><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" /></svg>
+            </button>
+            <button type="button" class="icon-btn is-danger" (click)="remove(e.i)" aria-label="Quitar">
+              <svg viewBox="0 0 24 24"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12" /></svg>
+            </button>
+          </div>
+          <div class="card card--placeholder" *cdkDragPlaceholder></div>
+        </li>
+      }
+      <li class="card card--add">
+        <button type="button" class="card__new" (click)="add()">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+          <span>Agregar</span>
+        </button>
+      </li>
+    </ol>
+    @if (!items.length && query()) {
+      <p class="col__empty">Nada coincide con "{{ query() }}".</p>
+    }
+  }
+</section>
+
+@if (opened(); as o) {
+  <!-- Panel lateral de edición: uno dentro de otro se apila encima. -->
+  <div class="drawer" [class.is-closing]="closing()" [style.--depth]="depth()" [attr.data-depth]="depth()" (keydown)="onKey($event)">
+    <div class="drawer__backdrop" (click)="close()" aria-hidden="true"></div>
+    <section class="drawer__sheet" role="dialog" aria-modal="true" tabindex="-1" [attr.aria-label]="'Editar ' + o.title" cdkTrapFocus>
+      <header class="drawer__head">
+        <div class="drawer__crumb">
+          <span>{{ label() }}</span>
+          <span class="drawer__pos">{{ o.i + 1 }} de {{ list().length }}</span>
+        </div>
+        <div class="drawer__nav">
+          <button type="button" class="icon-btn" (click)="step(-1)" aria-label="Anterior">
+            <svg viewBox="0 0 24 24"><path d="m15 6-6 6 6 6" /></svg>
+          </button>
+          <button type="button" class="icon-btn" (click)="step(1)" aria-label="Siguiente">
+            <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6" /></svg>
+          </button>
+          <button type="button" class="icon-btn" (click)="close()" aria-label="Cerrar">
+            <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" /></svg>
+          </button>
+        </div>
+        <h2 class="drawer__title">{{ o.title }}</h2>
+      </header>
+
+      @for (k of [o.i]; track k) {
+        <div class="drawer__body">
+          @if (o.thumb) {
+            <figure class="drawer__preview"><img [src]="o.thumb" alt="" /></figure>
+          }
+          @for (key of keysOf(o.item); track key) {
+            <app-json-field [parent]="asObject(o.item)" [key]="key" [depth]="depth() + 1" (changed)="touch()" />
+          }
+        </div>
+      }
+
+      <footer class="drawer__foot">
+        <button type="button" class="ghost" (click)="duplicate(o.i)">Duplicar</button>
+        <button type="button" class="ghost is-danger" (click)="remove(o.i)">Quitar</button>
+        <button type="button" class="done" (click)="close()">Listo</button>
+      </footer>
+    </section>
+  </div>
+}

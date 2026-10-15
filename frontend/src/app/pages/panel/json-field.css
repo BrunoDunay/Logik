@@ -16,6 +16,25 @@
   background: var(--color-paper);
 }
 
+/* Dentro de una fila de tabla: etiqueta pequeña encima del control. */
+:host(.is-compact) .field {
+  gap: 2px;
+}
+
+:host(.is-compact) .field > span:first-child {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+:host(.is-compact) input:not([type='checkbox']):not([type='color']) {
+  min-height: 2.35rem;
+  padding: 0.35rem 0.6rem;
+  font-size: var(--text-sm);
+}
+
 legend {
   padding: 0 0.4rem;
   font-weight: 800;
@@ -34,36 +53,97 @@ legend {
   font-size: var(--text-xs);
 }
 
-.item {
+/* Renglones de texto (por ejemplo, "Incluye" de un paquete): se reordenan arrastrando. */
+.strings {
   display: grid;
-  gap: var(--space-3);
-  padding: var(--space-3);
-  border-radius: var(--radius-sm);
-  background: var(--color-white);
-  box-shadow: var(--shadow-sm);
-  animation: item-in 300ms var(--ease-out);
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-@keyframes item-in {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-}
-
-.item__bar {
-  display: flex;
+.string {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
   align-items: center;
-  gap: var(--space-1);
+  gap: 0.35rem;
+  padding: 0.25rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-paper);
 }
 
-.item__title {
-  margin-right: auto;
-  font-weight: 600;
-  font-size: var(--text-sm);
+.string__handle {
+  display: grid;
+  place-items: center;
+  width: 1.8rem;
+  height: 2.4rem;
+  color: var(--color-text-muted);
+  cursor: grab;
 }
 
-.item__bar button,
+.string__handle svg {
+  width: 1rem;
+  fill: currentColor;
+}
+
+.string__placeholder {
+  min-height: 3rem;
+  border: 2px dashed var(--color-pink-logo);
+  border-radius: var(--radius-sm);
+  background: var(--color-blush);
+}
+
+.cdk-drag-preview {
+  box-shadow:
+    0 0 0 2px var(--color-pink-logo),
+    0 18px 30px -16px rgb(20 16 18 / 0.5);
+  background: var(--color-white);
+}
+
+.cdk-drag-animating,
+.strings.cdk-drop-list-dragging .string:not(.cdk-drag-placeholder) {
+  transition: transform 260ms var(--ease-out);
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0.6rem;
+  background: transparent;
+  color: var(--color-ink);
+  transition:
+    background-color 250ms ease,
+    color 250ms ease;
+}
+
+.icon-btn svg {
+  width: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon-btn:hover:not(:disabled) {
+  background: var(--color-blush);
+  color: var(--color-pink-deep);
+}
+
+.icon-btn.is-danger:hover:not(:disabled) {
+  background: #fdecea;
+  color: #b3261e;
+}
+
+.icon-btn:disabled {
+  opacity: 0.3;
+  cursor: var(--cursor-default);
+}
+
 .add {
   min-width: 2.25rem;
   min-height: 2.25rem;
@@ -75,20 +155,9 @@ legend {
     border-color var(--duration-fast) ease;
 }
 
-.item__bar button:disabled {
-  opacity: 0.35;
-  cursor: var(--cursor-default);
-}
-
-.item__bar button:not(:disabled):hover,
 .add:hover {
   border-color: var(--color-pink-logo);
   background: var(--color-blush);
-}
-
-.item__bar .danger:hover {
-  border-color: #c62828;
-  background: #fdecea;
 }
 
 .add {

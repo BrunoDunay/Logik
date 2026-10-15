@@ -72,6 +72,16 @@ El usuario pidió que el blanco esté siempre presente. Las secciones alternan a
 - **Marcas**: 27 (sin La Lotería, Inndigo, Ribhaus ni EIC); Alisson Tours, Tu Contfiable, CEECA y California vectorizados (`scripts/vectorize-logos.py`).
 - **Pendiente**: el hover de las redes del hero se hará con la skill `/motion-design` cuando el usuario la invoque.
 
+## Panel rediseñado (sesión 8)
+
+Con `ui-ux-pro-max` (densidad alta, movimiento estándar; la paleta que sugirió se descartó para conservar la de la marca):
+- **Listas como tarjetas** (`pages/panel/collection.*`): grid con miniatura, título y subtítulo; un clic abre la edición en un panel lateral con navegación anterior/siguiente, duplicar y quitar. Los paneles se apilan si hay listas dentro de listas.
+- **Tablas** para listas de elementos pequeños (hasta 4 campos sin imágenes: cifras, filtros, puntos de las gráficas).
+- **Ordenar arrastrando** con Angular CDK (`cdkDropListOrientation="mixed"` en el grid), con botones de mover como alternativa de teclado y de un solo clic (WCAG 2.2).
+- **Búsqueda** en listas de más de 6 elementos (el arrastre se pausa mientras se busca).
+- Encabezado fijo con el estado (guardado o con cambios), **Descartar**, `Ctrl + S` para guardar y aviso del navegador al salir con cambios.
+- La skill `motion-design` no se usó: solo se activa si el usuario la invoca (`/motion-design`).
+
 ## Pendiente de confirmar con la agencia
 
 - Textos de las páginas legales (son una base para México; conviene que los revise un abogado).

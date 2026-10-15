@@ -1,12 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, DestroyRef, afterNextRender, computed, effect, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Logo } from '../../components/logo/logo';
 import { AuthService } from '../../core/services/auth.service';
 import { SeoService } from '../../core/services/seo.service';
 import { SiteContentService } from '../../core/services/site-content.service';
 import { SectionKey, SiteSettings } from '../../core/types/settings.model';
-import { JsonField, orderedKeys } from './json-field';
+import { JsonField } from './json-field';
+import { orderedKeys } from './panel-fields';
 
 const SECTIONS: { key: SectionKey; label: string; hint: string }[] = [
   { key: 'hero', label: 'Portada', hint: 'Textos alrededor del logo' },
@@ -17,13 +18,17 @@ const SECTIONS: { key: SectionKey; label: string; hint: string }[] = [
   { key: 'packages', label: 'Paquetes', hint: 'Precios y lo que incluye cada uno' },
   { key: 'brands', label: 'Marcas', hint: 'Carrusel de clientes' },
   { key: 'videos', label: 'Videos', hint: 'Videos de la sección' },
-  { key: 'team', label: 'Equipo', hint: 'Directoras y Marke-team' },
+  { key: 'team', label: 'Equipo', hint: 'Directoras y certificaciones' },
   { key: 'contact', label: 'Contacto', hint: 'WhatsApp, correo y redes' },
   { key: 'closing', label: 'Cierre', hint: 'Invitación final' },
   { key: 'brand', label: 'Marca', hint: 'Nombre y frase' },
 ];
 
-/** Panel de edición del contenido: una sección a la vez, con el formulario generado a partir de su forma. */
+/**
+ * Panel de edición del contenido: una sección a la vez, con el formulario generado a partir de su forma.
+ * Las listas se ven como tarjetas que se ordenan arrastrando y se editan en un panel lateral.
+ * Ctrl + S guarda; si hay cambios sin guardar, el navegador avisa antes de salir.
+ */
 @Component({
   selector: 'app-panel',
   imports: [RouterLink, Logo, JsonField],
@@ -40,6 +45,8 @@ export class Panel {
   /** Copia de trabajo de la sección; se reemplaza al cambiar de sección o al guardar. */
   protected draft: Record<string, unknown> = {};
   protected readonly dirty = signal(false);
+  /** Cambia al seleccionar o descartar para volver a crear el formulario desde la copia nueva. */
+  protected readonly version = signal(0);
   protected readonly saving = signal(false);
   protected readonly message = signal<{ kind: 'ok' | 'error'; text: string; fields?: Record<string, string> } | null>(null);
 
@@ -50,7 +57,36 @@ export class Panel {
       const key = this.selected();
       this.draft = structuredClone(this.content.site()[key]) as unknown as Record<string, unknown>;
       this.dirty.set(false);
+      this.version.update((n) => n + 1);
     });
+
+    const destroyRef = inject(DestroyRef);
+    afterNextRender(() => {
+      const onKey = (e: KeyboardEvent) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+          e.preventDefault();
+          if (this.dirty() && !this.saving()) this.save();
+        }
+      };
+      const onLeave = (e: BeforeUnloadEvent) => {
+        if (this.dirty()) e.preventDefault();
+      };
+      window.addEventListener('keydown', onKey);
+      window.addEventListener('beforeunload', onLeave);
+      destroyRef.onDestroy(() => {
+        window.removeEventListener('keydown', onKey);
+        window.removeEventListener('beforeunload', onLeave);
+      });
+    });
+  }
+
+  /** Vuelve al último contenido guardado de la sección. */
+  protected discard(): void {
+    if (!confirm('¿Descartar los cambios sin guardar de esta sección?')) return;
+    this.draft = structuredClone(this.content.site()[this.selected()]) as unknown as Record<string, unknown>;
+    this.dirty.set(false);
+    this.message.set(null);
+    this.version.update((n) => n + 1);
   }
 
   protected select(key: SectionKey): void {
@@ -73,6 +109,7 @@ export class Panel {
         this.saving.set(false);
         this.dirty.set(false);
         this.message.set({ kind: 'ok', text: 'Guardado. El sitio ya muestra los cambios.' });
+        setTimeout(() => this.message()?.kind === 'ok' && this.message.set(null), 3500);
       },
       error: (error: unknown) => {
         this.saving.set(false);
